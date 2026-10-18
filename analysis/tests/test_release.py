@@ -23,6 +23,11 @@ class ReleaseTest(unittest.TestCase):
                 with closing(sqlite3.connect(data/f'{name}.sqlite')) as con, con:
                     con.executescript('CREATE TABLE measurements(id INTEGER, size_bytes INTEGER, note TEXT); CREATE TABLE empty(value REAL);')
                     con.executemany('INSERT INTO measurements VALUES(?,?,?)', [(1, 2**60+1, ''), (2, None, 'wetlands')])
+            from analysis import tile_store
+            with closing(tile_store.Connection()) as tiles:
+                tiles.executescript('CREATE TABLE measurements(id BIGINT, size_bytes BIGINT, note TEXT); CREATE TABLE empty(value DOUBLE);')
+                tiles.executemany('INSERT INTO measurements(id,size_bytes,note) VALUES (?,?,?)', [(1, 2**60+1, ''), (2,None,'wetlands')])
+                tile_store.write(tiles, data/'tile_stats', 'CREATE TABLE measurements(id INTEGER, size_bytes INTEGER, note TEXT); CREATE TABLE empty(value REAL);')
             (data/'claims_report.md').write_text('# Synthetic checks\n')
             (data/'per_tile.csv').write_text('z,x,y\n0,0,0\n')
             result = release.export_dataset(data, root/'release')
@@ -33,12 +38,25 @@ class ReleaseTest(unittest.TestCase):
                 self.assertEqual(empty.num_rows, 0)
                 self.assertEqual(str(empty.schema.field('value').type), 'double')
                 self.assertTrue(bundle.read('measurements.csv').startswith(b'id,size_bytes,note'))
+            self.assertFalse((result/'tile_stats.sqlite').exists())
+            self.assertFalse((result/'tile_stats_tables.zip').exists())
+            with zipfile.ZipFile(result/'tile_stats_parquet.zip') as bundle:
+                self.assertEqual(set(bundle.namelist()), {'measurements.parquet','empty.parquet','schema.sql','schema.json'})
+                table = pq.read_table(io.BytesIO(bundle.read('measurements.parquet')))
+                self.assertEqual(table.to_pylist(), [dict(id=1,size_bytes=2**60+1,note=''),dict(id=2,size_bytes=None,note='wetlands')])
             for line in (result/'SHA256SUMS').read_text().splitlines():
                 expected, name = line.split('  ', 1)
                 self.assertEqual(release.sha256(result/name), expected)
             with self.assertRaises(FileExistsError):
                 release.export_dataset(data, result)
             self.assertLess(len(list(result.rglob('*'))), 100)
+            schema_path = data/'tile_stats/schema.json'
+            schema = json.loads(schema_path.read_text())
+            schema['measurements']['rows'] += 1
+            schema_path.write_text(json.dumps(schema))
+            with self.assertRaisesRegex(ValueError, 'schema/row count mismatch'):
+                release.export_dataset(data, root/'bad-release')
+            self.assertFalse((root/'bad-release').exists())
 
     def test_bad_download_never_becomes_a_source(self):
         with fixture_directory() as root:

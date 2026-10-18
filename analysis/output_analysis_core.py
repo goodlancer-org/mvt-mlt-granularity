@@ -3,7 +3,7 @@ from __future__ import annotations
 """PMTiles MVT/MLT measurements for the paper pipeline.
 
 Runtime dependencies for full analysis:
-    marimo, pandas, matplotlib, mapbox-vector-tile
+    duckdb, pyarrow, pandas, matplotlib, mapbox-vector-tile
 Optional decompression dependencies, needed only when the corresponding PMTiles
 compression is encountered:
     brotli, zstandard
@@ -450,7 +450,7 @@ def find_project_root() -> Path:
 
 def get_default_paths() -> tuple[Path, Path]:
     root = find_project_root()
-    return root / "app" / "data" / "output", root / "docs" / "data" / "tile_stats.sqlite"
+    return root / "app" / "data" / "output", root / "docs" / "data" / "tile_stats"
 
 
 def read_pmtiles_header(path: str | Path) -> PMTilesHeader:
@@ -2841,16 +2841,16 @@ def _map_identity(name: str) -> tuple[str, str, int]:
     return name, "base", 1
 
 
-def build_analysis_database(
-    input_dir: str | Path | None = None,
-    db_path: str | Path | None = None,
+def build_working_database(
+    input_dir: str | Path,
+    db_path: str | Path,
     *,
     progress: Callable[[str], None] | None = print,
     pair_names: set[str] | None = None,
 ) -> BuildReport:
-    default_input, default_db = get_default_paths()
-    input_dir = Path(input_dir or default_input).resolve()
-    db_path = Path(db_path or default_db).resolve()
+    """Measure archives in a disposable DuckDB workspace for Parquet publication."""
+    input_dir = Path(input_dir).resolve()
+    db_path = Path(db_path).resolve()
     pairs = discover_pairs(input_dir)
     if pair_names is not None:
         pairs = [pair for pair in pairs if pair.name in pair_names]
@@ -2867,7 +2867,8 @@ def build_analysis_database(
             candidate.unlink()
 
     report = BuildReport(db_path=db_path, input_dir=input_dir)
-    connection = sqlite3.connect(temp_path)
+    from .tile_store import Connection
+    connection = Connection(temp_path)
     try:
         _create_schema(connection)
         for pair_index, pair in enumerate(pairs, start=1):
@@ -2932,7 +2933,6 @@ def build_analysis_database(
         _create_indexes_and_views(connection)
         connection.commit()
     except Exception:
-        connection.rollback()
         connection.close()
         if temp_path.exists():
             temp_path.unlink()
@@ -2950,10 +2950,12 @@ def _query(db_path: str | Path, sql: str, params: Sequence[object] = ()) -> list
     db_path = Path(db_path)
     if not db_path.exists():
         return []
-    connection = sqlite3.connect(db_path)
-    connection.row_factory = sqlite3.Row
+    from .tile_store import connect
+    connection = connect(db_path)
     try:
-        return [dict(row) for row in connection.execute(sql, params).fetchall()]
+        cursor = connection.execute(sql, params)
+        names = [c[0] for c in cursor.description]
+        return [dict(zip(names, row)) for row in cursor.fetchall()]
     finally:
         connection.close()
 
@@ -3491,8 +3493,8 @@ def estimate_viewport(
     placeholders = ",".join("?" for _ in x_values)
     params: list[object] = [map_name, zoom, y_min, y_max, *x_values]
     db_path = Path(db_path)
-    connection = sqlite3.connect(db_path)
-    connection.row_factory = sqlite3.Row
+    from .tile_store import connect
+    connection = connect(db_path)
     try:
         rows = connection.execute(
             f"""
@@ -3502,6 +3504,8 @@ def estimate_viewport(
             params,
         ).fetchall()
         coordinate_set = set(coordinates)
+        names = [c[0] for c in connection.description]
+        rows = [dict(zip(names,row)) for row in rows]
         rows = [row for row in rows if (row["x"], row["y"]) in coordinate_set]
 
         layer_rows = connection.execute(
@@ -3516,7 +3520,8 @@ def estimate_viewport(
             """,
             params,
         ).fetchall()
-        layer_rows = [dict(row) for row in layer_rows]
+        names = [c[0] for c in connection.description]
+        layer_rows = [dict(zip(names,row)) for row in layer_rows]
 
         mvt_bytes = sum(int(row["mvt_bytes"] or 0) for row in rows)
         mlt_bytes = sum(int(row["mlt_bytes"] or 0) for row in rows)
@@ -3566,7 +3571,7 @@ def estimate_viewport(
 __all__ = [
     "ArchivePair",
     "BuildReport",
-    "build_analysis_database",
+    "build_working_database",
     "discover_pairs",
     "estimate_viewport",
     "find_project_root",

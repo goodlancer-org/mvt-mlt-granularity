@@ -9,8 +9,11 @@ import json
 import os
 import platform
 import sqlite3
+import shutil
 import subprocess
 from pathlib import Path
+
+from . import tile_store
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "docs/data"
@@ -23,6 +26,10 @@ def registry():
 
 def fingerprint(path):
     digest = hashlib.sha256()
+    if Path(path).is_dir():
+        files = sorted(p for p in Path(path).rglob('*') if p.is_file())
+        return {"path": Path(path).relative_to(ROOT).as_posix(), "files": [
+            {"path": p.relative_to(path).as_posix(), "sha256": fingerprint(p)["sha256"]} for p in files]}
     with Path(path).open("rb") as stream:
         for block in iter(lambda: stream.read(8 * 1024 * 1024), b""):
             digest.update(block)
@@ -46,12 +53,12 @@ def inputs_for(stage):
         files += [ROOT/'app/converter/profiles/profile_rules.yaml', ROOT/'app/converter/config.yaml']
         files += [p.with_suffix('.normalization.json') for p in inputs_for('normalized') if p.with_suffix('.normalization.json').exists()]
         return [p for p in files if p.exists()]
-    return [DATA / f"{s}_stats.sqlite" for s in ("source", "normalized", "tile")]
+    return [DATA / "source_stats.sqlite", DATA / "normalized_stats.sqlite", DATA / "tile_stats"]
 
 
 def stage_output(stage):
     return DATA / {"sources": "source_stats.sqlite", "normalized": "normalized_stats.sqlite",
-                   "tiles": "tile_stats.sqlite", "audit": "audit_stats.sqlite", "types": "type_stats.sqlite", "stats": "results.sqlite"}[stage]
+                   "tiles": "tile_stats", "audit": "audit_stats.sqlite", "types": "type_stats.sqlite", "stats": "results.sqlite"}[stage]
 
 
 def manifest_inputs(stage):
@@ -59,7 +66,7 @@ def manifest_inputs(stage):
     if stage in ('sources','normalized'):
         files += [Path(__file__).parent/'map_analysis_core.py']
     elif stage == 'tiles':
-        files += [Path(__file__).parent/'output_analysis_core.py']
+        files += [Path(__file__).parent/'output_analysis_core.py', Path(__file__).parent/'tile_store.py']
     elif stage == 'types':
         files += [Path(__file__).parent/p for p in ('attribute_types.py', 'output_analysis_core.py')]
     elif stage == 'audit':
@@ -67,6 +74,7 @@ def manifest_inputs(stage):
         files += [ROOT/'app/converter/src'/p for p in ('profile_rules.py', 'semantic_taxonomy.py')]
     files += [Path(__file__).parent / "datasets.json"]
     if stage == "stats":
+        files += [Path(__file__).parent/"tile_store.py"]
         files += sorted(SQL.glob("*.sql"))
         if (DATA/'audit_stats.sqlite').exists(): files += [DATA/'audit_stats.sqlite']
         if (DATA/'type_stats.sqlite').exists(): files += [DATA/'type_stats.sqlite']
@@ -80,13 +88,13 @@ def describe(connection, stage, inputs):
     from importlib.metadata import version
     from datetime import datetime, timezone
     import zlib
-    connection.execute("CREATE TABLE IF NOT EXISTS main.meta(key TEXT PRIMARY KEY, value TEXT NOT NULL) STRICT")
+    connection.executescript("CREATE TABLE IF NOT EXISTS main.meta(key TEXT PRIMARY KEY, value TEXT NOT NULL) STRICT;")
     values = {"schema_name": {"sources":"source_stats","normalized":"normalized_stats","tiles":"tile_stats","audit":"audit_stats","types":"type_stats","stats":"results"}[stage],
               "schema_version": "1" if stage in ('stats','audit','types') else "3", "tool": "analysis.pipeline", "tool_version":"0.3.0",
               "python": platform.python_version(), "inputs_json": json.dumps(inputs),
               "git_commit": git('rev-parse', 'HEAD') or 'unknown',
               "environment_json":json.dumps({'python':platform.python_version(),'zlib':zlib.ZLIB_RUNTIME_VERSION,
-                  'packages':{p:version(p) for p in ['pyogrio','shapely','mapbox-vector-tile','maplibre-tiles','pandas','matplotlib']}}),
+                  'packages':{p:version(p) for p in ['pyogrio','shapely','mapbox-vector-tile','maplibre-tiles','pandas','matplotlib','duckdb','pyarrow']}}),
               "counting_semantics": "Source rows in S1/S3; tile feature instances in S6; streams per stored payload",
               "size_semantics": "gzip_payload_bytes = gzip.compress(raw, compresslevel=6, mtime=0); stored_bytes preserved"}
     connection.executemany("INSERT OR REPLACE INTO main.meta VALUES (?,?)", values.items())
@@ -164,27 +172,27 @@ def normalized_extras(con, paths):
 
 def tile_extras(target, codec_sensitivity=False):
     from . import output_analysis_core as core
-    with closing(sqlite3.connect(target)) as con, con:
+    with closing(tile_store.Connection(target)) as con:
         con.executescript("""
           ALTER TABLE tiles ADD COLUMN logical_zoom INTEGER;
           UPDATE tiles SET logical_zoom=z+(SELECT CASE m.density_factor WHEN 4 THEN 1 WHEN 16 THEN 2 ELSE 0 END
             FROM archives a JOIN maps m ON m.id=a.map_id WHERE a.id=tiles.archive_id);
           CREATE TABLE gzip_check AS SELECT m.dataset_name AS dataset_id,m.variant,a.format,
-            COUNT(*) AS n_tiles,SUM(t.stored_bytes=t.gzip_payload_bytes) AS n_equal,
+            COUNT(*) AS n_tiles,SUM(CAST(t.stored_bytes=t.gzip_payload_bytes AS INTEGER)) AS n_equal,
             SUM(t.stored_bytes) AS sum_stored,SUM(t.gzip_payload_bytes) AS sum_gzip6,
             MAX(ABS(t.stored_bytes-t.gzip_payload_bytes)) AS max_abs_diff
             FROM tiles t JOIN archives a ON a.id=t.archive_id JOIN maps m ON m.id=a.map_id
             GROUP BY m.dataset_name,m.variant,a.format;
           CREATE TABLE parser_checks AS SELECT a.map_id,a.id AS archive_id,
-            COUNT(*) AS layer_frames,SUM(l.parse_error IS NOT NULL) AS failed_frames,
+            COUNT(*) AS layer_frames,SUM(CAST(l.parse_error IS NOT NULL AS INTEGER)) AS failed_frames,
             SUM(l.raw_frame_bytes) AS frame_bytes,
             SUM(l.stream_payload_bytes+l.stream_overhead_bytes) AS stream_bytes
-            FROM mlt_layers l JOIN archives a ON a.id=l.archive_id GROUP BY a.id;
+            FROM mlt_layers l JOIN archives a ON a.id=l.archive_id GROUP BY a.id,a.map_id;
         """)
         if codec_sensitivity:
             import brotli
             import zstandard
-            con.execute("CREATE TABLE codec_sizes(archive_id INTEGER, content_offset INTEGER, stored_bytes INTEGER, gzip9_bytes INTEGER, brotli11_bytes INTEGER, zstd19_bytes INTEGER, PRIMARY KEY(archive_id,content_offset,stored_bytes)) STRICT")
+            con.execute("CREATE TABLE codec_sizes(archive_id BIGINT, content_offset BIGINT, stored_bytes BIGINT, gzip9_bytes BIGINT, brotli11_bytes BIGINT, zstd19_bytes BIGINT, PRIMARY KEY(archive_id,content_offset,stored_bytes))")
             import gzip
             for aid, path in con.execute("SELECT id,path FROM archives").fetchall():
                 header = core.read_pmtiles_header(path)
@@ -202,11 +210,12 @@ def tile_extras(target, codec_sensitivity=False):
 
 
 def statistics(target):
-    with closing(sqlite3.connect(target, uri=True)) as con, con:
-        for alias, name in (("tile", "tile_stats"), ("raw", "source_stats"), ("norm", "normalized_stats")):
-            con.execute(f"ATTACH DATABASE ? AS {alias}", ((DATA / f"{name}.sqlite").as_uri()+"?mode=ro",))
-        for (name,) in con.execute("SELECT name FROM tile.sqlite_master WHERE type IN ('table','view') AND name NOT LIKE 'sqlite_%'").fetchall():
-            con.execute(f'CREATE TEMP VIEW "{name}" AS SELECT * FROM tile."{name}"')
+    with closing(tile_store.connect(DATA/'tile_stats')) as con:
+        con.execute('CREATE SCHEMA tile')
+        for name in json.loads((DATA/'tile_stats/schema.json').read_text()):
+            con.execute(f'CREATE VIEW tile."{name}" AS SELECT * FROM main."{name}"')
+        for alias, name in (("raw", "source_stats"), ("norm", "normalized_stats")):
+            tile_store.import_sqlite(con, DATA/f'{name}.sqlite', alias)
         for path in sorted(SQL.glob("[0-9]*.sql")):
             print(f"Statistics: {path.name}", flush=True)
             con.executescript(path.read_text(encoding="utf-8"))
@@ -218,21 +227,23 @@ def statistics(target):
               SUM(l.fieldCount) AS fields,
               (SELECT COUNT(DISTINCT fieldName) FROM {alias}.layer_fields f WHERE f.mapName=m.mapName) AS distinct_fields,m.errorCount
               FROM {alias}.dataset_files d JOIN {alias}.maps m ON m.mapName=d.map_name
-              LEFT JOIN {alias}.layers l ON l.mapName=m.mapName GROUP BY d.dataset_id""")
+              LEFT JOIN {alias}.layers l ON l.mapName=m.mapName GROUP BY d.dataset_id,m.sourceFormat,m.fileBytes,m.errorCount,m.mapName""")
         for table in ("layer_mapping", "study_area"):
             con.execute(f"CREATE TABLE {table} AS SELECT * FROM norm.{table}")
         for table in ("gzip_check", "parser_checks", "pair_validation", "analysis_errors"):
-            con.execute(f"CREATE TABLE main.{table} AS SELECT * FROM tile.{table}")
+            con.execute(f'CREATE TABLE _copy_{table} AS SELECT * FROM tile.{table}')
+            con.execute(f'DROP VIEW main.{table}')
+            con.execute(f'ALTER TABLE _copy_{table} RENAME TO {table}')
         if (DATA/'audit_stats.sqlite').exists():
-            con.execute('ATTACH DATABASE ? AS audit', ((DATA/'audit_stats.sqlite').as_uri()+'?mode=ro',))
+            tile_store.import_sqlite(con, DATA/'audit_stats.sqlite', 'audit')
             for table in ('bounds','bounds_checks','validation','validation_issues'):
                 con.execute(f'CREATE TABLE main.{table} AS SELECT * FROM audit.{table}')
         if (DATA/'type_stats.sqlite').exists():
             from .attribute_types import TABLES
-            con.execute('ATTACH DATABASE ? AS types', ((DATA/'type_stats.sqlite').as_uri()+'?mode=ro',))
+            tile_store.import_sqlite(con, DATA/'type_stats.sqlite', 'types')
             for table in TABLES:
                 con.execute(f'CREATE TABLE main.{table} AS SELECT * FROM types.{table}')
-        if con.execute("SELECT COUNT(*) FROM tile.sqlite_master WHERE name='codec_sizes'").fetchone()[0]:
+        if (DATA/"tile_stats/codec_sizes.parquet").exists():
             con.execute("""CREATE TABLE codec_summary AS SELECT m.dataset_name AS dataset_id,m.variant,a.format,
                 SUM(c.gzip9_bytes) AS gzip9_bytes,SUM(c.brotli11_bytes) AS brotli11_bytes,
                 SUM(c.zstd19_bytes) AS zstd19_bytes,'address_weighted' AS weighting
@@ -251,9 +262,9 @@ def statistics(target):
                   v.s_zstd19-s.s_zstd19 AS g_zstd19 FROM savings v JOIN savings s USING(dataset_id)
                 WHERE s.variant='standard'""")
         import pandas as pd
-        con.execute("CREATE TABLE tile_correlation(dataset_id TEXT,measure TEXT,predictor TEXT,n_tiles INTEGER,spearman_rho REAL,weighting TEXT)")
+        con.execute("CREATE TABLE tile_correlation(dataset_id TEXT,measure TEXT,predictor TEXT,n_tiles BIGINT,spearman_rho DOUBLE,weighting TEXT)")
         for d in registry():
-            frame = pd.read_sql_query("SELECT feature_instances,vertex_count,mvt_raw_bytes,mlt_raw_bytes,mvt_gzip_bytes,mlt_gzip_bytes FROM v_tile_comparison WHERE dataset_name=?", con, params=(d["id"],))
+            frame = con.db.execute("SELECT feature_instances,vertex_count,mvt_raw_bytes,mlt_raw_bytes,mvt_gzip_bytes,mlt_gzip_bytes FROM v_tile_comparison WHERE dataset_name=?", (d["id"],)).df()
             for measure, mvt, mlt in (("raw","mvt_raw_bytes","mlt_raw_bytes"),("gzip6","mvt_gzip_bytes","mlt_gzip_bytes")):
                 saving = 1-frame[mlt]/frame[mvt].replace(0,float('nan'))
                 for predictor in ("feature_instances","vertex_count"):
@@ -261,12 +272,13 @@ def statistics(target):
                     rho = (valid['saving'].rank().corr(valid['predictor'].rank())
                            if len(valid)>1 and valid['saving'].nunique()>1 and valid['predictor'].nunique()>1 else None)
                     con.execute("INSERT INTO tile_correlation VALUES (?,?,?,?,?,?)", (d['id'],measure,predictor,len(valid),rho,'address_weighted'))
+        tile_store.export_sqlite(con, target)
 
 
 def run_stage(stage, force=False, codec_sensitivity=False):
     DATA.mkdir(parents=True, exist_ok=True)
     target = stage_output(stage)
-    manifest = target.with_suffix(".sqlite.manifest.json")
+    manifest = target.with_name(target.name+".manifest.json")
     print(f"Checking inputs: {stage}", flush=True)
     inputs = manifest_inputs(stage)
     parameters = {"codec_sensitivity": codec_sensitivity if stage == "tiles" else False}
@@ -275,15 +287,15 @@ def run_stage(stage, force=False, codec_sensitivity=False):
         if old["inputs"] == inputs and old["parameters"] == parameters and old["output"] == fingerprint(target):
             print(f"Up to date: {target}", flush=True)
             return
-    temporary = target.with_suffix(".sqlite.partial")
+    temporary = target.with_suffix(".partial.duckdb" if stage == "tiles" else ".sqlite.partial")
     if temporary.exists():
         temporary.unlink()
     print(f"Building: {stage}", flush=True)
     if stage in ("sources", "normalized"):
         profile(stage, temporary)
     elif stage == "tiles":
-        from .output_analysis_core import build_analysis_database
-        build_analysis_database(ROOT / "app/data/output", temporary, progress=lambda s: print(s, flush=True),
+        from .output_analysis_core import build_working_database
+        build_working_database(ROOT / "app/data/output", temporary, progress=lambda s: print(s, flush=True),
             pair_names={f"{d['id']}_{v}" for d in registry() for v in ('standard','dense4','dense16')})
         tile_extras(temporary, codec_sensitivity)
     elif stage == 'audit':
@@ -294,9 +306,31 @@ def run_stage(stage, force=False, codec_sensitivity=False):
         build(temporary, ROOT, registry())
     else:
         statistics(temporary)
-    with closing(sqlite3.connect(temporary)) as con, con:
-        describe(con, stage, inputs)
-    os.replace(temporary, target)
+    if stage == 'tiles':
+        with closing(tile_store.Connection(temporary)) as con:
+            describe(con, stage, inputs)
+            staging = target.with_name(target.name+'.partial')
+            if staging.exists():
+                shutil.rmtree(staging)
+            tile_store.write(con, staging, tile_store.logical_schema(con))
+        temporary.unlink()
+        previous = target.with_name(target.name+'.previous')
+        if previous.exists():
+            raise FileExistsError(previous)
+        if target.exists():
+            target.rename(previous)
+        try:
+            staging.rename(target)
+        except BaseException:
+            if previous.exists():
+                previous.rename(target)
+            raise
+        if previous.exists():
+            shutil.rmtree(previous)
+    else:
+        with closing(sqlite3.connect(temporary)) as con, con:
+            describe(con, stage, inputs)
+        os.replace(temporary, target)
     record = {"stage": stage, "inputs": inputs, "parameters": parameters, "output": fingerprint(target)}
     part = manifest.with_suffix(".json.partial")
     part.write_text(json.dumps(record, indent=2), encoding="utf-8")

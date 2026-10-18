@@ -21,11 +21,20 @@ python manage.py all
 |---|---|---|
 | sources | Five raw inputs from the registry | source_stats.sqlite |
 | normalized | Canonical GPKGs + dataset profiles | normalized_stats.sqlite |
-| tiles | Paired MVT/MLT PMTiles | tile_stats.sqlite |
+| tiles | Paired MVT/MLT PMTiles | tile_stats/ (Parquet + schema) |
 | audit | Source/GPKG/archive bounds and decoded tile pairs | audit_stats.sqlite |
 | types | MVT protobuf values and MLT column declarations | type_stats.sqlite |
-| stats | Measurement databases + SQL definitions | results.sqlite |
-| report | Results + tile database and map archives | CSV, claims_report.md, tables and charts |
+| stats | Measurement stores + SQL definitions | results.sqlite |
+| report | Results + Parquet tile tables and map archives | CSV, claims_report.md, tables and charts |
+
+Tile measurements are Parquet-only. DuckDB queries them directly for statistics,
+reports and example selection; its build workspace is temporary. See the
+[dataset guide](../docs/dataset.md) for pandas/DuckDB examples.
+
+To recompute summaries and reports from existing measurements, run
+`python manage.py stats` followed by `python manage.py report`. For custom
+analytics, read only the needed Parquet tables/columns; map conversion and tile
+measurement are unnecessary when the existing measurements answer the question.
 
 Measurement stages use input/code/output SHA-256 manifests to skip unchanged
 inputs. `--force` rebuilds. `analyze tiles --codec-sensitivity` measures gzip-9,

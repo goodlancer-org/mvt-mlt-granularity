@@ -107,8 +107,10 @@ class AuditTest(unittest.TestCase):
                     if name=='attribute':
                         from analysis import output_analysis_core as core
                         from analysis.validation_examples import export_examples
-                        with closing(sqlite3.connect(root/'tile_stats.sqlite')) as tiles,tiles:
-                            tiles.executescript('CREATE TABLE maps(id,dataset_name,variant); CREATE TABLE archives(id,map_id,path,format); CREATE TABLE tiles(archive_id,z,x,y,content_offset,stored_bytes);')
+                        from analysis import tile_store
+                        with closing(tile_store.Connection()) as tiles:
+                            schema='CREATE TABLE maps(id BIGINT,dataset_name TEXT,variant TEXT); CREATE TABLE archives(id BIGINT,map_id BIGINT,path TEXT,format TEXT); CREATE TABLE tiles(archive_id BIGINT,z BIGINT,x BIGINT,y BIGINT,content_offset BIGINT,stored_bytes BIGINT);'
+                            tiles.executescript(schema)
                             tiles.execute('INSERT INTO maps VALUES (1,?,?)',('tiny','standard'))
                             for aid,fmt in enumerate(('MVT','MLT'),1):
                                 path=output/f'tiny_standard_{fmt.lower()}.pmtiles'
@@ -118,6 +120,7 @@ class AuditTest(unittest.TestCase):
                                     for run in core._iter_tile_runs_from_handle(handle,header):
                                         for delta in range(run.run_length):
                                             tiles.execute('INSERT INTO tiles VALUES (?,?,?,?,?,?)',(aid,*core.tileid_to_zxy(run.tile_id+delta),run.offset,run.length))
+                            tile_store.write(tiles,root/'tile_stats',schema)
                         export_examples(audit.con,root,root)
                         changes=json.loads((root/'validation_examples.json').read_text())['examples'][0]['attribute_examples'][0]['changes']
                         self.assertEqual(changes,[{'field':'value','mvt':{'type':'int','value':1},'mlt':{'type':'bool','value':True}}])

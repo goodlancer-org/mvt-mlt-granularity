@@ -1,4 +1,4 @@
-"""Export immutable SQLite snapshots and matching CSV/Parquet tables for Zenodo."""
+"""Export Parquet tile measurements and five SQLite snapshots for Zenodo."""
 from __future__ import annotations
 
 import argparse
@@ -18,7 +18,7 @@ from pathlib import Path
 from urllib.request import urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
-DATABASES = ('results', 'source_stats', 'normalized_stats', 'tile_stats', 'audit_stats', 'type_stats')
+DATABASES = ('results', 'source_stats', 'normalized_stats', 'audit_stats', 'type_stats')
 
 
 def sha256(path):
@@ -95,7 +95,7 @@ def export_dataset(source, output):
     for name in DATABASES:
         if not (source/f'{name}.sqlite').is_file():
             raise FileNotFoundError(source/f'{name}.sqlite')
-    required = ('claims_report.md', 'per_tile.csv')
+    required = ('claims_report.md', 'per_tile.csv', 'tile_stats/schema.json', 'tile_stats/schema.sql')
     for name in required:
         if not (source/name).is_file():
             raise FileNotFoundError(source/name)
@@ -111,7 +111,7 @@ def export_dataset(source, output):
                 if dst.execute('PRAGMA integrity_check').fetchone()[0] != 'ok':
                     raise RuntimeError(f'Integrity check failed: {name}')
             schemas[name] = export_tables(target, staging/'tables'/name)
-            # Six independently downloadable table bundles keep a release below
+            # Independently downloadable table bundles keep a release below
             # Zenodo's file-count limit without one monolithic dataset archive.
             table_dir = staging/'tables'/name
             with zipfile.ZipFile(staging/f'{name}_tables.zip', 'w', compression=zipfile.ZIP_DEFLATED) as bundle:
@@ -121,6 +121,26 @@ def export_dataset(source, output):
                 raise RuntimeError('Table cleanup escaped staging directory')
             shutil.rmtree(table_dir)
         (staging/'tables').rmdir()
+        # Tile measurements are Parquet-only; never recreate a SQLite snapshot.
+        import pyarrow.parquet as pq
+        tile_dir = source/'tile_stats'
+        schemas['tile_stats'] = json.loads((tile_dir/'schema.json').read_text())
+        if not schemas['tile_stats']:
+            raise ValueError('Empty tile schema catalogue')
+        from .tile_store import connect
+        with closing(connect(tile_dir)):
+            pass
+        with zipfile.ZipFile(staging/'tile_stats_parquet.zip', 'w', compression=zipfile.ZIP_DEFLATED) as bundle:
+            for table, expected in sorted(schemas['tile_stats'].items()):
+                if Path(table).name != table:
+                    raise ValueError(f'Invalid table name: {table}')
+                path = tile_dir/f'{table}.parquet'
+                pf = pq.ParquetFile(path)
+                if pf.metadata.num_rows != expected['rows'] or pf.schema_arrow.names != [c['name'] for c in expected['columns']] or [str(f.type) for f in pf.schema_arrow] != [c['parquet_type'] for c in expected['columns']]:
+                    raise ValueError(f'Parquet schema/row count mismatch: {table}')
+                bundle.write(path, path.name)
+            for filename in ('schema.sql', 'schema.json'):
+                bundle.write(tile_dir/filename, filename)
         # Copy report/figure inputs, never caches, logs or partial databases.
         for pattern in ('*.csv', '*.dat', '*.json', '*.md'):
             for path in source.glob(pattern):
@@ -132,7 +152,7 @@ def export_dataset(source, output):
         shutil.copy2(ROOT/'analysis/sources.json', staging/'sources.json')
         shutil.copy2(ROOT/'docs/dataset.md', staging/'README.md')
         packages = {}
-        for name in ('mapbox-vector-tile', 'maplibre-tiles', 'pmtiles', 'pyogrio', 'shapely', 'pyarrow', 'pandas', 'brotli', 'zstandard'):
+        for name in ('mapbox-vector-tile', 'maplibre-tiles', 'pmtiles', 'pyogrio', 'shapely', 'pyarrow', 'pandas', 'brotli', 'zstandard', 'duckdb'):
             try:
                 packages[name] = importlib.metadata.version(name)
             except importlib.metadata.PackageNotFoundError:
@@ -143,6 +163,7 @@ def export_dataset(source, output):
                           python=platform.python_version(), export_environment=packages,
                           converter_config_sha256=sha256(converter),
                           note='Export package versions describe this export environment. Measurement/encoder environments remain in database meta, input manifests and conversion protocols; unknown versions are not inferred.')
+        provenance['distribution'] = {'tile_stats': {'archive': 'tile_stats_parquet.zip', 'format': 'Parquet (Zstandard), one file per table, with schema.sql and schema.json', 'tables': len(schemas['tile_stats']), 'rows': sum(t['rows'] for t in schemas['tile_stats'].values()), 'sqlite_snapshot': False}}
         # Keep actual conversion environments when available; do not claim that
         # the export environment produced the historical measurements.
         protocols = staging/'conversion_protocols'

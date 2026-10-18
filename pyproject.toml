@@ -10,6 +10,7 @@ dependencies = [
   "shapely==2.2.0", "pandas==3.0.3", "matplotlib==3.10.9",
   "pyogrio==0.13.0", "rasterio==1.5.1", "geopandas==1.1.4",
   "pyarrow==25.0.1", "brotli==1.2.0", "zstandard==0.25.0", "pyproj==3.8.0",
+  "duckdb==1.5.5",
 ]
 
 [dependency-groups]

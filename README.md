@@ -84,9 +84,11 @@ python manage.py export-dataset --output releases/dataset-v1
 
 `all` writes measurements and CSV inputs into `docs/data`, tables into
 `outputs/tables`, and charts into `outputs/figures`. `maps` renders curated map
-panels. `export-dataset` creates six consistent SQLite snapshots, corresponding
-Parquet/CSV bundles, a schema, provenance and checksums. It refuses to overwrite
-an existing release. Review **`claims_report.md`** before publishing.
+panels. Tile measurements are stored as Parquet tables in `docs/data/tile_stats/`
+and queried directly with DuckDB. `export-dataset` creates `tile_stats_parquet.zip`,
+five consistent SQLite snapshots with Parquet/CSV bundles, a schema, provenance
+and checksums. No tile-statistics SQLite copy is created or retained. The exporter
+refuses to overwrite an existing release. Review **`claims_report.md`** before publishing.
 
 ## Supported inputs and limits
 

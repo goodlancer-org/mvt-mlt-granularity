@@ -14,7 +14,7 @@ import maplibre_tiles
 from pmtiles.writer import Writer
 from pmtiles.tile import Compression, TileType
 
-from analysis import pipeline, output_analysis_core as core
+from analysis import pipeline, output_analysis_core as core, tile_store
 
 
 @contextmanager
@@ -61,13 +61,25 @@ class PipelineTest(unittest.TestCase):
                 with closing(sqlite3.connect(pipeline.stage_output('sources'))) as con:
                     self.assertEqual(con.execute('SELECT stage FROM dataset_files').fetchone()[0],'raw')
                 target=pipeline.stage_output('tiles')
-                result=core.build_analysis_database(output,target,progress=None)
-                self.assertEqual(result.maps,3)
-                self.assertEqual(result.errors,0)
-                pipeline.tile_extras(target,codec_sensitivity=True)
+                with patch.object(pipeline,'manifest_inputs',return_value=[]):
+                    pipeline.run_stage('tiles', codec_sensitivity=True)
+                    before=(target/'tiles.parquet').stat().st_mtime_ns
+                    pipeline.run_stage('tiles', codec_sensitivity=True)
+                    self.assertEqual((target/'tiles.parquet').stat().st_mtime_ns,before)
+                with patch.object(pipeline,'manifest_inputs',return_value=[]):
+                    pipeline.run_stage('tiles', force=True, codec_sensitivity=True)
+                    before=pipeline.fingerprint(target)
+                    with patch.object(core,'_scan_mlt_archive',side_effect=RuntimeError('synthetic write failure')):
+                        with self.assertRaisesRegex(RuntimeError,'synthetic write failure'):
+                            pipeline.run_stage('tiles', force=True, codec_sensitivity=True)
+                    self.assertEqual(pipeline.fingerprint(target),before)
+                self.assertFalse((data/'tile_stats.sqlite').exists())
+                self.assertFalse(list(data.glob('*.duckdb*')))
+                self.assertFalse(list(data.glob('*.previous')))
+                self.assertEqual(core.list_maps(target), ['tiny_dense16','tiny_dense4','tiny_standard'])
                 from analysis.audit import build
                 build(pipeline.stage_output('audit'),root,data,datasets,workers=1)
-                with closing(sqlite3.connect(target)) as con:
+                with closing(tile_store.connect(target)) as con:
                     rows=con.execute('SELECT raw_payload_bytes,gzip_payload_bytes,stored_bytes FROM tiles t JOIN archives a ON a.id=t.archive_id JOIN maps m ON m.id=a.map_id WHERE a.format=\'MVT\' AND m.variant=\'standard\'').fetchall()
                     self.assertTrue(all(r[0]==len(raw) and r[1]==len(gzip.compress(raw,compresslevel=6,mtime=0)) for r in rows))
                     self.assertTrue(any(r[1]!=r[2] for r in rows))

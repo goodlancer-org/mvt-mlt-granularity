@@ -1,6 +1,6 @@
 # Schema catalogue
 
-Catalogue of the six measured database schemas. This contains no source rows.
+Catalogue of five SQLite schemas and the Parquet tile-measurement schema. This contains no source rows.
 [Read the counting rules and NULL semantics first](data_dictionary.md).
 Column descriptions use their table context. Counts inherit the table’s grain;
 derived formulas and groupings are defined by the linked implementation.
@@ -1266,7 +1266,11 @@ Definition and row grouping: [map_analysis_core.py](../analysis/map_analysis_cor
 | `bytesPerVertex` | DOUBLE | Bytes Per Vertex; byte sum divided by vertex sum | bytes/vertex | unavailable / inapplicable; see status/error |
 | `meanLayersPerTile` | DOUBLE | Mean Layers Per Tile at this table’s grain | count / as named | unavailable / inapplicable; see status/error |
 
-## tile_stats.sqlite
+## tile_stats (Parquet)
+
+Stored in `docs/data/tile_stats/` and distributed as `tile_stats_parquet.zip`.
+SQL declarations below document logical types and keys; Parquet does not enforce
+SQL constraints. The archive includes `schema.json` and `schema.sql`.
 
 ### analysis_errors
 

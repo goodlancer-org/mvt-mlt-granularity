@@ -8,6 +8,7 @@ import math
 import sqlite3
 from pathlib import Path
 
+from .tile_store import connect as connect_tiles
 from .pipeline import DATA, ROOT, registry
 
 TABLES = ROOT / "outputs/tables"
@@ -194,7 +195,7 @@ def sample_panels():
     panel_records=[]
     for d in registry():
         path=ROOT/"app/data/output"/f"{d['id']}_standard_mvt.pmtiles"
-        with closing(sqlite3.connect(f"file:{DATA/'tile_stats.sqlite'}?mode=ro",uri=True)) as db:
+        with closing(connect_tiles(DATA/'tile_stats')) as db:
             row=db.execute("""SELECT t.z,t.x,t.y,t.content_offset,t.stored_bytes
                 FROM tiles t JOIN archives a ON a.id=t.archive_id JOIN maps m ON m.id=a.map_id
                 JOIN tile_content_stats c ON c.map_id=m.id AND c.z=t.z AND c.x=t.x AND c.y=t.y
@@ -257,13 +258,13 @@ def report():
 
     TABLES.mkdir(parents=True,exist_ok=True)
     FIGURES.mkdir(parents=True,exist_ok=True)
-    with closing(sqlite3.connect((DATA/'tile_stats.sqlite').as_uri()+'?mode=ro',uri=True)) as tiles:
+    with closing(connect_tiles(DATA/'tile_stats')) as tiles:
         query=(Path(__file__).parent/'sql/per_tile_export.sql').read_text(encoding='utf-8')
         cursor=tiles.execute(query)
         with (DATA/'per_tile.csv').open('w',encoding='utf-8',newline='') as stream:
             writer=csv.writer(stream);writer.writerow([c[0] for c in cursor.description]);writer.writerows(cursor)
     with closing(sqlite3.connect((DATA/'results.sqlite').as_uri()+'?mode=ro',uri=True)) as con:
-        with closing(sqlite3.connect((DATA/'tile_stats.sqlite').as_uri()+'?mode=ro',uri=True)) as tiles:
+        with closing(connect_tiles(DATA/'tile_stats')) as tiles:
             write_paper_tables(con, tiles, TABLES, registry())
         queries={
           'analysis_sources':'SELECT dataset_id,sourceFormat,fileBytes/1048576.0 AS file_mib,layers,features,vertices,fields FROM raw_structure ORDER BY dataset_id',

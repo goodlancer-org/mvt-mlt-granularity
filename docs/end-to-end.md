@@ -104,7 +104,8 @@ python manage.py all
 
 This runs source profiling, normalized-source profiling, tile measurements,
 full-pair/bounds audits, attribute-type analysis, SQL statistics and reporting.
-It writes six SQLite databases and supporting CSV/JSON files into `docs/data`.
+It writes five SQLite databases, the `tile_stats/` Parquet tables and supporting
+CSV/JSON files into `docs/data`. Tile statistics are queried directly from Parquet.
 Read **`docs/data/claims_report.md`**: it contains executed queries, measured values,
 failed checks and unresolved diagnostics. Do not interpret successful packaging
 as proof that scientific checks passed. A failed report retains its diagnostics;
@@ -146,8 +147,9 @@ python manage.py export-dataset --input docs/data --output releases/dataset-v1
 The destination must not already exist; choose another directory for the next
 export. Successful export creates a self-contained upload package containing:
 
-- Six SQLite snapshots, including `results.sqlite` for readers wanting one file.
-- One `*_tables.zip` bundle per database, with corresponding Parquet and CSV tables.
+- Five SQLite snapshots, including `results.sqlite` for readers wanting one file.
+- Five `*_tables.zip` bundles with corresponding Parquet and CSV tables.
+- `tile_stats_parquet.zip`: all tile tables in Parquet, with schema metadata and SQL view definitions; no tile-statistics SQLite or CSV duplicate.
 - Report CSVs, chart inputs and the claims report.
 - README, data dictionary, schema, source manifest, provenance and `SHA256SUMS`.
 

@@ -4,7 +4,7 @@ from contextlib import closing
 import json
 import math
 from pathlib import Path
-import sqlite3
+from .tile_store import connect as connect_tiles
 
 from .audit import decoded_tile
 from . import output_analysis_core as core
@@ -27,7 +27,7 @@ def export_examples(con, root, data):
     """One failed tile per dataset, up to five attribute witnesses, never a pass override."""
     examples=[]
     datasets=[r[0] for r in con.execute('SELECT DISTINCT dataset_id FROM validation WHERE passed=0 ORDER BY dataset_id')]
-    with closing(sqlite3.connect((Path(data)/'tile_stats.sqlite').as_uri()+'?mode=ro',uri=True)) as tiles:
+    with closing(connect_tiles(Path(data)/'tile_stats')) as tiles:
         for dataset in datasets:
             issue=con.execute("SELECT variant,z,x,y,layer_name,details_json FROM validation_issues WHERE dataset_id=? AND category='decoded_content' ORDER BY (variant='standard') DESC,z,x,y,layer_name LIMIT 1",(dataset,)).fetchone()
             if not issue: continue

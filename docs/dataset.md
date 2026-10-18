@@ -42,10 +42,10 @@ and `stream_summary`. Read `claims_report.md` before interpreting the numbers.
 |---|---|
 | `results.sqlite` | Materialized results, diagnostics and article metrics |
 | `source_stats.sqlite`, `normalized_stats.sqlite` | Layer, geometry, field and categorical source inventories |
-| `tile_stats.sqlite` | Address-level measurements and unique-payload MLT streams |
+| `tile_stats_parquet.zip` | All tile-statistics tables in Parquet, with SQL schema and view definitions |
 | `audit_stats.sqlite` | Bounds, full decoded pair checks and diagnostic examples |
 | `type_stats.sqlite` | Protobuf-to-MLT attribute type profiles and transitions |
-| `*_tables.zip` | One independent bundle per database: matching table-by-table Parquet and CSV |
+| `*_tables.zip` | Parquet and CSV tables matching each of the five SQLite snapshots |
 | `analysis_*.csv`, `zoom_*.dat` | Unrounded inputs for tables and compression charts |
 | `per_tile.csv` | Paired address-level features, vertices and byte sizes |
 | `schema.json` | Actual columns, storage types, primary keys and exported row counts |
@@ -53,10 +53,46 @@ and `stream_summary`. Read `claims_report.md` before interpreting the numbers.
 | `provenance.json`, `*.manifest.json`, `conversion_protocols/` | Export environment, measurement fingerprints and available conversion records |
 | `SHA256SUMS` | SHA-256 of every distributed file except the checksum list itself |
 
-Every table bundle is produced from the accompanying SQLite snapshot, including
-empty tables. Parquet preserves integer values and NULLs. CSV uses UTF-8, a header,
-and empty cells for NULL; use SQLite or Parquet when empty string versus NULL matters.
-SQLite views remain in SQLite; bundles contain materialized tables only.
+Tile measurements use **Parquet as their primary storage format**:
+`docs/data/tile_stats/` locally, `tile_stats_parquet.zip` in a release. Each table
+has its own Zstandard-compressed Parquet file, including typed empty tables.
+`schema.json` records columns, integer/NULL types, logical keys and row counts;
+`schema.sql` records table definitions and reusable view queries. Parquet does not
+enforce SQL constraints or store indexes. The analysis and reports query these
+files directly with DuckDB; a temporary DuckDB workspace is used while measuring
+new archives and removed after writing Parquet. No tile-statistics SQLite database
+is created, retained or published.
+
+The other five databases remain available as SQLite snapshots with corresponding
+Parquet/CSV bundles. SQLite snapshots are consistent individually; do not modify
+any analysis outputs during export. CSV uses UTF-8, a header and empty cells for
+NULL. Use SQLite or Parquet when empty string versus NULL matters. Parquet preserves
+64-bit integer values and NULLs, without converting large integers to float.
+`tile_stats.manifest.json` records the inputs and fingerprints of the Parquet store.
+
+Extract `tile_stats_parquet.zip` into a separate directory to avoid table-name
+collisions with the other bundles. For an LLM service, upload only the relevant
+Parquet table or a filtered/aggregated extract; the full tile corpus is not needed
+for most questions. For high-level article metrics, start with `results.sqlite`
+or the smaller `analysis_*.csv` files.
+
+```python
+from zipfile import ZipFile
+import pandas as pd
+import duckdb
+
+with ZipFile("tile_stats_parquet.zip") as bundle:
+    bundle.extractall("tile_stats")
+
+# A reader only needs Parquet support; DuckDB is optional for custom queries.
+tiles = pd.read_parquet("tile_stats/tiles.parquet")
+with duckdb.connect() as con:
+    summary = con.execute("""
+        SELECT archive_id, count(*) AS n_tiles, sum(raw_payload_bytes) AS raw_bytes
+        FROM read_parquet('tile_stats/tiles.parquet') GROUP BY archive_id
+    """).df()
+# For large tables, select columns or use pyarrow.parquet.ParquetFile.iter_batches().
+```
 
 ```python
 import sqlite3

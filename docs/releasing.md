@@ -56,15 +56,20 @@ python manage.py export-dataset --output releases/dataset-v1
 
 Read `claims_report.md`, not just the command exit status. Exporting is a packaging
 operation, so diagnostic failures are retained rather than hidden. The exporter
-requires all six SQLite files, a claims report and per-tile CSV, uses SQLite backup
-to obtain each consistent snapshot, and writes all table formats from that snapshot.
-Do not run measurement/report writers during export: snapshots are consistent
-within a database, not a transaction spanning six independently written databases.
+requires five SQLite files, the `tile_stats/` Parquet directory (including
+`schema.json` and `schema.sql`), a claims report and per-tile CSV. SQLite backup
+produces consistent snapshots; tile measurements are bundled directly from
+Parquet and validated against their schema metadata. Do not run measurement/report
+writers during export: there is no transaction spanning all measurement stores.
 
-Upload the six SQLite files, six independent table bundles, root CSV/chart inputs,
-README, dictionary/schema, source/provenance files and SHA256SUMS separately to
-the [dataset record](https://doi.org/10.5281/zenodo.23452598). No single monolithic
-ZIP is required; readers can download `results.sqlite` alone. The exporter rejects
+Upload five SQLite snapshots, their five `*_tables.zip` bundles,
+**`tile_stats_parquet.zip`**, root CSV/chart inputs, README, dictionary/schema,
+source/provenance files and SHA256SUMS separately to the
+[dataset record](https://doi.org/10.5281/zenodo.23452598). This is the permanent
+release layout. Tile measurements have no SQLite copy or duplicate CSV bundle;
+query their Parquet files directly with DuckDB, pandas or PyArrow. A new export
+automatically produces this layout and updates checksums. Readers needing only
+article summaries can download `results.sqlite` alone. The exporter rejects
 more than 100 files. Map images can be attached separately with attribution;
 original PMTiles are optional and carry source conditions.
 

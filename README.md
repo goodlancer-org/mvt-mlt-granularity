@@ -126,14 +126,45 @@ Please cite the software when using this code, and the dataset when using its
 measurements. Both works are by Viacheslav Nefedov, Ivan Nefedov, Petr Datsenko
 and Samuil Datsenko.
 
-**Software:** *GEOMAPS: sparse-pyramid MVT and MLT compression*.
-Specify the [release](https://github.com/goodlancer-org/mvt-mlt-granularity/releases)
-you used and its version-specific Zenodo DOI once assigned. The software DOI
-will be added after the first release.
+### Software
 
-**Dataset:** *Vector Tile Compression for Map Rendering with MapLibre Tiles:
-Tile-Level Measurements of MVT and MLT Across Five Datasets*. Zenodo.
-[doi:10.5281/zenodo.23452598](https://doi.org/10.5281/zenodo.23452598).
+For the current code version, use:
+
+> Nefedov, V., Nefedov, I., Datsenko, P., & Datsenko, S. (2026).
+> *GEOMAPS: sparse-pyramid MVT and MLT compression* (Version 0.1.0)
+> [Computer software]. https://github.com/goodlancer-org/mvt-mlt-granularity
+
+```bibtex
+@misc{nefedov2026geomaps,
+  author = {Nefedov, Viacheslav and Nefedov, Ivan and Datsenko, Petr and Datsenko, Samuil},
+  title  = {{GEOMAPS}: sparse-pyramid {MVT} and {MLT} compression},
+  year   = {2026},
+  note   = {Computer software, version 0.1.0},
+  url    = {https://github.com/goodlancer-org/mvt-mlt-granularity}
+}
+```
+
+After the first software release, its version-specific Zenodo DOI will be added
+to this citation. Cite the version you actually used.
+
+### Dataset
+
+> Nefedov, V., Nefedov, I., Datsenko, P., & Datsenko, S.
+> *Vector Tile Compression for Map Rendering with MapLibre Tiles: Tile-Level
+> Measurements of MVT and MLT Across Five Datasets* [Data set]. Zenodo.
+> https://doi.org/10.5281/zenodo.23452598
+
+```bibtex
+@misc{nefedov_mvt_mlt_measurements,
+  author       = {Nefedov, Viacheslav and Nefedov, Ivan and Datsenko, Petr and Datsenko, Samuil},
+  title        = {Vector Tile Compression for Map Rendering with {MapLibre Tiles}:
+                  Tile-Level Measurements of {MVT} and {MLT} Across Five Datasets},
+  howpublished = {Zenodo},
+  note         = {Data set},
+  doi          = {10.5281/zenodo.23452598},
+  url          = {https://doi.org/10.5281/zenodo.23452598}
+}
+```
 
 Machine-readable citation metadata, author ORCIDs and affiliations are in
 [CITATION.cff](CITATION.cff). The article's arXiv identifier will be added after

@@ -3,6 +3,37 @@
 Paired MVT/MLT compression measurements for Standard, Dense-4 and Dense-16
 vector-tile pyramids. Dataset DOI: [10.5281/zenodo.23452598](https://doi.org/10.5281/zenodo.23452598).
 
+## Purpose and scope
+
+This dataset measures how MapLibre Tiles (MLT) compares with Mapbox Vector Tiles
+(MVT) in compression across five different kinds of vector maps. It supports
+analysis of how compression savings depend on map content, feature and vertex
+counts, attribute structure, and the spatial granularity of independently encoded
+tiles. Measurements include raw payload sizes and deterministic per-tile gzip-6
+sizes for Standard, Dense-4 and Dense-16 pyramids.
+
+| Map source | Content | Original input format |
+|---|---|---|
+| Natural Earth | Generalized physical and cultural reference layers | GeoPackage in ZIP |
+| USFWS NWI, Louisiana | Wetland and deepwater habitat inventory | GeoPackage in ZIP |
+| swisstopo | Geological units and structures | Shapefiles in ZIP |
+| OpenStreetMap, Louisiana | Crowdsourced transport, buildings and other map features | OSM PBF |
+| PDOK BGT | Large-scale topographic infrastructure and land cover | GML in ZIP |
+
+The measurements follow three stages: inventories of the **original sources**;
+inventories of the **normalized GeoPackages used for tiling**; and measurements of
+the **resulting paired MVT/MLT PMTiles archives**. They describe layer, feature,
+geometry, vertex and attribute structure, encoded byte sizes, MLT streams and
+validation diagnostics. These are statistics of the sources and conversion
+outputs; the original maps, GeoPackages and tile archives themselves are not
+included in this package. Counts at different stages have different grains:
+source rows must not be equated with tiled feature instances.
+
+The accompanying software is available at
+[doi:10.5281/zenodo.23456861](https://doi.org/10.5281/zenodo.23456861).
+
+## Files and usage
+
 **If you need one file, download `results.sqlite`.** Start with
 `variant_summary`, `granularity_gain`, `vertex_summary`, `logical_zoom_summary`
 and `stream_summary`. Read `claims_report.md` before interpreting the numbers.

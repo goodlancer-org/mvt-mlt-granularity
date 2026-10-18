@@ -5,6 +5,7 @@
 **From vector sources to reproducible MVT / MLT compression measurements.**
 
 [![Dataset DOI](https://img.shields.io/badge/dataset-10.5281%2Fzenodo.23452598-167d8d)](https://doi.org/10.5281/zenodo.23452598)
+[![Software DOI](https://img.shields.io/badge/software-10.5281%2Fzenodo.23456861-167d8d)](https://doi.org/10.5281/zenodo.23456861)
 ![Platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20Linux-334155)
 
 GEOMAPS tests how tile granularity affects column-oriented vector-map compression.
@@ -128,11 +129,11 @@ and Samuil Datsenko.
 
 ### Software
 
-For the current code version, use:
+For software version 0.1.0, use:
 
 > Nefedov, V., Nefedov, I., Datsenko, P., & Datsenko, S. (2026).
 > *GEOMAPS: sparse-pyramid MVT and MLT compression* (Version 0.1.0)
-> [Computer software]. https://github.com/goodlancer-org/mvt-mlt-granularity
+> [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.23456861
 
 ```bibtex
 @misc{nefedov2026geomaps,
@@ -140,12 +141,12 @@ For the current code version, use:
   title  = {{GEOMAPS}: sparse-pyramid {MVT} and {MLT} compression},
   year   = {2026},
   note   = {Computer software, version 0.1.0},
-  url    = {https://github.com/goodlancer-org/mvt-mlt-granularity}
+  doi    = {10.5281/zenodo.23456861},
+  url    = {https://doi.org/10.5281/zenodo.23456861}
 }
 ```
 
-After the first software release, its version-specific Zenodo DOI will be added
-to this citation. Cite the version you actually used.
+This DOI identifies version 0.1.0. Cite the version you actually used.
 
 ### Dataset
 

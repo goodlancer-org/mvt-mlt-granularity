@@ -2,6 +2,8 @@ cff-version: 1.2.0
 message: "Please cite the version-specific software DOI assigned to the GitHub release and the accompanying dataset."
 title: "GEOMAPS: sparse-pyramid MVT and MLT compression"
 type: software
+version: "0.1.0"
+doi: "10.5281/zenodo.23456861"
 license: MIT
 repository-code: "https://github.com/goodlancer-org/mvt-mlt-granularity"
 abstract: >-
@@ -35,7 +37,6 @@ authors: &authors
     given-names: Samuil
     orcid: "https://orcid.org/0009-0000-7732-0086"
     affiliation: "Middle East Technical University"
-# doi: "10.5281/zenodo.XXXXXXX"   # concept DOI, add after the first release
 references:
   - type: data
     title: "Vector Tile Compression for Map Rendering with MapLibre Tiles: Tile-Level Measurements of MVT and MLT Across Five Datasets"

@@ -2,8 +2,7 @@
 # Curated zooms stay fixed; view_bounds control square map crops, not tiling.
 version: 1
 provenance:
-  selection: Curated tile addresses from bench/figures; verified against SQLite Standard MVT tile addresses.
-  legacy_database: data/output.sqlite
+  selection: Curated tile addresses verified against Standard MVT tile inventories.
   tile_database: docs/data/tile_stats.sqlite
   bounds_database: docs/data/audit_stats.sqlite
   bounds_kind: Intersection of archive bounds and decoded geometry envelope for each zoom; square Web Mercator viewport within

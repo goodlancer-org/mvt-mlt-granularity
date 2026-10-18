@@ -4,20 +4,42 @@ title: "GEOMAPS: sparse-pyramid MVT and MLT compression"
 type: software
 license: MIT
 repository-code: "https://github.com/goodlancer-org/mvt-mlt-granularity"
-authors:
+abstract: >-
+  Code for "Does Tile Granularity Matter? An Empirical Study of Vector Tile
+  Compression for Map Rendering with MapLibre Tiles": vector-source
+  normalization, paired Standard/Dense-4/Dense-16 MVT and MLT PMTiles
+  conversion, independent decoded-pair diagnostics, compression statistics,
+  map figures, and SQLite/Parquet/CSV dataset export.
+keywords:
+  - vector tiles
+  - MapLibre
+  - MLT
+  - MVT
+  - PMTiles
+  - compression
+  - tile granularity
+authors: &authors
   - family-names: Nefedov
     given-names: Viacheslav
     orcid: "https://orcid.org/0009-0006-7722-5250"
+    affiliation: "Holon Institute of Technology, Ariel University"
   - family-names: Nefedov
     given-names: Ivan
     orcid: "https://orcid.org/0009-0006-7769-9931"
+    affiliation: "Technion"
   - family-names: Datsenko
     given-names: Petr
     orcid: "https://orcid.org/0009-0004-9696-7095"
+    affiliation: "Middle East Technical University"
   - family-names: Datsenko
     given-names: Samuil
     orcid: "https://orcid.org/0009-0000-7732-0086"
+    affiliation: "Middle East Technical University"
+# doi: "10.5281/zenodo.XXXXXXX"   # concept DOI, add after the first release
 references:
   - type: data
-    title: "GEOMAPS accompanying dataset"
+    title: "Vector Tile Compression for Map Rendering with MapLibre Tiles: Tile-Level Measurements of MVT and MLT Across Five Datasets"
+    authors: *authors
     doi: "10.5281/zenodo.23452598"
+    publisher:
+      name: Zenodo

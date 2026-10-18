@@ -2,15 +2,16 @@
   "title": "GEOMAPS: sparse-pyramid MVT and MLT compression — software",
   "upload_type": "software",
   "license": "MIT",
-  "description": "Vector-source normalization, paired Standard/Dense-4/Dense-16 MVT and MLT PMTiles conversion, independent decoded-pair diagnostics, compression statistics, map figures, and SQLite/Parquet/CSV dataset export. Accompanying dataset: https://doi.org/10.5281/zenodo.23452598.",
+  "language": "eng",
+  "description": "Code for “Does Tile Granularity Matter? An Empirical Study of Vector Tile Compression for Map Rendering with MapLibre Tiles”. Vector-source normalization, paired Standard/Dense-4/Dense-16 MVT and MLT PMTiles conversion, independent decoded-pair diagnostics, compression statistics, map figures, and SQLite/Parquet/CSV dataset export. Accompanying dataset: https://doi.org/10.5281/zenodo.23452598.",
   "creators": [
-    {"name": "Nefedov, Viacheslav", "orcid": "0009-0006-7722-5250"},
-    {"name": "Nefedov, Ivan", "orcid": "0009-0006-7769-9931"},
-    {"name": "Datsenko, Petr", "orcid": "0009-0004-9696-7095"},
-    {"name": "Datsenko, Samuil", "orcid": "0009-0000-7732-0086"}
+    {"name": "Nefedov, Viacheslav", "orcid": "0009-0006-7722-5250", "affiliation": "Holon Institute of Technology, Ariel University"},
+    {"name": "Nefedov, Ivan", "orcid": "0009-0006-7769-9931", "affiliation": "Technion"},
+    {"name": "Datsenko, Petr", "orcid": "0009-0004-9696-7095", "affiliation": "Middle East Technical University"},
+    {"name": "Datsenko, Samuil", "orcid": "0009-0000-7732-0086", "affiliation": "Middle East Technical University"}
   ],
-  "keywords": ["vector tiles", "MLT", "MVT", "PMTiles", "compression", "reproducibility"],
+  "keywords": ["vector tiles", "MapLibre", "MLT", "MVT", "PMTiles", "compression", "tile granularity", "web mapping", "reproducibility"],
   "related_identifiers": [
-    {"identifier": "10.5281/zenodo.23452598", "relation": "isSupplementTo", "scheme": "doi"}
+    {"identifier": "10.5281/zenodo.23452598", "relation": "compiles", "resource_type": "dataset", "scheme": "doi"}
   ]
 }

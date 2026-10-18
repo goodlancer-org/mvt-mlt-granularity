@@ -1,4 +1,4 @@
-"""NWI palette adapted from bench/figures/nwi_fig.py.
+"""NWI wetland classification palette.
 Colors transcribe the USFWS wetlands map-service renderer, WETLAND_TYPE."""
 from .drawing import W, G
 OUT = '#6e6e6e'

@@ -1,4 +1,4 @@
-"""File-based S1/S3/S6/S7/S8 pipeline for the current paper repository."""
+"""File-based source, normalized-map and tile measurement pipeline."""
 from __future__ import annotations
 
 import argparse

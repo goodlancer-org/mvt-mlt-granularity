@@ -22,12 +22,16 @@ def main(argv=None):
     remaining = argv[1:]
     command = args.command
     if command is None:
-        choices = ['up', 'all', 'maps', 'test', 'down']
+        choices = ['up', 'all', 'maps', 'test', 'down', 'export-dataset']
         print('\n'.join(f'{i+1}. {name}' for i, name in enumerate(choices)))
         selection = input('Operation [1]: ').strip() or '1'
         if not selection.isdigit() or not 1 <= int(selection) <= len(choices):
             parser.error('Select a listed number')
         command = choices[int(selection)-1]
+        if command == 'export-dataset':
+            source = input('Analysis directory [docs/data]: ').strip() or 'docs/data'
+            output = input('Dataset export directory [releases/dataset-v1]: ').strip() or 'releases/dataset-v1'
+            remaining = ['--input', source, '--output', output]
     if command == 'env':
         if remaining[:1] == ['sync']:
             remaining.pop(0)

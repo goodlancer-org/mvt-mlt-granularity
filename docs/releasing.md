@@ -4,13 +4,10 @@
 
 This directory is the standalone
 [goodlancer-org/mvt-mlt-granularity](https://github.com/goodlancer-org/mvt-mlt-granularity)
-repository. The article repository includes it as the `zenodo` Git submodule;
-after cloning the article, run `git submodule update --init --recursive`.
-No sibling article files are required.
-`manage.py` is the only management entry point. There are no runtime dependencies
-on the original checkout, its notebooks, Planetiler or the traffic study.
+repository. Clone it directly and run commands from the directory containing
+`manage.py`, the single management entry point.
 
-`uv.lock` pins the host environment; the converter has its own pinned requirements
+`uv.lock` pins the local Python environment; the converter has its own pinned requirements
 and GDAL base image; `app/web/package-lock.json` pins frontend dependencies. Keep
 these environments distinct in provenance. Container image tags and OS packages
 are not bit-for-bit immutable environment snapshots.
@@ -42,6 +39,14 @@ returned HTTP 200 through Compose. These checks do not constitute a fresh run of
 the five-source article corpus or a completed GitHub Actions matrix run.
 
 ## Dataset release
+
+Start with the [end-to-end walkthrough](end-to-end.md) if the original maps
+have not yet been normalized, tiled and analyzed.
+
+For interactive export, run `python manage.py` without arguments and select
+`6. export-dataset`. Enter the analysis directory (default `docs/data`) and
+the export directory (default `releases/dataset-v1`), or press Enter to accept
+each default. An existing release directory is never overwritten.
 
 ```sh
 python manage.py all

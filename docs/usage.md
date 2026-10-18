@@ -1,5 +1,8 @@
 # Convert, inspect and render maps
 
+For the complete sequence, including exact corpus filenames, analysis and
+dataset export, follow [From source maps to a Zenodo dataset](end-to-end.md).
+
 ## Requirements and paths
 
 Use Python 3.12–3.14 and `uv` for analysis; Docker Compose supplies GDAL 3.13.3,
@@ -11,6 +14,13 @@ and `app/data/scratch` as `/scratch`. Put a large local import under
 `app/data/sources/<id>/` and enter its `/data/sources/<id>/...` path in the UI.
 Profiles are in `app/data/profiles/datasets`; classifier rules are in
 `app/converter/profiles/profile_rules.yaml`. No source maps are committed.
+
+Supported vector inputs include OSM PBF, GeoPackage, GeoJSON, Shapefile,
+GeoParquet and GDAL-readable GML/CityGML or Interlis sources. Existing measurements
+use normalized GeoPackages and paired MVT/MLT PMTiles archives. If those files
+are already present at the registered paths, use the
+[analysis-only workflow](end-to-end.md#already-have-normalized-maps-and-tile-archives)
+and skip normalization and tile generation.
 
 ## Browser workflow
 
@@ -70,5 +80,5 @@ npm run build
 ```
 
 Rebuild the web image after editing it: `python manage.py build web` from the root,
-then `python manage.py up`. Unlike the article repository, Compose serves the
-built image and does not require a pre-existing host `dist` directory.
+then `python manage.py up`. Compose serves the built image and does not require
+a pre-existing local `dist` directory.

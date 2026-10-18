@@ -11,6 +11,11 @@ GEOMAPS tests how tile granularity affects column-oriented vector-map compressio
 It normalizes vector sources, generates paired tile pyramids, previews maps in a
 browser, measures their contents, and exports research data in SQLite, Parquet and CSV.
 
+Companion code for **Does Tile Granularity Matter? An Empirical Study of Vector
+Tile Compression for Map Rendering with MapLibre Tiles**.
+If you use the software or measurements, please [cite the corresponding software
+release and dataset](#citation).
+
 ![Five corpus map examples](docs/images/corpus.png)
 
 *Illustrative panels from the article's Standard MVT archives. Sources, left to
@@ -21,6 +26,7 @@ PDOK BGT. [Attribution and terms](docs/sources.md).*
 
 | Goal | Guide |
 |---|---|
+| Go from original map files to a complete dataset upload package | [End-to-end walkthrough](docs/end-to-end.md) |
 | Convert a map, select an area and preview styles | [Conversion and preview](docs/usage.md) |
 | Reproduce statistics, tables and images | [Analysis workflow](analysis/README.md) |
 | Use the published measurements without source maps | [Dataset guide](docs/dataset.md) |
@@ -40,7 +46,7 @@ python manage.py up
 Open **http://localhost:8080**. Upload a vector source or import a URL/local file,
 set the normalization bounds, inspect the layer plan, normalize to GeoPackage,
 then generate the MVT/MLT archives. Preview the Standard pair and adjust layer styling.
-Docker provides GDAL and the PMTiles CLI; no host GDAL or Java setup is needed.
+Docker provides GDAL and the PMTiles CLI; no separate GDAL or Java setup is needed.
 The first start builds both images. Data persists in `app/data`.
 Try the synthetic [three-point example](examples/README.md) before importing a large map.
 
@@ -64,8 +70,10 @@ independently. Extents scale with density; shared simplification settings contro
 detail. Pair validation records coordinate sets, layers, features, attributes and
 geometry diagnostics. [Experimental design](docs/experiment.md).
 
-Once all five corpus inputs and paired outputs exist at the paths in
-[`analysis/datasets.json`](analysis/datasets.json):
+With original sources, normalized GeoPackages and paired tile archives at the
+paths in [`analysis/datasets.json`](analysis/datasets.json), run analysis directly
+without Docker or repeated conversion. See the
+[existing-artifacts workflow](docs/end-to-end.md#already-have-normalized-maps-and-tile-archives).
 
 ```sh
 python manage.py all
@@ -101,7 +109,7 @@ differences do not establish a cause; traffic results are outside these pipeline
 Unknown bounds and missing measurements remain unknown, not zero or pass.
 This repository does not claim to reproduce the separate browser traffic study.
 
-## Verify and cite
+## Verification
 
 ```sh
 python manage.py test
@@ -112,10 +120,24 @@ Tests generate tiny vector and MVT/MLT PMTiles fixtures locally; no corpus downl
 is required. CI runs on Windows and Linux, plus frontend tests and a production
 build. [Validation and release status](docs/releasing.md).
 
-Authors: Viacheslav Nefedov, Ivan Nefedov, Petr Datsenko and Samuil Datsenko.
-ORCIDs are in [CITATION.cff](CITATION.cff). Cite the software release DOI assigned
-by Zenodo separately from the [dataset DOI](https://doi.org/10.5281/zenodo.23452598).
-The software DOI and arXiv identifier are added after publication; neither is
-invented here. Source material retains its [upstream terms](docs/sources.md).
+## Citation
+
+Please cite the software when using this code, and the dataset when using its
+measurements. Both works are by Viacheslav Nefedov, Ivan Nefedov, Petr Datsenko
+and Samuil Datsenko.
+
+**Software:** *GEOMAPS: sparse-pyramid MVT and MLT compression*.
+Specify the [release](https://github.com/goodlancer-org/mvt-mlt-granularity/releases)
+you used and its version-specific Zenodo DOI once assigned. The software DOI
+will be added after the first release.
+
+**Dataset:** *Vector Tile Compression for Map Rendering with MapLibre Tiles:
+Tile-Level Measurements of MVT and MLT Across Five Datasets*. Zenodo.
+[doi:10.5281/zenodo.23452598](https://doi.org/10.5281/zenodo.23452598).
+
+Machine-readable citation metadata, author ORCIDs and affiliations are in
+[CITATION.cff](CITATION.cff). The article's arXiv identifier will be added after
+publication.
+
 The project code is licensed under the [MIT License](LICENSE). Third-party assets
-and source datasets retain their own terms.
+and source datasets retain their [upstream terms](docs/sources.md).

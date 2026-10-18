@@ -1,6 +1,5 @@
 version: 1
 metadata:
-  source: i:/GoodLancer/Papers/mlt-maps/data/map_analysis.sqlite
   generated_by: profile_rules_builder
 defaults:
   min_zoom: 0

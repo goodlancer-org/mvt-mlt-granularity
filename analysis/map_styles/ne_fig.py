@@ -1,4 +1,4 @@
-"""Natural Earth illustrative class palette adapted from bench/figures/ne_fig.py.
+"""Natural Earth illustrative class palette.
 Natural Earth has no official vector style."""
 from .drawing import W, G
 C = dict(ocean='#b9d7ee', lake='#8fc1e6', river='#5b9bd5', land='#f3efe4', urban='#e2cfb4', park='#cfe5c3', park_e='#9cc58a', coast='#4f7fa6', b0='#222222', b1='#8e5ea2', b2='#b5b5b5', fwy='#d94f30', pri='#f0a030', sec='#f4d03f', road='#b9ad96', rail='#555555', ferry='#7e57c2', port='#1f4e79', air='#2e7d32', place='#7a1f1f', cap0='#000000', cap1='#444444')

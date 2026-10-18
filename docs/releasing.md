@@ -2,8 +2,11 @@
 
 ## Software release
 
-This directory is a standalone repository root: copy its contents into the new
-GitHub repository, including dotfiles. No sibling article files are required.
+This directory is the standalone
+[goodlancer-org/mvt-mlt-granularity](https://github.com/goodlancer-org/mvt-mlt-granularity)
+repository. The article repository includes it as the `zenodo` Git submodule;
+after cloning the article, run `git submodule update --init --recursive`.
+No sibling article files are required.
 `manage.py` is the only management entry point. There are no runtime dependencies
 on the original checkout, its notebooks, Planetiler or the traffic study.
 

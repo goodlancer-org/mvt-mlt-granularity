@@ -1,0 +1,46 @@
+schema_version: 1
+dataset:
+  id: usfws_luisiana_wetlands_geopackage
+  source_path: /data/normalized/usfws_luisiana_wetlands_geopackage/usfws_luisiana_wetlands_geopackage.gpkg
+  source_format: gpkg
+  name: usfws_luisiana_wetlands_geopackage
+source:
+  selection:
+    strategy: auto
+    primary_file: /data/normalized/usfws_luisiana_wetlands_geopackage/usfws_luisiana_wetlands_geopackage.gpkg
+  normalization:
+    stable_feature_id_strategy: source_primary_key
+    feature_id_field: null
+    semantic_categories:
+    - id: hydrography
+      name: hydrography
+tile_layers:
+- id: hydrography
+  semantic_category: hydrography
+  source_layers:
+  - LA_wetlands
+  - LA_Wetlands_Project_Metadata
+  - LA_Wetlands_Historic_Map_Info
+  - Louisiana
+  source_layer_prefixes: []
+  class_field: WETLAND_TYPE
+  fields: []
+  geometry_types:
+  - MultiPolygon
+  semantic_kind: unknown
+  zoom:
+    min: 3
+    max: 14
+output:
+  tile_format: mvt
+  container: pmtiles
+  min_zoom: 0
+  max_zoom: 14
+  encoding_pair:
+  - mvt
+  - mlt
+  bounds:
+  - -90.35
+  - 29.35
+  - -89.95
+  - 29.75

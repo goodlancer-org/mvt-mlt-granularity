@@ -1,0 +1,42 @@
+[
+  {
+    "id": "natural_earth_vector",
+    "display_name": "Natural Earth",
+    "source": "app/data/sources/natural_earth_vector/natural_earth_vector.gpkg.zip",
+    "normalized": "app/data/normalized/natural_earth_vector/natural_earth_vector.gpkg",
+    "profile": "app/data/profiles/datasets/natural_earth_vector.yaml",
+    "attribution": "Natural Earth / NACIS"
+  },
+  {
+    "id": "usfws_luisiana_wetlands_geopackage",
+    "display_name": "USFWS NWI",
+    "source": "app/data/sources/usfws_luisiana_wetlands_geopackage/USFWS_Luisiana_wetlands_geopackage.zip",
+    "normalized": "app/data/normalized/usfws_luisiana_wetlands_geopackage/usfws_luisiana_wetlands_geopackage.gpkg",
+    "profile": "app/data/profiles/datasets/usfws_luisiana_wetlands_geopackage.yaml",
+    "attribution": "U.S. Fish and Wildlife Service, National Wetlands Inventory"
+  },
+  {
+    "id": "swisstopo_mountains_vector",
+    "display_name": "swisstopo",
+    "source": "app/data/sources/swisstopo_mountains_vector/Swisstopo_mountains_vector.zip",
+    "normalized": "app/data/normalized/swisstopo_mountains_vector/swisstopo_mountains_vector.gpkg",
+    "profile": "app/data/profiles/datasets/swisstopo_mountains_vector.yaml",
+    "attribution": "Source: swisstopo"
+  },
+  {
+    "id": "louisiana-260912",
+    "display_name": "OpenStreetMap",
+    "source": "app/data/sources/louisiana-260912/louisiana-260912.osm.pbf",
+    "normalized": "app/data/normalized/louisiana-260912/louisiana-260912.gpkg",
+    "profile": "app/data/profiles/datasets/louisiana-260912.yaml",
+    "attribution": "© OpenStreetMap contributors, ODbL"
+  },
+  {
+    "id": "pdok_netherlands_infrostructure",
+    "display_name": "PDOK BGT",
+    "source": "app/data/sources/pdok_netherlands_infrostructure/pdok_Netherlands_infrostructure.zip",
+    "normalized": "app/data/normalized/pdok_netherlands_infrostructure/pdok_netherlands_infrostructure.gpkg",
+    "profile": "app/data/profiles/datasets/pdok_netherlands_infrostructure.yaml",
+    "attribution": "Source: PDOK"
+  }
+]

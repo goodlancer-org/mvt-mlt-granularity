@@ -1,0 +1,16 @@
+name: Release archive
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create portable source archive
+        run: git archive --format=zip --output=geomaps-source.zip HEAD
+      - uses: actions/upload-artifact@v4
+        with:
+          name: geomaps-source
+          path: geomaps-source.zip

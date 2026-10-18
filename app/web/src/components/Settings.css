@@ -1,0 +1,123 @@
+.settings-loading {
+  padding: 2rem;
+  color: var(--text-muted);
+}
+
+.settings-page {
+  max-width: 640px;
+  padding: 2rem;
+}
+
+.settings-page h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+}
+
+.settings-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.settings-section h3 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.settings-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.settings-field:last-child {
+  margin-bottom: 0;
+}
+
+.settings-field label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.settings-field input {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.9rem;
+  color: var(--text);
+  font-family: monospace;
+}
+
+.settings-field input:focus {
+  outline: none;
+  border-color: var(--accent, #4f8ff7);
+}
+
+.settings-hint {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.settings-hint code {
+  font-family: monospace;
+  background: var(--bg);
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+}
+
+.settings-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.settings-row .settings-field {
+  flex: 1;
+}
+
+.settings-message {
+  padding: 0.6rem 1rem;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.settings-message--success {
+  background: rgba(61, 214, 140, 0.15);
+  border: 1px solid rgba(61, 214, 140, 0.4);
+  color: #3dd68c;
+}
+
+.settings-message--error {
+  background: rgba(229, 83, 75, 0.15);
+  border: 1px solid rgba(229, 83, 75, 0.4);
+  color: #e5534b;
+}
+
+.settings-save-btn {
+  background: var(--accent, #4f8ff7);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.55rem 1.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.settings-save-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}

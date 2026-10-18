@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="330" viewBox="0 0 1100 330" role="img" aria-labelledby="title desc">
+<title id="title">GEOMAPS conversion and measurement workflows</title><desc id="desc">Vector sources are normalized to GeoPackage, converted into paired MVT and MLT PMTiles, and measured to produce SQLite, Parquet, CSV and figures.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#678398"/></marker></defs>
+<rect width="1100" height="330" rx="20" fill="#f2f6fa"/>
+<g font-family="Arial,sans-serif"><text x="35" y="38" fill="#18324a" font-size="14" font-weight="bold" letter-spacing="2">01 / CONVERT &amp; PREVIEW</text>
+<text x="35" y="205" fill="#18324a" font-size="14" font-weight="bold" letter-spacing="2">02 / MEASURE &amp; PUBLISH</text>
+<g fill="white" stroke="#d6e1ea" stroke-width="1.5"><rect x="35" y="62" width="210" height="84" rx="12"/><rect x="300" y="62" width="210" height="84" rx="12"/><rect x="565" y="62" width="230" height="84" rx="12"/><rect x="850" y="62" width="215" height="84" rx="12"/>
+<rect x="35" y="230" width="260" height="70" rx="12"/><rect x="350" y="230" width="330" height="70" rx="12"/><rect x="735" y="230" width="330" height="70" rx="12"/></g>
+<g stroke="#678398" stroke-width="2" marker-end="url(#arrow)" fill="none"><path d="M248 104H290"/><path d="M513 104H555"/><path d="M798 104H840"/><path d="M298 265H340"/><path d="M683 265H725"/></g>
+<g fill="#18324a" font-size="18" font-weight="bold" text-anchor="middle"><text x="140" y="96">Vector sources</text><text x="405" y="96">Canonical GPKG</text><text x="680" y="96">MVT → MLT pairs</text><text x="957" y="96">Browser preview</text><text x="165" y="258">Sources + paired tiles</text><text x="515" y="258">SQLite measurements</text><text x="900" y="258">Research artifacts</text></g>
+<g fill="#547086" font-size="13" text-anchor="middle"><text x="140" y="122">PBF · GML · SHP · GPKG · GeoJSON</text><text x="405" y="122">CRS · bounds · manifest</text><text x="680" y="122">Standard · Dense-4 · Dense-16</text><text x="957" y="122">Layers · styles · diagnostics</text><text x="165" y="281">Exact source hashes and profiles</text><text x="515" y="281">Counts · bytes · streams · validation</text><text x="900" y="281">Parquet · CSV · figures · provenance</text></g></g></svg>

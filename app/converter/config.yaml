@@ -1,0 +1,34 @@
+# Active vector pipeline; paths are inside Docker.
+data_dir: /data
+normalized_dir: /data/normalized
+profiles_dir: /profiles
+profile_rules_path: /profiles/profile_rules.yaml
+normalization_crs: EPSG:3857
+min_zoom: 0
+max_zoom: 14
+tmp_dir: /scratch
+citygml_layer_timeout_seconds: 3600
+citygml_skip_timeout_layers: false
+citygml_fallback_source_srs: EPSG:28992
+gdal_dense_variants:
+- key: standard
+  detail_offset: 0
+  extent: 4096
+- key: dense4
+  detail_offset: 1
+  extent: 8192
+- key: dense16
+  detail_offset: 2
+  extent: 16384
+gdal_simplification: 1.6
+gdal_simplification_max_zoom: 1.0
+gdal_max_size: 2147483647
+gdal_max_features: 2147483647
+gdal_validation_mode: fast
+gdal_tile_limits_mode: experimental_unlimited
+keep_sources: true
+formats:
+- tile_format: mvt
+  container: pmtiles
+- tile_format: mlt
+  container: pmtiles

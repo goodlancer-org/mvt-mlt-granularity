@@ -1,0 +1,62 @@
+[
+  {
+    "dataset_id": "natural_earth_vector",
+    "path": "app/data/sources/natural_earth_vector/natural_earth_vector.gpkg.zip",
+    "sha256": "b9e2e7b3d5c2c59593f6eafc19be2ba87fb04788a90c57ccd6cf32a587b6ecc3",
+    "size_bytes": 446353155,
+    "url": null,
+    "retrieved_at": null,
+    "version": "2021-12 (data date reported in article Table 1)",
+    "attribution": "Natural Earth / NACIS",
+    "availability": "Exact acquisition URL and retrieval date were not retained. Supply an independently verified URL or matching local file; never substitute latest silently.",
+    "metadata_evidence": "Source size from source_stats.sqlite maps.fileBytes; version/date label from article Table 1, not an acquisition timestamp."
+  },
+  {
+    "dataset_id": "usfws_luisiana_wetlands_geopackage",
+    "path": "app/data/sources/usfws_luisiana_wetlands_geopackage/USFWS_Luisiana_wetlands_geopackage.zip",
+    "sha256": "c30dda63b1baddeea219cf05b15938618a5146267cb672b28dcc4a202b4e361e",
+    "size_bytes": 1328079614,
+    "url": null,
+    "retrieved_at": null,
+    "version": "2026-05 NWI release (article Table 1)",
+    "attribution": "U.S. Fish and Wildlife Service, National Wetlands Inventory",
+    "availability": "Exact acquisition URL and retrieval date were not retained. Supply an independently verified URL or matching local file; never substitute latest silently.",
+    "metadata_evidence": "Source size from source_stats.sqlite maps.fileBytes; version/date label from article Table 1, not an acquisition timestamp."
+  },
+  {
+    "dataset_id": "swisstopo_mountains_vector",
+    "path": "app/data/sources/swisstopo_mountains_vector/Swisstopo_mountains_vector.zip",
+    "sha256": "535ea7273aabe082a5d28b45f43eca06e01585db2f21fab2810b7d06f0dd41f9",
+    "size_bytes": 46347908,
+    "url": null,
+    "retrieved_at": null,
+    "version": "2011 vector edition, Geological Special Map No. 128 (article Table 1)",
+    "attribution": "Source: swisstopo",
+    "availability": "Exact acquisition URL and retrieval date were not retained. Supply an independently verified URL or matching local file; never substitute latest silently.",
+    "metadata_evidence": "Source size from source_stats.sqlite maps.fileBytes; version/date label from article Table 1, not an acquisition timestamp."
+  },
+  {
+    "dataset_id": "louisiana-260912",
+    "path": "app/data/sources/louisiana-260912/louisiana-260912.osm.pbf",
+    "sha256": "28b77de6ab3637cd50b9637b1bdf20e83b03a6fe46c4760d657dadb40f9a4c3a",
+    "size_bytes": 146196967,
+    "url": null,
+    "retrieved_at": null,
+    "version": "2026-09-12 snapshot (article Table 1)",
+    "attribution": "В© OpenStreetMap contributors, ODbL",
+    "availability": "Exact acquisition URL and retrieval date were not retained. Supply an independently verified URL or matching local file; never substitute latest silently.",
+    "metadata_evidence": "Source size from source_stats.sqlite maps.fileBytes; version/date label from article Table 1, not an acquisition timestamp."
+  },
+  {
+    "dataset_id": "pdok_netherlands_infrostructure",
+    "path": "app/data/sources/pdok_netherlands_infrostructure/pdok_Netherlands_infrostructure.zip",
+    "sha256": "a8546d0328efffa568f502b0f70f51e10edb59b8d8d29545959193f0f9259495",
+    "size_bytes": 53450544,
+    "url": null,
+    "retrieved_at": null,
+    "version": "approximately 2026-07 snapshot (article Table 1; approximate)",
+    "attribution": "Source: PDOK",
+    "availability": "Exact acquisition URL and retrieval date were not retained. Supply an independently verified URL or matching local file; never substitute latest silently.",
+    "metadata_evidence": "Source size from source_stats.sqlite maps.fileBytes; version/date label from article Table 1, not an acquisition timestamp."
+  }
+]

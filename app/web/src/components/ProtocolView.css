@@ -1,0 +1,212 @@
+.protocol-view {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.protocol-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+}
+
+.protocol-summary {
+  padding: 12px 16px;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px;
+}
+
+.summary-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  text-align: center;
+}
+
+.summary-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--accent);
+  word-break: break-word;
+}
+
+.summary-value-good { color: #3dd68c; }
+.summary-value-bad  { color: #e5534b; }
+
+.summary-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.summary-sublabel {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  opacity: 0.6;
+  margin-top: 1px;
+}
+
+.protocol-meta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+
+.protocol-section h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.8rem;
+}
+
+.protocol-dl {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 6px 16px;
+  font-size: 0.9rem;
+}
+
+.protocol-dl dt {
+  color: var(--text-muted);
+}
+
+.protocol-dl dd {
+  color: var(--text);
+  word-break: break-all;
+}
+
+.dd-url {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.protocol-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.protocol-table th {
+  text-align: left;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.protocol-table td {
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.protocol-layer-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.protocol-layer-block h4 {
+  margin-bottom: 8px;
+  color: var(--text);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.protocol-layer-table {
+  font-size: 0.8rem;
+}
+
+.row-highlight {
+  background: rgba(61, 214, 140, 0.08);
+}
+
+.row-highlight td {
+  font-weight: 600;
+}
+
+.badge-ok {
+  background: rgba(61, 214, 140, 0.2);
+  color: var(--success);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-fail {
+  background: rgba(229, 83, 75, 0.2);
+  color: var(--danger);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.btn-copy {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.btn-copy:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.protocol-errors {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.protocol-error-block {
+  border: 1px solid rgba(229, 83, 75, 0.25);
+  background: rgba(229, 83, 75, 0.08);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.protocol-error-block h4 {
+  margin-bottom: 8px;
+  color: var(--danger);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.protocol-error-block pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--text);
+  font-size: 0.8rem;
+}
+
+/* Run conditions — provenance for the timing and memory figures */
+.protocol-conditions .conditions-age {
+  color: var(--text-muted, #6b7a89);
+  font-weight: 400;
+}
+.protocol-conditions .conditions-warning {
+  margin: 8px 0 0;
+  padding: 8px 10px;
+  border-left: 3px solid #b3701a;
+  background: rgba(179, 112, 26, 0.08);
+  font-size: 13px;
+}

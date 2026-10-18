@@ -1,0 +1,101 @@
+# Geographic bounds are [west, south, east, north] in WGS84 degrees.
+# Curated zooms stay fixed; view_bounds control square map crops, not tiling.
+version: 1
+provenance:
+  selection: Curated tile addresses from bench/figures; verified against SQLite Standard MVT tile addresses.
+  legacy_database: data/output.sqlite
+  tile_database: docs/data/tile_stats.sqlite
+  bounds_database: docs/data/audit_stats.sqlite
+  bounds_kind: Intersection of archive bounds and decoded geometry envelope for each zoom; square Web Mercator viewport within
+    the selected tile.
+datasets:
+  natural_earth_vector:
+    region: New York / New Jersey
+    panels:
+    - z: 5
+      x: 9
+      y: 12
+      level_bounds: [-97.0, 30.000138360580678, -70.0, 47.0]
+      view_bounds: [-78.75, 34.048613801026896, -69.99999999999999, 40.97989806962013]
+    - z: 7
+      x: 37
+      y: 48
+      level_bounds: [-96.99966430664062, 30.000138360580678, -70.00007629394531, 46.99992422991224]
+      view_bounds: [-75.9375, 38.8225909761771, -73.125, 40.97989806962013]
+    - z: 9
+      x: 150
+      y: 192
+      level_bounds: [-97.0, 30.0, -70.00007629394531, 47.0]
+      view_bounds: [-74.53125, 40.44694705960049, -73.828125, 40.97989806962013]
+  pdok_netherlands_infrostructure:
+    region: Nijmegen, Netherlands
+    panels:
+    - z: 12
+      x: 2114
+      y: 1355
+      level_bounds: [5.412311553955078, 51.80553668687471, 6.023597717285156, 51.90868309268607]
+      view_bounds: [5.80078125, 51.83577752045248, 5.888671875, 51.89005393521691]
+    - z: 13
+      x: 4229
+      y: 2711
+      level_bounds: [5.4123008251190186, 51.80553668687471, 6.023597717285156, 51.908689]
+      view_bounds: [5.8447265625, 51.83577752045248, 5.888671875, 51.862923913602444]
+    - z: 14
+      x: 8458
+      y: 5423
+      level_bounds: [5.4123008251190186, 51.8055334, 6.0236012, 51.908689]
+      view_bounds: [5.8447265625, 51.83577752045248, 5.86669921875, 51.84935276370605]
+  usfws_luisiana_wetlands_geopackage:
+    region: coastal Louisiana
+    panels:
+    - z: 10
+      x: 255
+      y: 424
+      level_bounds: [-90.35, 29.350010300484552, -89.95, 29.75]
+      view_bounds: [-90.21268844604492, 29.350010300484552, -90.0, 29.535229562948455]
+    - z: 12
+      x: 1023
+      y: 1697
+      level_bounds: [-90.3499960899353, 29.35, -89.9500036239624, 29.75]
+      view_bounds: [-90.087890625, 29.382175075145277, -90.0, 29.45873118535533]
+    - z: 14
+      x: 4092
+      y: 6789
+      level_bounds: [-90.35, 29.3500009487823, -89.95, 29.75]
+      view_bounds: [-90.087890625, 29.420460341013133, -90.06591796875, 29.439597566602895]
+  swisstopo_mountains_vector:
+    region: Saentis, Switzerland
+    panels:
+    - z: 10
+      x: 538
+      y: 359
+      level_bounds: [9.15, 47.050007954894376, 9.499998092651367, 47.3]
+      view_bounds: [9.155044555664062, 47.050007954894376, 9.4921875, 47.27922900257082]
+    - z: 12
+      x: 2154
+      y: 1436
+      level_bounds: [9.150002002716064, 47.05, 9.499998092651367, 47.3]
+      view_bounds: [9.31640625, 47.21956811231548, 9.404296875, 47.27922900257082]
+    - z: 14
+      x: 8617
+      y: 5745
+      level_bounds: [9.150002002716064, 47.05000064469659, 9.499998092651367, 47.3]
+      view_bounds: [9.33837890625, 47.24940695788844, 9.3603515625, 47.264320080254784]
+  louisiana-260912:
+    region: coastal Louisiana
+    panels:
+    - z: 10
+      x: 255
+      y: 424
+      level_bounds: [-90.35, 29.350010300484552, -89.95, 29.749996412729843]
+      view_bounds: [-90.21268844604492, 29.350010300484552, -90.0, 29.535229562948455]
+    - z: 12
+      x: 1023
+      y: 1697
+      level_bounds: [-90.3499960899353, 29.35, -89.9500036239624, 29.749996412729843]
+      view_bounds: [-90.087890625, 29.382175075145277, -90.0, 29.45873118535533]
+    - z: 14
+      x: 4092
+      y: 6789
+      level_bounds: [-90.34999072551727, 29.3500009487823, -89.9500036239624, 29.75]
+      view_bounds: [-90.087890625, 29.420460341013133, -90.06591796875, 29.439597566602895]

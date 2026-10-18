@@ -1,0 +1,501 @@
+.cmp-page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cmp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cmp-header h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.cmp-header-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.cmp-download {
+  background: transparent;
+  border: 1px solid rgba(100, 200, 150, 0.4);
+  border-radius: 6px;
+  color: var(--accent);
+  font-size: 0.82rem;
+  padding: 4px 12px;
+  cursor: pointer;
+}
+
+.cmp-download:hover {
+  border-color: var(--accent);
+}
+
+.cmp-refresh {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  padding: 4px 12px;
+  cursor: pointer;
+}
+
+.cmp-refresh:hover {
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+
+.cmp-loading,
+.cmp-empty {
+  color: var(--text-muted);
+  padding: 2rem 0;
+  font-size: 0.9rem;
+}
+
+.cmp-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.cmp-table {
+  border-collapse: collapse;
+  width: max-content;
+  min-width: 100%;
+  font-size: 0.82rem;
+}
+
+/* Header */
+.cmp-group-row th,
+.cmp-subheader-row th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--surface);
+}
+
+.cmp-th {
+  padding: 8px 12px;
+  text-align: center;
+  white-space: nowrap;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.cmp-th-dataset,
+.cmp-th-src {
+  text-align: left;
+  position: sticky;
+  left: 0;
+  z-index: 3;
+  background: var(--surface);
+}
+
+.cmp-th-dataset { min-width: 180px; }
+.cmp-th-src     { min-width: 110px; }
+
+.cmp-group-hdr {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  border-bottom: none;
+  padding-bottom: 4px;
+}
+
+.cmp-th-sub {
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding-top: 2px;
+}
+
+/* Group colour coding */
+.cmp-hdr-features { color: #8b9bd6; border-left: 2px solid rgba(139,155,214,0.25); }
+.cmp-hdr-size     { color: #62b8e8; border-left: 2px solid rgba(98,184,232,0.25); }
+.cmp-hdr-conv     { color: #e8a362; border-left: 2px solid rgba(232,163,98,0.25); }
+.cmp-hdr-mem      { color: #b862e8; border-left: 2px solid rgba(184,98,232,0.25); }
+.cmp-hdr-render   { color: #62e8a3; border-left: 2px solid rgba(98,232,163,0.25); }
+.cmp-hdr-savings  { color: #e8e862; border-left: 2px solid rgba(232,232,98,0.25); }
+
+/* MLT column tint */
+.cmp-mlt-col {
+  background: rgba(98, 184, 232, 0.04);
+}
+
+/* Rows */
+.cmp-row {
+  border-bottom: 1px solid var(--border);
+}
+
+.cmp-row:last-child {
+  border-bottom: none;
+}
+
+.cmp-row:hover td {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.cmp-row:hover .cmp-td-dataset,
+.cmp-row:hover .cmp-td-src {
+  background: var(--surface);
+}
+
+.cmp-td {
+  padding: 8px 12px;
+  white-space: nowrap;
+  color: var(--text);
+  vertical-align: middle;
+}
+
+.cmp-td-dataset {
+  position: sticky;
+  left: 0;
+  background: var(--bg);
+  z-index: 1;
+  font-weight: 500;
+}
+
+.cmp-td-dataset a {
+  color: var(--accent, #4f8ff7);
+}
+
+.cmp-td-dataset a:hover {
+  text-decoration: underline;
+}
+
+.cmp-td-src {
+  position: sticky;
+  left: 180px;
+  background: var(--bg);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-right: 1px solid var(--border);
+}
+
+.cmp-td-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-family: monospace;
+}
+
+/* Group left borders on data cells */
+.cmp-td.cmp-hdr-features,
+.cmp-td.cmp-hdr-size,
+.cmp-td.cmp-hdr-conv,
+.cmp-td.cmp-hdr-mem,
+.cmp-td.cmp-hdr-render,
+.cmp-td.cmp-hdr-savings {
+  border-left: 1px solid var(--border);
+}
+
+/* Best size highlight */
+.cmp-best {
+  color: #3dd68c;
+  font-weight: 600;
+}
+
+/* Savings */
+.cmp-savings-pos {
+  color: #3dd68c;
+  font-weight: 600;
+}
+
+.cmp-savings-neg {
+  color: #e5534b;
+  font-weight: 600;
+}
+
+/* Misc */
+.cmp-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 0.72rem;
+  padding: 1px 5px;
+  color: var(--text);
+  text-transform: uppercase;
+  font-family: monospace;
+}
+
+.cmp-muted {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+.cmp-na {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+/* Legend */
+.cmp-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  padding-top: 4px;
+}
+
+.cmp-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cmp-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.cmp-dot-best { background: #3dd68c; }
+.cmp-dot-mlt  { background: rgba(98,184,232,0.5); border: 1px solid #62b8e8; }
+.cmp-dot-pos  { background: #3dd68c; }
+.cmp-dot-neg  { background: #e5534b; }
+
+/* ---------------------------------------------------------------------------
+   Per-dataset cards. The old single wide table put 43 columns behind a
+   horizontal scrollbar; splitting by dataset keeps every comparison on screen.
+   --------------------------------------------------------------------------- */
+
+.cmp-intro {
+  color: var(--text-muted);
+  font-size: 0.84rem;
+  line-height: 1.5;
+  max-width: 70ch;
+}
+
+.cmp-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cmp-card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.cmp-card-head h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: monospace;
+}
+
+.cmp-card-head h3 a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.cmp-card-head h3 a:hover {
+  color: var(--accent);
+}
+
+.cmp-facts {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+.cmp-headline {
+  font-size: 0.92rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+/* 2x2: encoding and container are independent choices, not four formats. */
+.cmp-matrix {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.cmp-matrix-title {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.cmp-matrix-table {
+  border-collapse: collapse;
+}
+
+.cmp-matrix-table th {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  padding: 4px 14px;
+  text-align: center;
+}
+
+.cmp-matrix-table th[scope="row"] {
+  text-align: right;
+  font-family: monospace;
+  color: var(--text);
+}
+
+.cmp-matrix-table td {
+  border: 1px solid var(--border);
+  padding: 6px 16px;
+  text-align: center;
+  min-width: 96px;
+}
+
+.cmp-matrix-ratio {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.cmp-matrix-abs {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.cmp-matrix-effects {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* Validity: a format that failed to draw looks fastest, so say so up front. */
+.cmp-validity {
+  font-size: 0.78rem;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+}
+
+.cmp-validity-ok   { color: var(--success); border-color: rgba(61, 214, 140, 0.3); }
+.cmp-validity-warn { color: var(--warning); border-color: rgba(245, 166, 35, 0.3); }
+.cmp-validity-bad  { color: var(--danger);  border-color: rgba(229, 83, 75, 0.35); }
+
+/* Collapsible question sections */
+.cmp-section {
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+}
+
+.cmp-section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 2px 0;
+  cursor: pointer;
+  text-align: left;
+  color: var(--text);
+}
+
+.cmp-caret {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+}
+
+.cmp-question {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.cmp-hint {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.cmp-metrics {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 560px;
+}
+
+.cmp-metrics thead th {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  padding: 8px 12px;
+  text-align: right;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.cmp-baseline-tag {
+  display: block;
+  font-size: 0.62rem;
+  opacity: 0.65;
+  text-transform: uppercase;
+}
+
+.cmp-metric-row {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.cmp-metric-label {
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  text-align: left;
+  padding: 7px 12px;
+  white-space: nowrap;
+}
+
+.cmp-metric-cell {
+  padding: 7px 12px;
+  text-align: right;
+  font-size: 0.84rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.cmp-metric-empty .cmp-metric-cell {
+  text-align: left;
+  font-style: italic;
+  font-size: 0.78rem;
+}
+
+/* Percentage against the baseline, printed under the absolute value. */
+.cmp-ratio {
+  display: block;
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+.cmp-baseline-note {
+  opacity: 0.5;
+  text-transform: uppercase;
+  font-size: 0.62rem;
+}
+
+.cmp-better { color: var(--success); font-weight: 600; }
+.cmp-worse  { color: var(--danger);  font-weight: 600; }

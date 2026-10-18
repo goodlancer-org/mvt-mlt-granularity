@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GEOMAPS — Tile Format Analysis</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/maplibre-gl@5.12.0/dist/maplibre-gl.css"
+    />
+    <style>
+      /* MapLibre label fonts — WOFF2 via @font-face (TinySDF rendering) */
+      /* Roboto Regular */
+      @font-face { font-family: "Roboto Regular"; font-weight: 400; src: url('/fonts/roboto-cyrillic-400-normal.woff2') format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+      @font-face { font-family: "Roboto Regular"; font-weight: 400; src: url('/fonts/roboto-latin-400-normal.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+      @font-face { font-family: "Roboto Regular"; font-weight: 400; src: url('/fonts/noto-sans-hebrew-400-normal.woff2') format('woff2'); unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+      @font-face { font-family: "Roboto Regular"; font-weight: 400; src: url('/fonts/noto-sans-arabic-400-normal.woff2') format('woff2'); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF; }
+      /* Roboto Medium */
+      @font-face { font-family: "Roboto Medium"; font-weight: 500; src: url('/fonts/roboto-cyrillic-500-normal.woff2') format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+      @font-face { font-family: "Roboto Medium"; font-weight: 500; src: url('/fonts/roboto-latin-500-normal.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+      @font-face { font-family: "Roboto Medium"; font-weight: 500; src: url('/fonts/noto-sans-hebrew-500-normal.woff2') format('woff2'); unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+      @font-face { font-family: "Roboto Medium"; font-weight: 500; src: url('/fonts/noto-sans-arabic-500-normal.woff2') format('woff2'); unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF; }
+      /* Roboto Condensed Italic */
+      @font-face { font-family: "Roboto Condensed Italic"; font-style: italic; src: url('/fonts/roboto-condensed-cyrillic-400-italic.woff2') format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+      @font-face { font-family: "Roboto Condensed Italic"; font-style: italic; src: url('/fonts/roboto-condensed-latin-400-italic.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

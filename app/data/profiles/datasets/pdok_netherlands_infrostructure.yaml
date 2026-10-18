@@ -1,0 +1,257 @@
+schema_version: 1
+dataset:
+  id: pdok_netherlands_infrostructure
+  source_path: /data/normalized/pdok_netherlands_infrostructure/pdok_netherlands_infrostructure.gpkg
+  source_format: gpkg
+  name: pdok_netherlands_infrostructure
+source:
+  selection:
+    strategy: auto
+    primary_file: /data/normalized/pdok_netherlands_infrostructure/pdok_netherlands_infrostructure.gpkg
+  normalization:
+    stable_feature_id_strategy: source_primary_key
+    feature_id_field: null
+    semantic_categories:
+    - id: buildings
+      name: buildings
+    - id: transportation
+      name: transportation
+    - id: land_use
+      name: land_use
+    - id: infrastructure
+      name: infrastructure
+    - id: hydrography
+      name: hydrography
+    - id: openbareruimtelabel
+      name: openbareruimtelabel
+    - id: functioneelgebied
+      name: functioneelgebied
+    - id: ongeclassificeerdobject
+      name: ongeclassificeerdobject
+    - id: overigescheiding
+      name: overigescheiding
+    - id: weginrichtingselement
+      name: weginrichtingselement
+tile_layers:
+- id: buildings
+  semantic_category: buildings
+  source_layers:
+  - bgt_pand
+  - bgt_overigbouwwerk
+  - bgt_gebouwinstallatie
+  - Pand
+  - OverigBouwwerk
+  - GebouwInstallatie
+  source_layer_prefixes: []
+  class_field: bgt-type
+  fields: []
+  geometry_types:
+  - MultiPolygon
+  - Unknown
+  - Polygon
+  semantic_kind: unknown
+  zoom:
+    min: 7
+    max: 14
+- id: transportation
+  semantic_category: transportation
+  source_layers:
+  - bgt_wegdeel
+  - bgt_ondersteunendwegdeel
+  - bgt_spoor
+  - bgt_overbruggingsdeel
+  - bgt_tunneldeel
+  - Wegdeel
+  - OndersteunendWegdeel
+  - Spoor
+  - Overbruggingsdeel
+  - Tunneldeel
+  source_layer_prefixes:
+  - '*wegdeel*'
+  - '*ondersteunendwegdeel*'
+  - '*spoor*'
+  - '*overbruggingsdeel*'
+  - '*tunneldeel*'
+  class_field: bgt-functie
+  fields: []
+  geometry_types:
+  - LineString
+  - Polygon
+  - Point
+  - Unknown
+  semantic_kind: unknown
+  zoom:
+    min: 4
+    max: 14
+- id: land_use
+  semantic_category: land_use
+  source_layers:
+  - bgt_begroeidterreindeel
+  - bgt_onbegroeidterreindeel
+  - bgt_vegetatieobject
+  - BegroeidTerreindeel
+  - OnbegroeidTerreindeel
+  - VegetatieObject
+  source_layer_prefixes:
+  - '*begroeidterreindeel*'
+  - '*onbegroeidterreindeel*'
+  - '*vegetatieobject*'
+  class_field: bgt-fysiekVoorkomen
+  fields: []
+  geometry_types:
+  - Polygon
+  - MultiPolygon
+  - LineString
+  - Point
+  - Unknown
+  semantic_kind: land
+  zoom:
+    min: 3
+    max: 14
+- id: infrastructure
+  semantic_category: infrastructure
+  source_layers:
+  - bgt_scheiding
+  - bgt_kunstwerkdeel
+  - bgt_put
+  - bgt_paal
+  - bgt_bord
+  - bgt_straatmeubilair
+  - bgt_bak
+  - bgt_kast
+  - Scheiding
+  - Kunstwerkdeel
+  - Put
+  - Paal
+  - Bord
+  - Straatmeubilair
+  - Bak
+  - Kast
+  - bgt_overigescheiding
+  source_layer_prefixes:
+  - '*scheiding*'
+  - '*kunstwerkdeel*'
+  - '*put*'
+  - '*paal*'
+  - '*bord*'
+  - '*straatmeubilair*'
+  - '*bak*'
+  - '*kast*'
+  class_field: plus-type
+  fields: []
+  geometry_types:
+  - Point
+  - LineString
+  - Polygon
+  - Unknown
+  semantic_kind: infrastructure
+  zoom:
+    min: 7
+    max: 14
+- id: hydrography
+  semantic_category: hydrography
+  source_layers:
+  - bgt_waterdeel
+  - bgt_ondersteunendwaterdeel
+  - Waterdeel
+  - OndersteunendWaterdeel
+  source_layer_prefixes:
+  - '*waterdeel*'
+  - '*ondersteunendwaterdeel*'
+  class_field: bgt-type
+  fields: []
+  geometry_types:
+  - Polygon
+  - MultiPolygon
+  - LineString
+  - Point
+  semantic_kind: unknown
+  zoom:
+    min: 3
+    max: 14
+- id: openbareruimtelabel
+  semantic_category: openbareruimtelabel
+  source_layers:
+  - bgt_openbareruimtelabel
+  - OpenbareRuimteLabel
+  source_layer_prefixes:
+  - '*openbareruimtelabel*'
+  class_field: openbareRuimteType
+  fields: []
+  geometry_types:
+  - Point
+  semantic_kind: unknown
+  zoom:
+    min: 4
+    max: 14
+- id: functioneelgebied
+  semantic_category: functioneelgebied
+  source_layers:
+  - bgt_functioneelgebied
+  - FunctioneelGebied
+  source_layer_prefixes:
+  - '*functioneelgebied*'
+  class_field: bgt-type
+  fields: []
+  geometry_types:
+  - Polygon
+  semantic_kind: unknown
+  zoom:
+    min: 4
+    max: 14
+- id: ongeclassificeerdobject
+  semantic_category: ongeclassificeerdobject
+  source_layers:
+  - bgt_ongeclassificeerdobject
+  - OngeclassificeerdObject
+  source_layer_prefixes:
+  - '*ongeclassificeerdobject*'
+  class_field: bgt-type
+  fields: []
+  geometry_types:
+  - Polygon
+  semantic_kind: unknown
+  zoom:
+    min: 4
+    max: 14
+- id: overigescheiding
+  semantic_category: overigescheiding
+  source_layers:
+  - bgt_overigescheiding
+  - OverigeScheiding
+  source_layer_prefixes:
+  - '*overigescheiding*'
+  class_field: plus-type
+  fields: []
+  geometry_types:
+  - LineString
+  semantic_kind: unknown
+  zoom:
+    min: 4
+    max: 14
+- id: weginrichtingselement
+  semantic_category: weginrichtingselement
+  source_layers:
+  - bgt_weginrichtingselement
+  - Weginrichtingselement
+  source_layer_prefixes:
+  - '*weginrichtingselement*'
+  class_field: plus-type
+  fields: []
+  geometry_types:
+  - Point
+  - LineString
+  - Polygon
+  - Unknown
+  semantic_kind: unknown
+  zoom:
+    min: 4
+    max: 14
+output:
+  tile_format: mvt
+  container: pmtiles
+  min_zoom: 0
+  max_zoom: 14
+  encoding_pair:
+  - mvt
+  - mlt

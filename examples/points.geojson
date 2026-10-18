@@ -1,0 +1,9 @@
+{
+  "type": "FeatureCollection",
+  "name": "places",
+  "features": [
+    {"type": "Feature", "id": 1, "properties": {"name": "Alpha", "kind": "place", "population": 1200}, "geometry": {"type": "Point", "coordinates": [4.89, 52.37]}},
+    {"type": "Feature", "id": 2, "properties": {"name": "Beta", "kind": "place", "population": 3400}, "geometry": {"type": "Point", "coordinates": [4.90, 52.38]}},
+    {"type": "Feature", "id": 3, "properties": {"name": "Gamma", "kind": "place", "population": 5600}, "geometry": {"type": "Point", "coordinates": [4.91, 52.36]}}
+  ]
+}

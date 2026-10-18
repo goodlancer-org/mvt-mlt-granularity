@@ -1,0 +1,72 @@
+.metrics-chart {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+}
+
+.metrics-chart h3 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+  margin-top: 0;
+}
+
+.metrics-note {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  opacity: 0.7;
+}
+
+.metrics-section {
+  margin-bottom: 16px;
+}
+
+.metrics-section:last-child {
+  margin-bottom: 0;
+}
+
+.metrics-section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.metrics-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.metrics-tag {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1px 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.metrics-desc {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  opacity: 0.7;
+  flex: 1;
+}
+
+.metrics-plain {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  opacity: 0.85;
+  font-style: italic;
+  margin-top: -4px;
+  margin-bottom: 8px;
+}

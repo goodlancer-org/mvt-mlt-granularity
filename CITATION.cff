@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "Please cite the version-specific software DOI assigned to the GitHub release and the accompanying dataset."
+title: "GEOMAPS: sparse-pyramid MVT and MLT compression"
+type: software
+license: MIT
+repository-code: "https://github.com/goodlancer-org/mvt-mlt-granularity"
+authors:
+  - family-names: Nefedov
+    given-names: Viacheslav
+    orcid: "https://orcid.org/0009-0006-7722-5250"
+  - family-names: Nefedov
+    given-names: Ivan
+    orcid: "https://orcid.org/0009-0006-7769-9931"
+  - family-names: Datsenko
+    given-names: Petr
+    orcid: "https://orcid.org/0009-0004-9696-7095"
+  - family-names: Datsenko
+    given-names: Samuil
+    orcid: "https://orcid.org/0009-0000-7732-0086"
+references:
+  - type: data
+    title: "GEOMAPS accompanying dataset"
+    doi: "10.5281/zenodo.23452598"

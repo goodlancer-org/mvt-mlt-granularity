@@ -1,0 +1,11 @@
+{
+  "default": "#777777",
+  "boundaries": "#9867a7",
+  "hydrography": "#77b5d9",
+  "transportation": "#c48045",
+  "places": "#333333",
+  "land_use": "#b1c99d",
+  "buildings": "#b46868",
+  "infrastructure": "#898989",
+  "terrain": "#b8a482"
+}

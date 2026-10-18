@@ -1,0 +1,749 @@
+version: 1
+metadata:
+  source: i:/GoodLancer/Papers/mlt-maps/data/map_analysis.sqlite
+  generated_by: profile_rules_builder
+defaults:
+  min_zoom: 0
+  max_zoom: 14
+  class_field_candidates:
+  - class
+  - type
+  - category
+  - subclass
+  - kind
+  - featurecla
+  - fclass
+datasets:
+- name: netherlands_amsterdam
+  match:
+    dataset_ids:
+    - netherlands_amsterdam
+    source_names:
+    - Netherlands_Amsterdam.zip
+  source_kind: vector
+  semantic_category: infrastructure
+  semantic_kind: infrastructure
+  output:
+    min_zoom: 0
+    max_zoom: 14
+    bounds:
+    - 4.84
+    - 52.34
+    - 4.95
+    - 52.4
+  tile_layers:
+  - id: transportation
+    semantic_category: transportation
+    semantic_kind: transport
+    source_layers:
+    - TrafficArea
+    - Railway
+    class_field: bronhouder
+    geometry_types:
+    - Polygon
+    - LineString
+    zoom:
+      min: 4
+      max: 14
+  - id: infrastructure
+    semantic_category: infrastructure
+    semantic_kind: infrastructure
+    source_layers:
+    - Scheiding
+    - Paal
+    - Bak
+    - Put
+    - Kast
+    - Kunstwerkdeel
+    - Straatmeubilair
+    - Installatie
+    - Bord
+    - Sensor
+    - Mast
+    class_field: bronhouder
+    geometry_types:
+    - Unknown
+    - Point
+    zoom:
+      min: 7
+      max: 14
+  - id: land_use
+    semantic_category: land_use
+    semantic_kind: land
+    source_layers:
+    - OnbegroeidTerreindeel
+    class_field: bronhouder
+    geometry_types:
+    - Polygon
+    zoom:
+      min: 3
+      max: 14
+  - id: buildingpart
+    semantic_category: buildingpart
+    semantic_kind: unknown
+    source_layers:
+    - BuildingPart
+    class_field: bronhouder
+    geometry_types:
+    - Unknown
+    zoom:
+      min: 4
+      max: 14
+  - id: solitaryvegetationobject
+    semantic_category: solitaryvegetationobject
+    semantic_kind: unknown
+    source_layers:
+    - SolitaryVegetationObject
+    class_field: bronhouder
+    geometry_types:
+    - Unknown
+    zoom:
+      min: 4
+      max: 14
+  - id: buildinginstallation
+    semantic_category: buildinginstallation
+    semantic_kind: unknown
+    source_layers:
+    - BuildingInstallation
+    class_field: bronhouder
+    geometry_types:
+    - Polygon
+    zoom:
+      min: 4
+      max: 14
+  - id: hydrography
+    semantic_category: hydrography
+    semantic_kind: unknown
+    source_layers:
+    - Waterdeel
+    - OndersteunendWaterdeel
+    class_field: bronhouder
+    geometry_types:
+    - Polygon
+    zoom:
+      min: 3
+      max: 14
+  - id: bridgeconstructionelement
+    semantic_category: bridgeconstructionelement
+    semantic_kind: unknown
+    source_layers:
+    - BridgeConstructionElement
+    class_field: bronhouder
+    geometry_types:
+    - Polygon
+    zoom:
+      min: 4
+      max: 14
+  - id: buildings
+    semantic_category: buildings
+    semantic_kind: unknown
+    source_layer_prefixes:
+    - '*pand*'
+    - '*overigbouwwerk*'
+    - '*gebouwinstallatie*'
+    source_layers:
+    - OverigBouwwerk
+    class_field: bronhouder
+    geometry_types:
+    - Unknown
+    zoom:
+      min: 7
+      max: 14
+  - id: openbareruimtelabel
+    semantic_category: openbareruimtelabel
+    semantic_kind: unknown
+    source_layers:
+    - OpenbareRuimteLabel
+    class_field: bronhouder
+    geometry_types:
+    - Point
+    zoom:
+      min: 4
+      max: 14
+  - id: weginrichtingselement
+    semantic_category: weginrichtingselement
+    semantic_kind: unknown
+    source_layers:
+    - Weginrichtingselement
+    class_field: bronhouder
+    geometry_types:
+    - Unknown
+    zoom:
+      min: 4
+      max: 14
+  - id: functioneelgebied
+    semantic_category: functioneelgebied
+    semantic_kind: unknown
+    source_layers:
+    - FunctioneelGebied
+    class_field: eindRegistratie
+    geometry_types:
+    - Polygon
+    zoom:
+      min: 4
+      max: 14
+  - id: overigescheiding
+    semantic_category: overigescheiding
+    semantic_kind: unknown
+    source_layers:
+    - OverigeScheiding
+    class_field: terminationDate
+    geometry_types:
+    - Unknown
+    zoom:
+      min: 4
+      max: 14
+  - id: waterinrichtingselement
+    semantic_category: waterinrichtingselement
+    semantic_kind: unknown
+    source_layers:
+    - Waterinrichtingselement
+    class_field: tijdstipRegistratie
+    geometry_types:
+    - Unknown
+    zoom:
+      min: 4
+      max: 14
+  - id: tunnelpart
+    semantic_category: tunnelpart
+    semantic_kind: unknown
+    source_layers:
+    - TunnelPart
+    class_field: terminationDate
+    geometry_types:
+    - Polygon
+    zoom:
+      min: 4
+      max: 14
+  - id: ongeclassificeerdobject
+    semantic_category: ongeclassificeerdobject
+    semantic_kind: unknown
+    source_layers:
+    - OngeclassificeerdObject
+    class_field: lokaalID
+    geometry_types:
+    - Polygon
+    zoom:
+      min: 4
+      max: 14
+- name: swisstopo_mountains_vector
+  match:
+    dataset_ids:
+    - swisstopo_mountains_vector
+    source_names:
+    - Swisstopo_mountains_vector.zip
+  source_kind: vector
+  semantic_category: terrain
+  semantic_kind: terrain
+  output:
+    min_zoom: 0
+    max_zoom: 14
+    bounds:
+    - 9.15
+    - 47.05
+    - 9.5
+    - 47.3
+  tile_layers:
+  - id: terrain
+    semantic_category: terrain
+    semantic_kind: terrain
+    source_layers:
+    - STRUCTHELV_LINE_AUX
+    - STRUCTHELV_POLYGON_MAIN
+    - STRUCTHELV_POLYGON_AUX
+    class_field: CODE_ZV
+    geometry_types:
+    - LineString
+    - Polygon
+    - Polygon Z
+    zoom:
+      min: 3
+      max: 14
+  - id: boundaries
+    semantic_category: boundaries
+    semantic_kind: boundary
+    source_layers:
+    - STRUCTHELV_BORDER
+    class_field: AUTHOR
+    geometry_types:
+    - LineString
+    zoom:
+      min: 2
+      max: 14
+- name: usfws_luisiana_wetlands_geopackage
+  match:
+    dataset_ids:
+    - usfws_luisiana_wetlands_geopackage
+    source_names:
+    - USFWS_Luisiana_wetlands_geopackage.zip
+  source_kind: vector
+  semantic_category: hydrography
+  semantic_kind: unknown
+  output:
+    min_zoom: 0
+    max_zoom: 14
+    bounds:
+    - -90.35
+    - 29.35
+    - -89.95
+    - 29.75
+  tile_layers:
+  - id: hydrography
+    semantic_category: hydrography
+    semantic_kind: unknown
+    source_layers:
+    - LA_wetlands
+    - LA_Wetlands_Project_Metadata
+    - LA_Wetlands_Historic_Map_Info
+    - Louisiana
+    class_field: WETLAND_TYPE
+    geometry_types:
+    - MultiPolygon
+    zoom:
+      min: 3
+      max: 14
+- name: louisiana-260912
+  match:
+    dataset_ids:
+    - louisiana-260912
+    source_names:
+    - louisiana-260912.osm.pbf
+  source_kind: vector
+  semantic_category: buildings
+  semantic_kind: unknown
+  output:
+    min_zoom: 0
+    max_zoom: 14
+    bounds:
+    - -90.35
+    - 29.35
+    - -89.95
+    - 29.75
+  tile_layers:
+  - id: buildings
+    semantic_category: buildings
+    semantic_kind: unknown
+    source_layer_prefixes:
+    - '*pand*'
+    - '*overigbouwwerk*'
+    - '*gebouwinstallatie*'
+    source_layers:
+    - multipolygons
+    - lines
+    - points
+    - other_relations
+    class_field: building
+    geometry_types:
+    - MultiPolygon
+    - LineString
+    - Point
+    - GeometryCollection
+    zoom:
+      min: 7
+      max: 14
+  - id: transportation
+    semantic_category: transportation
+    semantic_kind: unknown
+    source_layer_prefixes:
+    - '*wegdeel*'
+    - '*ondersteunendwegdeel*'
+    - '*spoor*'
+    - '*overbruggingsdeel*'
+    - '*tunneldeel*'
+    source_layers:
+    - multilinestrings
+    class_field: osm:network
+    geometry_types:
+    - MultiLineString
+    zoom:
+      min: 4
+      max: 14
+- name: natural_earth_vector
+  match:
+    dataset_ids:
+    - natural_earth_vector
+    source_names:
+    - natural_earth_vector.gpkg.zip
+  source_kind: vector
+  semantic_category: natural_earth
+  semantic_kind: land
+  output:
+    min_zoom: 4
+    max_zoom: 11
+    bounds:
+    - -97
+    - 30
+    - -70
+    - 47
+  tile_layers:
+  - id: boundaries
+    semantic_category: boundaries
+    semantic_kind: boundary
+    source_layer_prefixes:
+    - ne_10m_admin_*
+    class_field: featurecla
+    fields:
+    - featurecla
+    - FEATURECLA
+    - name
+    - NAME
+    - name_en
+    - NAME_EN
+    - name_fr
+    - NAME_FR
+    - name_ru
+    - NAME_RU
+    - adm0_a3
+    - ADM0_A3
+    - adm1_code
+    - ADM1_CODE
+    - scalerank
+    - SCALERANK
+    - labelrank
+    - LABELRANK
+    - type
+    - TYPE
+    geometry_types:
+    - LineString
+    - Point
+    - Polygon
+    zoom:
+      min: 4
+      max: 11
+  - id: hydrography
+    semantic_category: hydrography
+    semantic_kind: water
+    source_layer_prefixes:
+    - ne_10m_lakes*
+    - ne_10m_rivers*
+    - ne_10m_ocean*
+    - ne_10m_land_ocean_*
+    class_field: featurecla
+    fields:
+    - featurecla
+    - FEATURECLA
+    - name
+    - NAME
+    - name_en
+    - NAME_EN
+    - name_fr
+    - NAME_FR
+    - name_ru
+    - NAME_RU
+    - scalerank
+    - SCALERANK
+    geometry_types:
+    - LineString
+    - Point
+    - Polygon
+    zoom:
+      min: 4
+      max: 11
+  - id: transportation
+    semantic_category: transportation
+    semantic_kind: transport
+    source_layer_prefixes:
+    - ne_10m_roads*
+    - ne_10m_railroads*
+    - ne_10m_airports
+    - ne_10m_ports
+    class_field: featurecla
+    fields:
+    - featurecla
+    - FEATURECLA
+    - name
+    - NAME
+    - name_en
+    - NAME_EN
+    - name_fr
+    - NAME_FR
+    - name_ru
+    - NAME_RU
+    - type
+    - TYPE
+    - scalerank
+    - SCALERANK
+    geometry_types:
+    - LineString
+    - Point
+    zoom:
+      min: 4
+      max: 11
+  - id: places
+    semantic_category: places
+    semantic_kind: place
+    source_layer_prefixes:
+    - ne_10m_populated_places*
+    - ne_10m_time_zones
+    - ne_10m_admin_*_label_points*
+    class_field: featurecla
+    fields:
+    - featurecla
+    - FEATURECLA
+    - name
+    - NAME
+    - name_en
+    - NAME_EN
+    - name_fr
+    - NAME_FR
+    - name_ru
+    - NAME_RU
+    - scalerank
+    - SCALERANK
+    - min_zoom
+    - MIN_ZOOM
+    geometry_types:
+    - Polygon
+    - Point
+    zoom:
+      min: 4
+      max: 11
+  - id: land_use
+    semantic_category: land_use
+    semantic_kind: land
+    source_layer_prefixes:
+    - ne_10m_land*
+    - ne_10m_urban_areas*
+    - ne_10m_parks_and_protected_lands*
+    - ne_10m_glaciated_areas
+    - ne_10m_playas
+    - ne_10m_reefs
+    - ne_10m_coastline
+    - ne_10m_minor_islands*
+    class_field: featurecla
+    fields:
+    - featurecla
+    - FEATURECLA
+    - name
+    - NAME
+    - name_en
+    - NAME_EN
+    - name_fr
+    - NAME_FR
+    - name_ru
+    - NAME_RU
+    - scalerank
+    - SCALERANK
+    - min_zoom
+    - MIN_ZOOM
+    geometry_types:
+    - LineString
+    - Polygon
+    zoom:
+      min: 4
+      max: 11
+- name: pdok_netherlands_infrostructure
+  match:
+    dataset_ids:
+    - pdok_netherlands_infrostructure
+    source_names:
+    - pdok_Netherlands_infrostructure.zip
+  source_kind: vector
+  semantic_category: infrastructure
+  semantic_kind: infrastructure
+  output:
+    min_zoom: 0
+    max_zoom: 14
+  tile_layers:
+  - id: buildings
+    semantic_category: buildings
+    semantic_kind: unknown
+    source_layers:
+    - bgt_pand
+    - bgt_overigbouwwerk
+    - bgt_gebouwinstallatie
+    - Pand
+    - OverigBouwwerk
+    - GebouwInstallatie
+    class_field: bgt-type
+    geometry_types:
+    - MultiPolygon
+    - Unknown
+    - Polygon
+    zoom:
+      min: 7
+      max: 14
+  - id: transportation
+    semantic_category: transportation
+    semantic_kind: unknown
+    source_layer_prefixes:
+    - '*wegdeel*'
+    - '*ondersteunendwegdeel*'
+    - '*spoor*'
+    - '*overbruggingsdeel*'
+    - '*tunneldeel*'
+    source_layers:
+    - bgt_wegdeel
+    - bgt_ondersteunendwegdeel
+    - bgt_spoor
+    - bgt_overbruggingsdeel
+    - bgt_tunneldeel
+    - Wegdeel
+    - OndersteunendWegdeel
+    - Spoor
+    - Overbruggingsdeel
+    - Tunneldeel
+    class_field: bgt-functie
+    geometry_types:
+    - LineString
+    - Polygon
+    - Point
+    - Unknown
+    zoom:
+      min: 4
+      max: 14
+  - id: land_use
+    semantic_category: land_use
+    semantic_kind: land
+    source_layer_prefixes:
+    - '*begroeidterreindeel*'
+    - '*onbegroeidterreindeel*'
+    - '*vegetatieobject*'
+    source_layers:
+    - bgt_begroeidterreindeel
+    - bgt_onbegroeidterreindeel
+    - bgt_vegetatieobject
+    - BegroeidTerreindeel
+    - OnbegroeidTerreindeel
+    - VegetatieObject
+    class_field: bgt-fysiekVoorkomen
+    geometry_types:
+    - Polygon
+    - MultiPolygon
+    - LineString
+    - Point
+    - Unknown
+    zoom:
+      min: 3
+      max: 14
+  - id: infrastructure
+    semantic_category: infrastructure
+    semantic_kind: infrastructure
+    source_layer_prefixes:
+    - '*scheiding*'
+    - '*kunstwerkdeel*'
+    - '*put*'
+    - '*paal*'
+    - '*bord*'
+    - '*straatmeubilair*'
+    - '*bak*'
+    - '*kast*'
+    source_layers:
+    - bgt_scheiding
+    - bgt_kunstwerkdeel
+    - bgt_put
+    - bgt_paal
+    - bgt_bord
+    - bgt_straatmeubilair
+    - bgt_bak
+    - bgt_kast
+    - Scheiding
+    - Kunstwerkdeel
+    - Put
+    - Paal
+    - Bord
+    - Straatmeubilair
+    - Bak
+    - Kast
+    class_field: plus-type
+    geometry_types:
+    - Point
+    - LineString
+    - Polygon
+    - Unknown
+    zoom:
+      min: 7
+      max: 14
+  - id: hydrography
+    semantic_category: hydrography
+    semantic_kind: unknown
+    source_layer_prefixes:
+    - '*waterdeel*'
+    - '*ondersteunendwaterdeel*'
+    source_layers:
+    - bgt_waterdeel
+    - bgt_ondersteunendwaterdeel
+    - Waterdeel
+    - OndersteunendWaterdeel
+    class_field: bgt-type
+    geometry_types:
+    - Polygon
+    - MultiPolygon
+    - LineString
+    - Point
+    zoom:
+      min: 3
+      max: 14
+  - id: openbareruimtelabel
+    semantic_category: openbareruimtelabel
+    semantic_kind: unknown
+    source_layer_prefixes:
+    - '*openbareruimtelabel*'
+    source_layers:
+    - bgt_openbareruimtelabel
+    - OpenbareRuimteLabel
+    class_field: openbareRuimteType
+    geometry_types:
+    - Point
+    zoom:
+      min: 4
+      max: 14
+  - id: functioneelgebied
+    semantic_category: functioneelgebied
+    semantic_kind: unknown
+    source_layer_prefixes:
+    - '*functioneelgebied*'
+    source_layers:
+    - bgt_functioneelgebied
+    - FunctioneelGebied
+    class_field: bgt-type
+    geometry_types:
+    - Polygon
+    zoom:
+      min: 4
+      max: 14
+  - id: ongeclassificeerdobject
+    semantic_category: ongeclassificeerdobject
+    semantic_kind: unknown
+    source_layer_prefixes:
+    - '*ongeclassificeerdobject*'
+    source_layers:
+    - bgt_ongeclassificeerdobject
+    - OngeclassificeerdObject
+    class_field: bgt-type
+    geometry_types:
+    - Polygon
+    zoom:
+      min: 4
+      max: 14
+  - id: overigescheiding
+    semantic_category: overigescheiding
+    semantic_kind: unknown
+    source_layer_prefixes:
+    - '*overigescheiding*'
+    source_layers:
+    - bgt_overigescheiding
+    - OverigeScheiding
+    class_field: plus-type
+    geometry_types:
+    - LineString
+    zoom:
+      min: 4
+      max: 14
+  - id: weginrichtingselement
+    semantic_category: weginrichtingselement
+    semantic_kind: unknown
+    source_layer_prefixes:
+    - '*weginrichtingselement*'
+    source_layers:
+    - bgt_weginrichtingselement
+    - Weginrichtingselement
+    class_field: plus-type
+    geometry_types:
+    - Point
+    - LineString
+    - Polygon
+    - Unknown
+    zoom:
+      min: 4
+      max: 14

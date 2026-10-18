@@ -1,0 +1,23 @@
+[project]
+name = "geomaps-reproducibility"
+version = "0.1.0"
+description = "Reproducible sparse-pyramid MVT/MLT conversion and analysis"
+license = "MIT"
+requires-python = ">=3.12,<3.15"
+dependencies = [
+  "PyYAML==6.0.3", "Flask==3.1.3", "requests==2.34.2", "psutil==7.2.2",
+  "pmtiles==3.8.1", "maplibre-tiles==0.2.2", "mapbox-vector-tile==2.2.0",
+  "shapely==2.2.0", "pandas==3.0.3", "matplotlib==3.10.9",
+  "pyogrio==0.13.0", "rasterio==1.5.1", "geopandas==1.1.4",
+  "pyarrow==25.0.1", "brotli==1.2.0", "zstandard==0.25.0", "pyproj==3.8.0",
+]
+
+[dependency-groups]
+dev = ["pytest==9.1.1"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["analysis/tests", "app/converter/tests"]
+addopts = "-p no:cacheprovider --import-mode=importlib"

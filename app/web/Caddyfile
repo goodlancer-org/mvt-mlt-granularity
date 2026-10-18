@@ -1,0 +1,46 @@
+# GEOMAPS Web UI — Caddy Configuration
+# Serves the React SPA and data files (PMTiles + protocol JSON)
+
+:80 {
+    route {
+        # Serve data directory (PMTiles + protocols)
+        # PMTiles requires byte-range requests (HTTP 206)
+        handle /data/* {
+            root * /
+            file_server {
+                browse
+            }
+
+            header {
+                # CORS headers for PMTiles range requests
+                Access-Control-Allow-Origin *
+                Access-Control-Allow-Methods "GET, HEAD, OPTIONS"
+                Access-Control-Allow-Headers "Range"
+                Access-Control-Expose-Headers "Content-Range, Content-Length, Accept-Ranges"
+                # Expose transfer sizes to the Resource Timing API, matching the
+                # tile API, so byte totals are measurable for both containers.
+                Timing-Allow-Origin *
+                # No caching. PMTiles was cached for an hour while MBTiles was
+                # served no-store, so cached PMTiles responses reported ~0 bytes
+                # transferred and the container comparison measured cache policy
+                # rather than format. The benchmark reports cold-cache figures.
+                Cache-Control "no-store"
+            }
+        }
+
+        handle /api/* {
+            request_body {
+                max_size 10GB
+            }
+            reverse_proxy api:8000
+        }
+
+        # Serve React SPA with history API fallback
+        handle {
+            root * /srv/app
+            try_files {path} /index.html
+            file_server
+        }
+    }
+}
+

@@ -1,0 +1,62 @@
+schema_version: 1
+dataset:
+  id: swisstopo_mountains_vector
+  source_path: /data/normalized/swisstopo_mountains_vector/swisstopo_mountains_vector.gpkg
+  source_format: gpkg
+  name: swisstopo_mountains_vector
+source:
+  selection:
+    strategy: auto
+    primary_file: /data/normalized/swisstopo_mountains_vector/swisstopo_mountains_vector.gpkg
+  normalization:
+    stable_feature_id_strategy: source_primary_key
+    feature_id_field: null
+    semantic_categories:
+    - id: terrain
+      name: terrain
+    - id: boundaries
+      name: boundaries
+tile_layers:
+- id: terrain
+  semantic_category: terrain
+  source_layers:
+  - STRUCTHELV_LINE_AUX
+  - STRUCTHELV_POLYGON_MAIN
+  - STRUCTHELV_POLYGON_AUX
+  source_layer_prefixes: []
+  class_field: CODE_ZV
+  fields: []
+  geometry_types:
+  - LineString
+  - Polygon
+  - Polygon Z
+  semantic_kind: terrain
+  zoom:
+    min: 3
+    max: 14
+- id: boundaries
+  semantic_category: boundaries
+  source_layers:
+  - STRUCTHELV_BORDER
+  source_layer_prefixes: []
+  class_field: AUTHOR
+  fields: []
+  geometry_types:
+  - LineString
+  semantic_kind: boundary
+  zoom:
+    min: 2
+    max: 14
+output:
+  tile_format: mvt
+  container: pmtiles
+  min_zoom: 0
+  max_zoom: 14
+  encoding_pair:
+  - mvt
+  - mlt
+  bounds:
+  - 9.15
+  - 47.05
+  - 9.5
+  - 47.3

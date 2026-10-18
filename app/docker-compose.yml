@@ -1,0 +1,24 @@
+name: geomaps-research
+services:
+  api:
+    image: geomaps-research-converter
+    build: ./converter
+    command: ["src.api"]
+    volumes:
+      - ./data:/data
+      - ./converter/profiles:/profiles:ro
+      - ./converter/config.yaml:/app/config.yaml:ro
+      - ./data/scratch:/scratch
+    environment:
+      API_PORT: "8000"
+    restart: unless-stopped
+  web:
+    image: geomaps-research-web
+    build: ./web
+    ports:
+      - "${WEB_PORT:-8080}:80"
+    volumes:
+      - ./data:/data:ro
+    depends_on:
+      - api
+    restart: unless-stopped

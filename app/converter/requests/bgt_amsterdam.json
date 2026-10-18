@@ -1,0 +1,14 @@
+{
+  "featuretypes": [
+    "bak","begroeidterreindeel","bord","buurt","functioneelgebied",
+    "gebouwinstallatie","installatie","kast","kunstwerkdeel","mast",
+    "onbegroeidterreindeel","ondersteunendwaterdeel","ondersteunendwegdeel",
+    "ongeclassificeerdobject","openbareruimte","openbareruimtelabel",
+    "overbruggingsdeel","overigbouwwerk","overigescheiding","paal","pand",
+    "put","scheiding","sensor","spoor","stadsdeel","straatmeubilair",
+    "tunneldeel","vegetatieobject","waterdeel","waterinrichtingselement",
+    "waterschap","wegdeel","weginrichtingselement","wijk"
+  ],
+  "format": "citygml",
+  "geofilter": "POLYGON((115855 482050,128055 482050,128055 493986,115855 493986,115855 482050))"
+}

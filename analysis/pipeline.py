@@ -1,4 +1,4 @@
-"""File-based source, normalized-map and tile measurement pipeline."""
+"""File-based S1/S3/S6/S7/S8 pipeline for the current paper repository."""
 from __future__ import annotations
 
 import argparse
@@ -14,6 +14,7 @@ import subprocess
 from pathlib import Path
 
 from . import tile_store
+from .mlt_codec import memory_budget_bytes
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "docs/data"
@@ -43,7 +44,7 @@ def inputs_for(stage):
     if stage == "normalized":
         return [ROOT / d["normalized"] for d in datasets]
     if stage == "tiles":
-        return [ROOT / "app/data/output" / f"{d['id']}_{v}_{f}.pmtiles"
+        return [legacy_output_dir() / f"{d['id']}_{v}_{f}.pmtiles"
                 for d in datasets for v in ("standard", "dense4", "dense16") for f in ("mvt", "mlt")]
     if stage == 'types':
         return inputs_for('tiles')
@@ -54,6 +55,11 @@ def inputs_for(stage):
         files += [p.with_suffix('.normalization.json') for p in inputs_for('normalized') if p.with_suffix('.normalization.json').exists()]
         return [p for p in files if p.exists()]
     return [DATA / "source_stats.sqlite", DATA / "normalized_stats.sqlite", DATA / "tile_stats"]
+
+
+def legacy_output_dir():
+    historical=ROOT/'app/data/historical/python-0.2.2'
+    return historical if historical.is_dir() else ROOT/'app/data/output'
 
 
 def stage_output(stage):
@@ -72,6 +78,8 @@ def manifest_inputs(stage):
     elif stage == 'audit':
         files += [Path(__file__).parent/p for p in ('audit.py', 'map_analysis_core.py', 'output_analysis_core.py')]
         files += [ROOT/'app/converter/src'/p for p in ('profile_rules.py', 'semantic_taxonomy.py')]
+    if stage in ('audit', 'tiles', 'types'):
+        files += [Path(__file__).parent/'mlt_codec.py', ROOT/'app/converter/build_mlt.py']
     files += [Path(__file__).parent / "datasets.json"]
     if stage == "stats":
         files += [Path(__file__).parent/"tile_store.py"]
@@ -94,6 +102,8 @@ def describe(connection, stage, inputs):
               "python": platform.python_version(), "inputs_json": json.dumps(inputs),
               "git_commit": git('rev-parse', 'HEAD') or 'unknown',
               "environment_json":json.dumps({'python':platform.python_version(),'zlib':zlib.ZLIB_RUNTIME_VERSION,
+                  'mlt_binding_patch': 'memory-budget-v1',
+                  'mlt_decode_memory_bytes': memory_budget_bytes(),
                   'packages':{p:version(p) for p in ['pyogrio','shapely','mapbox-vector-tile','maplibre-tiles','pandas','matplotlib','duckdb','pyarrow']}}),
               "counting_semantics": "Source rows in S1/S3; tile feature instances in S6; streams per stored payload",
               "size_semantics": "gzip_payload_bytes = gzip.compress(raw, compresslevel=6, mtime=0); stored_bytes preserved"}
@@ -282,6 +292,10 @@ def run_stage(stage, force=False, codec_sensitivity=False):
     print(f"Checking inputs: {stage}", flush=True)
     inputs = manifest_inputs(stage)
     parameters = {"codec_sensitivity": codec_sensitivity if stage == "tiles" else False}
+    if stage in ('audit', 'tiles', 'types'):
+        from importlib.metadata import version
+        parameters['maplibre_tiles_version'] = version('maplibre-tiles')
+        parameters['mlt_decode_memory_bytes'] = memory_budget_bytes()
     if not force and target.exists() and manifest.exists():
         old = json.loads(manifest.read_text(encoding="utf-8"))
         if old["inputs"] == inputs and old["parameters"] == parameters and old["output"] == fingerprint(target):
@@ -295,7 +309,7 @@ def run_stage(stage, force=False, codec_sensitivity=False):
         profile(stage, temporary)
     elif stage == "tiles":
         from .output_analysis_core import build_working_database
-        build_working_database(ROOT / "app/data/output", temporary, progress=lambda s: print(s, flush=True),
+        build_working_database(legacy_output_dir(), temporary, progress=lambda s: print(s, flush=True),
             pair_names={f"{d['id']}_{v}" for d in registry() for v in ('standard','dense4','dense16')})
         tile_extras(temporary, codec_sensitivity)
     elif stage == 'audit':
@@ -343,7 +357,15 @@ def main(argv=None):
     parser.add_argument("stage", choices=["sources", "normalized", "tiles", "audit", "types", "stats", "report", "all"])
     parser.add_argument("--force", action="store_true")
     parser.add_argument("--codec-sensitivity", action="store_true")
+    parser.add_argument("--legacy", action="store_true", help="Reproduce the historical three-variant Python experiment")
     args = parser.parse_args(argv)
+    if not args.legacy and args.stage not in ('sources','normalized'):
+        if args.stage=='all':
+            for inventory_stage in ('sources','normalized'):
+                if not stage_output(inventory_stage).exists():run_stage(inventory_stage)
+        from .extended import main as extended_main
+        stage = 'tiles' if args.stage in ('audit','types') else args.stage
+        return extended_main([stage])
     stages = ["sources", "normalized", "tiles", "audit", "types", "stats", "report"] if args.stage == "all" else [args.stage]
     for stage in stages:
         if stage == "report":

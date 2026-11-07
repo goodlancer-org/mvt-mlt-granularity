@@ -22,7 +22,7 @@ from typing import Any, Iterable
 import brotli
 import sqlite3
 import mapbox_vector_tile as mvtcodec
-import maplibre_tiles as mltcodec
+from .mlt_codec import decode_mlt
 import numpy as np
 import pyogrio
 from pyogrio.raw import read as ogr_read
@@ -524,7 +524,7 @@ def _analyze_pmtiles_component(
                     tile_feature_count += len(features)
                     tile_vertex_count += layer_vertices
             elif tile_type == TileType.MLT:
-                decoded_layers = mltcodec.decode_mlt(decoded_payload)
+                decoded_layers = decode_mlt(decoded_payload)
                 tile_layer_count = len(decoded_layers)
                 for decoded_layer in decoded_layers:
                     layer_name = str(decoded_layer.name)

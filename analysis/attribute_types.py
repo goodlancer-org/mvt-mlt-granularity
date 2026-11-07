@@ -130,7 +130,9 @@ def build(target, root, datasets):
         ''')
         for dataset in datasets:
             for variant in ('standard', 'dense4', 'dense16'):
-                paths = {fmt: root/'app/data/output'/f"{dataset['id']}_{variant}_{fmt.lower()}.pmtiles"
+                folder=root/'app/data/historical/python-0.2.2'
+                if not folder.is_dir():folder=root/'app/data/output'
+                paths = {fmt: folder/f"{dataset['id']}_{variant}_{fmt.lower()}.pmtiles"
                          for fmt in ('MVT', 'MLT')}
                 headers, addresses = {}, {}
                 for fmt, path in paths.items():

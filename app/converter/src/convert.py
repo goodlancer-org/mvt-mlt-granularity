@@ -464,6 +464,143 @@ def _unique_path(directory, filename):
         idx += 1
 
 
+def _run_structural_overzoom(
+    *,
+    cfg,
+    name,
+    source_path,
+    source_fmt,
+    active_profile,
+    sources_dir,
+    output_dir,
+    logs_dir,
+    diagnostics_dir,
+    min_zoom,
+    max_zoom,
+    bounds,
+    area,
+    conversions,
+    progress_callback,
+    cancel_event,
+    debug_filtering,
+):
+    """Run the structural overzoom implementation (structural_overzoom.py) for one dataset.
+
+    It only adds runs beside the format loop. Its archives join `conversions`
+    under their own keys (`mvt_pmtiles_sz2`, `mvt_pmtiles_shortbread_oz2`, ...).
+    Diagnostic runs go to diagnostics_dir with a JSON of their own, outside the
+    protocol, so a failed diagnostic never marks the dataset failed.
+
+    Returns the layer-stats sidecars of the archives written to output_dir, so
+    cleanup treats them like the format loop's.
+    """
+    from . import structural_overzoom
+    try:
+        runs = structural_overzoom.plan_runs(
+            cfg,
+            source_path=source_path,
+            source_fmt=source_fmt,
+            active_profile=active_profile,
+            sources_dir=sources_dir,
+            min_zoom=min_zoom,
+            max_zoom=max_zoom,
+        )
+    except structural_overzoom.ProfileRewriteError as exc:
+        print(f"  Skipping structural overzoom: {exc}")
+        _emit_progress(progress_callback, "convert", f"Structural overzoom skipped: {exc}")
+        return []
+    if not runs:
+        return []
+
+    repeats = max(1, int(cfg.get("conversion_repeats", 1)))
+    sidecars = []
+    diagnostics = {}
+
+    for run in runs:
+        _check_cancel(cancel_event)
+        variant = {field: run[field] for field in ("implementation", "pyramid", "overzoom", "diagnostic")}
+        filename = structural_overzoom.run_filename(name, run["tile_format"], run["container"], **variant)
+        if run["is_diagnostic"]:
+            diagnostics_dir.mkdir(parents=True, exist_ok=True)
+            out_path = diagnostics_dir / filename
+            attempts = 1
+        else:
+            out_path = _unique_path(output_dir, filename)
+            attempts = repeats
+            sidecars.append(Path(f"{out_path}.layerstats.tsv.gz"))
+
+        results = []
+        for attempt in range(1, attempts + 1):
+            label = f"{run['tile_format'].upper()}/{run['container'].upper()} {run['key']}"
+            if attempts > 1:
+                label = f"{label} run {attempt}/{attempts}"
+            _emit_progress(progress_callback, "convert", f"Starting {label}")
+
+            attempt_path = out_path if attempt == 1 else out_path.with_name(
+                f"{out_path.stem}.run{attempt}{out_path.suffix}"
+            )
+            cmd = structural_overzoom.run_command(
+                cfg, run,
+                source_path=source_path,
+                output_path=attempt_path,
+                min_zoom=min_zoom,
+                bounds=bounds,
+                area=area,
+            )
+            result = run_conversion(
+                cmd,
+                label=label,
+                log_callback=lambda line, label=label: _forward_log_progress(progress_callback, label, line),
+                output_path=str(attempt_path),
+                cancel_event=cancel_event,
+                debug_filtering=debug_filtering,
+            )
+            if result.get("canceled"):
+                raise ConversionCancelledError("Conversion cancelled by user")
+            combined_output = result.get("combined_output", "")
+            log_filename = (
+                f"{name}_{run['key']}.log" if attempt == 1
+                else f"{name}_{run['key']}.run{attempt}.log"
+            )
+            (logs_dir / log_filename).write_text(combined_output or "", encoding="utf-8")
+            error_excerpt = _tail_text(combined_output) if result["exit_code"] != 0 else None
+
+            results.append({
+                "filename": out_path.name,
+                "size_bytes": get_output_size(attempt_path),
+                "tile_count": result["tile_count"],
+                "feature_count": result.get("feature_count", 0),
+                "started_at": result.get("started_at"),
+                "finished_at": result.get("finished_at"),
+                "time_seconds": result["time_seconds"],
+                "peak_memory_mb": result.get("peak_memory_mb", 0),
+                "exit_code": result["exit_code"],
+                "failed_step": None,
+                "layers": result.get("layers", {}),
+                "log_file": log_filename,
+                "error_message": error_excerpt,
+            })
+
+            if attempt > 1:
+                attempt_path.unlink(missing_ok=True)
+
+            status = "completed" if result["exit_code"] == 0 else f"failed (exit {result['exit_code']})"
+            _emit_progress(progress_callback, "convert", f"{label} {status}")
+
+        entry = aggregate_conversion_runs(results)
+        if run["is_diagnostic"]:
+            diagnostics[run["key"]] = {**entry, "profile": run["profile"], "command": cmd}
+        else:
+            conversions[run["key"]] = entry
+
+    if diagnostics:
+        report = diagnostics_dir / f"{name}_diagnostics.json"
+        report.write_text(json.dumps(diagnostics, indent=2, default=str), encoding="utf-8")
+        print(f"  Diagnostic runs recorded: {report}")
+
+    return sidecars
+
+
 def run_conversion_pipeline(
     *,
     name,
@@ -865,6 +1002,7 @@ def run_conversion_pipeline(
         bounds=plan_bounds,
         tmp_dir=cfg.get("tmp_dir") or None,
         variants=cfg.get("gdal_dense_variants"),
+        extended_experiment=bool(cfg.get("extended_experiment", True)),
         progress_callback=progress_callback,
         cancel_event=cancel_event,
         log_progress=lambda label, line: _forward_log_progress(progress_callback, label, line),

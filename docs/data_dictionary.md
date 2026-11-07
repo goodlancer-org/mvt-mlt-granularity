@@ -1,4 +1,27 @@
+> **Primary experiment update (2026-11-06).** Five variants (Standard, Aggregated-4/16, Dense-4/16), MVT and Rust MLT v1/v2, source-feature provenance and matched-block effect decomposition are now defined in [the extended experiment guide](extended_experiment.md). Run `python manage.py experiment`, then `python manage.py all`. Primary summaries live in `docs/data/extended/results.sqlite`; generated CSV/TeX files use `extended_` prefixes. The three-variant Python workflow and numerical claims below describe the historical study.
+
 # Data dictionary and counting rules
+
+## Primary extended fields
+
+| Fields | Meaning and unit |
+|---|---|
+| `variant`, `factor`, `logical_z` | Standard/Aggregated-4/16/Dense-4/16; geographic area factor 1/4/16; stored zoom plus offset 0/1/2. |
+| `payload_key` | SHA-256 of raw MVT input, scoped by dataset and variant; links addresses to measurements of both MLT versions. |
+| `raw_bytes`, `gzip_bytes` | Per-tile bytes before compression and after independent gzip-6 with timestamp zero. Headline ratios use sums over addresses. |
+| `feature_instances`, `instances` | Stored MVT occurrences, including duplicates and clipped/buffered fragments. |
+| `source_id`, `unique_source_features` | Normalized source-record ID, globally disjoint across layers within a dataset. Uniqueness is per payload/layer in `content` and per logical zoom in `content_summary`; it does not deduplicate real-world entities across layers. |
+| `vertices`, `fragments` | Explicit MoveTo/LineTo coordinates, excluding implicit polygon closure; MoveTo components include rings, lines and point components. |
+| `repeated_vertices` | Repeated occurrences of the same source-ID/integer-coordinate pair within a comparison block. This does not identify their cause. |
+| `source_type`, `imported_type` | Original typed MVT protobuf value and inferred Rust-imported column type, not an encoded MLT column-type census. |
+| `num_values` | Expanded logical stream values after integer RLE; coordinate pairs count as one vertex value. |
+| `frame_bytes`, `payload_bytes` | Whole encoded layer frame and data-stream region bytes. Stream summaries count unique MVT inputs once. |
+| `roundtrip_passed` | Equality to Rust-imported layers under the official CLI's normalization rules; distinct from exact typed MVT multiset equivalence. |
+| `aggregation_reduction_bytes`, `regeneration_reduction_bytes`, `total_reduction_bytes` | Matched-block differences S−A, A−D and S−D. Percentages share the Standard-byte denominator. |
+| `dense_only_blocks`, `excluded_standard_blocks` | Dense cells without Standard support and Standard blocks outside the matched intersection, reported by logical zoom. |
+
+The primary schema and storage layout are in [schema.md](schema.md#primary-extended-experiment).
+The remaining rules describe the historical three-variant exports.
 
 ## Read these rules first
 

@@ -1,0 +1,60 @@
+% ============================================================
+% Appendix A — Tile sizes in production web maps — draft v1
+% Source: real-world-map-traffic.md (measured 2026-10-02).
+% OPEN ITEMS:
+%  [A1] Yandex Maps serves raster PNG and its own vector tiles; the 3.8 KB median mixes
+%       both. Recompute vector-only statistics or drop Yandex from the vector rows.
+%  [A2] Keep this appendix to tile sizes; page shares and the Aviasales MLT estimate are
+%       deliberately left out (they answer a different question).
+% ============================================================
+
+\appendix
+\section{Tile sizes in production web maps}
+\label{app:traffic}
+
+To see how large the tiles of production web maps are, we recorded the network traffic
+of seven web products that show maps: OpenStreetMap, Yandex Maps, Amap, Cian, Airbnb,
+Booking.com and Aviasales. Each product was loaded five times in desktop Chrome with a
+cold cache and a viewport of $2560\times1600$ CSS pixels at a device pixel ratio of 1.5;
+each run opened the map, panned by one map width and one map height and zoomed in once,
+waiting for the network to be idle after each step. All requests, including those of web
+workers and iframes, were recorded through the DevTools protocol, and tile bodies were
+classified by decoding them. On our own archives, the recorded tile sizes matched the
+stored sizes exactly (21 of 21 tiles).
+
+Table~\ref{tab:traffic} lists the compressed sizes of individual tiles. The vector tiles
+of Amap, Airbnb, Booking.com and Yandex Maps, all in proprietary formats, had medians
+between 0.1 and 3.8~KB, and a page view loaded hundreds of them. The only MVT tiles
+observed, from Aviasales, were world-level tiles at zoom~3 with a mean of 94~KB.
+
+\begin{table}[!htbp]
+\centering
+\caption{Compressed size of individual tiles in seven web products (KB, median of runs;
+1~KB = 1000 bytes). Measured on 2 October 2026 from one desktop machine.}
+\label{tab:traffic}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}l l r r r l@{}}
+\toprule
+Product & Format & Tiles & Median & P90 & Zoom \\
+\midrule
+OpenStreetMap & PNG              & 354 & 38.1 & 47.0  & 10, 14 \\
+Cian          & PNG              & 363 & 16.3 & 27.5  & 10, 12 \\
+Yandex Maps   & PNG + own vector & 677 & 3.8  & 25.9  & 9--11 \\
+Amap          & own vector       & 774 & 1.2  & 5.4   & 10 \\
+Airbnb        & Google vector    & 269 & 0.1  & 12.6  & 10--13 \\
+Booking.com   & Google vector    & 357 & 2.0  & 5.8   & 11--16 \\
+Aviasales     & MVT              & 8   & 95.7 & 157.2 & 3 \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+{\scriptsize Tiles: tiles per run; own vector: proprietary vector format.}
+% TODO [A1]: vector-only figures for Yandex Maps.
+\end{table}
+
+The measurement has clear limits. It used one machine, one network location (Turkey),
+one day and first loads only; sites localize by IP address, and street-level zoom was
+reached only on OpenStreetMap and Booking.com. The formats of most products are
+proprietary, so their sizes indicate the granularity at which vector map data are
+delivered, not the size of MVT or MLT tiles with the same content.

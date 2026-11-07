@@ -72,6 +72,7 @@ def test_gdal_stage_b_uses_one_direct_pmtiles_job_for_variant(tmp_path, monkeypa
     monkeypatch.setattr(gdal_tiles, "_sha256", lambda path: "sha")
 
     conversions = gdal_tiles.run_gdal_dense_pipeline(
+        extended_experiment=False,  # this fixture exercises the retained historical path
         name="demo",
         source_path=tmp_path / "canonical.gpkg",
         output_dir=tmp_path,

@@ -1,0 +1,48 @@
+% Figure: Standard pyramid vs. Dense-4 / Dense-16 stored tiles.
+% Requires: \usepackage{tikz}; variant-name macros \VStd, \VDfour, \VDsixteen.
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[x=1cm, y=1cm, font=\scriptsize,
+    unit/.style={draw=black!70, fill=black!8},
+    dense/.style={draw=black, very thick, fill=black!22},
+    lab/.style={align=center, text width=2.5cm, anchor=north}]
+  \def\S{1.8}
+  % ---- (a) Standard pyramid: separately encoded tiles ----
+  \node[anchor=west, font=\footnotesize\bfseries] at (-0.1,2.55)
+    {(a) \VStd{} pyramid: every tile encoded separately};
+  \foreach \n/\x/\lbl in {1/0/{zoom $z$\\1 tile}, 2/2.6/{zoom $z{+}1$\\4 tiles}, 4/5.2/{zoom $z{+}2$\\16 tiles}} {
+    \pgfmathsetmacro{\c}{\S/\n}
+    \foreach \i in {1,...,\n} \foreach \j in {1,...,\n}
+      \draw[unit] ({\x+(\i-1)*\c},{(\j-1)*\c+0.25}) rectangle ++(\c,\c);
+    \node[lab] at (\x+\S/2,0.2) {\lbl};
+  }
+  % ---- (b) stored tile at z/x/y ----
+  \node[anchor=west, font=\footnotesize\bfseries] at (-0.1,-1.25)
+    {(b) One stored tile at address $z/x/y$};
+  \draw[unit] (0,-3.4) rectangle ++(\S,\S);
+  \node[lab] at (\S/2,-3.45) {\VStd\\content of $z$\\extent 4096};
+  \draw[dense] (2.6,-3.4) rectangle ++(\S,\S);
+  \draw[dashed, black!60] (2.6+\S/2,-3.4) -- ++(0,\S) (2.6,-3.4+\S/2) -- ++(\S,0);
+  \node[lab] at (2.6+\S/2,-3.45) {\VDfour\\content of $z{+}1$\\extent 8192};
+  \draw[dense] (5.2,-3.4) rectangle ++(\S,\S);
+  \foreach \k in {1,2,3} {
+    \draw[dashed, black!60] (5.2+\k*\S/4,-3.4) -- ++(0,\S);
+    \draw[dashed, black!60] (5.2,-3.4+\k*\S/4) -- ++(\S,0);
+  }
+  \node[lab] at (5.2+\S/2,-3.45) {\VDsixteen\\content of $z{+}2$\\extent 16384};
+  % arrows from (a) to (b)
+  \foreach \x in {0,2.6,5.2}
+    \draw[-{Stealth}, black!60] (\x+\S/2,-0.55) -- (\x+\S/2,-1.05);
+\end{tikzpicture}
+\caption{Spatial-granularity variants. (a)~In the \VStd{} pyramid an area at
+logical zoom $z+1$ or $z+2$ is partitioned into 4 or 16 independently encoded tiles.
+(b)~The \VDfour{} and \VDsixteen{} variants generate one independently encoded tile
+over the corresponding parent area using the feature-selection and simplification rules
+of logical zoom $z+1$ or $z+2$. Coordinate extent grows with the linear spatial factor
+to preserve approximately the same ground-coordinate precision; extent is not itself
+the granularity variable. Aggregated-4 and Aggregated-16 use these same larger
+footprints and extents, but translate and retain the complete Standard feature
+multiset instead of regenerating it. Dashed lines mark the internal Standard
+boundaries; their existing fragments and buffered copies remain in Aggregated.}
+\label{fig:variants}
+\end{figure}

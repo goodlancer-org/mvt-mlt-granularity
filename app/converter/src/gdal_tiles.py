@@ -17,6 +17,7 @@ from typing import Any, Callable, Dict, Iterable, Literal, Mapping
 
 import mapbox_vector_tile
 import maplibre_tiles
+from .mlt_codec import decode_mlt
 from pmtiles import writer
 from pmtiles.reader import MmapSource, Reader, all_tiles
 from pmtiles.tile import Compression, TileType, zxy_to_tileid
@@ -686,7 +687,7 @@ def transcode_mvt_pmtiles_to_mlt(
     *,
     validation_mode: ValidationMode = "fast",
 ) -> Dict[str, Any]:
-    """Transcode a GDAL-generated MVT PMTiles archive into MLT PMTiles tile-by-tile."""
+    """Historical Python transcoder; the primary experiment uses extended_tiles/Rust."""
     mvt_path = Path(mvt_path)
     mlt_path = Path(mlt_path)
     in_handle, source, reader = _read_pmtiles(mvt_path)
@@ -788,7 +789,7 @@ def _normal_mvt_tile(raw_mvt: bytes) -> dict[str, list[tuple[Any, Any, int]]]:
 
 def _normal_mlt_tile(raw_mlt: bytes) -> dict[str, list[tuple[Any, Any, int]]]:
     out: dict[str, list[tuple[Any, Any, int]]] = {}
-    for layer in maplibre_tiles.decode_mlt(raw_mlt):
+    for layer in decode_mlt(raw_mlt):
         features = []
         for feature in layer.features:
             props = tuple(sorted((str(k), str(v)) for k, v in (feature.properties or {}).items()))
@@ -853,8 +854,16 @@ def run_gdal_dense_pipeline(
     max_features: int = DEFAULT_MAX_TILE_FEATURES,
     validation_mode: ValidationMode = "fast",
     tile_limits_mode: TileLimitsMode = "experimental_unlimited",
+    extended_experiment: bool = True,
 ) -> Dict[str, Dict[str, Any]]:
-    """Generate Standard, Dense-4 and Dense-16 MVT with GDAL, then transcode each to MLT."""
+    """Run the five-variant Rust experiment, or explicitly select its historical path."""
+    if extended_experiment:
+        from .experiment import run_dataset
+        plan = dict(profile_plan)
+        plan['output'] = {**(plan.get('output') or {}), 'min_zoom':min_zoom,'max_zoom':max_zoom}
+        if bounds:
+            plan['output']['bounds'] = [float(v) for v in bounds.split(',')]
+        return run_dataset(name,source_path,plan,output_dir,logs_dir)
     source_path = Path(source_path)
     if source_path.suffix.lower() != ".gpkg":
         raise RuntimeError(

@@ -1,0 +1,106 @@
+\documentclass[10pt]{article}
+
+\usepackage[preprint]{arxiv_preprint}
+% Float placement for the two-column layout.
+\renewcommand{\topfraction}{0.9}          % single-column float may fill 90% of a column top
+\renewcommand{\bottomfraction}{0.5}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.6}    % single-column float page may be 60% full
+\renewcommand{\dbltopfraction}{0.9}       % figure*/table* may fill 90% of a page top (default 0.7)
+\renewcommand{\dblfloatpagefraction}{0.6} % figure*/table* float page may be 60% full (default 0.5)
+\setcounter{topnumber}{3}
+\setcounter{dbltopnumber}{3}              % up to 3 wide floats at the top of a page (default 2)
+\setcounter{totalnumber}{5}
+% Pack illustration-only pages from the top instead of stretching gaps between maps.
+\makeatletter
+\setlength{\@fptop}{0pt}
+\setlength{\@fpsep}{6pt}
+\setlength{\@fpbot}{0pt plus 1fil}
+\setlength{\@dblfptop}{0pt}
+\setlength{\@dblfpsep}{6pt}
+\setlength{\@dblfpbot}{0pt plus 1fil}
+\makeatother
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{courier}
+\usepackage{amsmath,amssymb,amsfonts}
+% Mathematical Unicode symbols used in the included sections (pdfLaTeX).
+\DeclareUnicodeCharacter{00D7}{\ensuremath{\times}}
+\DeclareUnicodeCharacter{00F7}{\ensuremath{\div}}
+\DeclareUnicodeCharacter{03C1}{\ensuremath{\rho}}
+\DeclareUnicodeCharacter{2192}{\ensuremath{\rightarrow}}
+\DeclareUnicodeCharacter{2212}{\ensuremath{-}}
+\DeclareUnicodeCharacter{2264}{\ensuremath{\leq}}
+\DeclareUnicodeCharacter{2265}{\ensuremath{\geq}}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{calc}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta,calc}
+\usepgfplotslibrary{groupplots}
+\urlstyle{same}
+\raggedbottom
+
+\definecolor{NavyBlue}{RGB}{0,0,128}
+
+\hypersetup{
+  colorlinks = true,
+  linkcolor  = NavyBlue,
+  citecolor  = NavyBlue,
+  urlcolor   = NavyBlue,
+}
+
+% Variant labels are used across multiple sections, including Intro.
+\providecommand{\VStd}{Standard}
+\providecommand{\VDfour}{Dense-4}
+\providecommand{\VDsixteen}{Dense-16}
+
+\title{Does Tile Granularity Matter?\\
+  An Empirical Study of Vector Tile Compression for Map Rendering with MapLibre Tiles}
+\shorttitle{Vector Tile Compression for Map Rendering with MapLibre Tiles}
+\arxivdate{November 2026 -- preprint}
+
+\author{%
+  Viacheslav Nefedov$^{1,2}$\enspace
+  Ivan Nefedov$^{3}$\enspace
+  Petr Datsenko$^{4}$\enspace
+  Samuil Datsenko$^{4}$ \\[0.4ex]
+  \normalfont\small
+  $^{1}$Ariel University\quad
+  $^{2}$Holon Institute of Technology\quad  
+  $^{3}$Technion\quad
+  $^{4}$Middle East Technical University
+}
+
+\keywords{MapLibre Tiles; vector tiles; map rendering; geospatial data compression; columnar encoding; tile granularity}
+
+\abstract{%
+\input{ch00_abstract}
+}
+
+\begin{document}
+\maketitle
+
+\input{ch01_intro}
+\input{ch02_background}
+\input{ch03_method}
+\input{ch04_result}
+\input{ch05_discussion}
+\input{ch06_threats}
+\input{ch07_appendix}
+
+\bibliographystyle{abbrvnat}
+\raggedright
+\bibliography{references}
+
+\end{document}

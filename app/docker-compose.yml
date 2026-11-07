@@ -11,6 +11,8 @@ services:
       - ./data/scratch:/scratch
     environment:
       API_PORT: "8000"
+      MLT_DECODE_MEMORY_MIB: "${MLT_DECODE_MEMORY_MIB:-256}"
+      MLT_EXPERIMENT_SCRATCH: "${MLT_EXPERIMENT_SCRATCH:-/tmp/mlt-experiment}"
     restart: unless-stopped
   web:
     image: geomaps-research-web

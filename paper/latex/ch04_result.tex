@@ -1,0 +1,105 @@
+\section{Results}\label{sec:results}
+\input{tables/extended_numbers}
+\subsection{Fixed-content aggregation}\label{sec:results-granularity}
+All \ExtAggregateBlocks{} aggregate blocks pass the typed feature-multiset check.
+The expanded corpus contains \ExtTiles{} MVT addresses, each also encoded as MLT
+v1 and v2. Table~\ref{tab:main} reports MLT saving relative to its own MVT input.
+For $4\times4$ controlled aggregation, raw v1 byte reductions range from
+\ExtOneRawAggregationMin\% to \ExtOneRawAggregationMax\%, positive in
+\ExtOneRawAggregationPositive{} datasets; v2 ranges from \ExtTwoRawAggregationMin\%
+to \ExtTwoRawAggregationMax\%, positive in \ExtTwoRawAggregationPositive{} datasets.
+After gzip the ranges are \ExtOneGzipAggregationMin--\ExtOneGzipAggregationMax\%
+and \ExtTwoGzipAggregationMin--\ExtTwoGzipAggregationMax\%. All buffered and clipped
+Standard instances are retained in these comparisons.
+
+\begin{table*}[!tp]\centering\small
+\caption{MLT savings relative to MVT (\%) within each variant, using byte sums
+over addresses. A4/A16 are Aggregated; D4/D16 are Dense.}\label{tab:main}
+\begin{tabular}{@{}llrrrrr@{}}\toprule
+Dataset & Variant & Tiles & Raw v1 & Raw v2 & Gzip v1 & Gzip v2\\
+\midrule\input{tables/extended_compression_rows}\end{tabular}\end{table*}
+\input{fig_zoom_aligned}
+
+\subsection{Additional regeneration effects}\label{sec:results-density}
+Table~\ref{tab:decomposition} separates aggregation from regeneration. Both components
+divide by matched Standard bytes, so they sum to the total reduction. Negative
+regeneration values mean that Dense requires more bytes than the exact aggregate.
+For $4\times4$ blocks the total gzip reduction ranges from
+\ExtOneGzipTotalMin\% to \ExtOneGzipTotalMax\% for v1 and
+\ExtTwoGzipTotalMin\% to \ExtTwoGzipTotalMax\% for v2.
+
+\begin{table*}[!tp]\centering\footnotesize
+\caption{Additive reductions relative to matched Standard bytes (\%). A: aggregation;
+R: regeneration; T: total. Integer bytes and per-zoom values are exported separately;
+rounding can change the displayed component sum by 0.1 percentage points.}
+\label{tab:decomposition}
+\begin{tabular}{@{}lrlrrrrrr@{}}\toprule
+& & & \multicolumn{3}{c}{MLT v1} & \multicolumn{3}{c}{MLT v2}\\
+Dataset & Factor & State & A & R & T & A & R & T\\
+\midrule\input{tables/extended_decomposition_rows}\end{tabular}\end{table*}
+
+Standard and Aggregated feature and vertex totals are exactly equal over matched
+blocks; Dense need not preserve them (Table~\ref{tab:content-differences}). Components
+include inherent multipart geometry and rings. Repeated coordinates identify
+observable ID/coordinate redundancy within a block, without attributing its cause.
+
+\begin{table*}[!tp]\centering\footnotesize
+\caption{Matched content counts (thousands). A: Aggregated; D: Dense. Repeated vertices
+share ID and coordinates within a block.}\label{tab:content-differences}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lrrrrrrrrr@{}}\toprule
+& & \multicolumn{2}{c}{Instances} & \multicolumn{2}{c}{Vertices} &
+\multicolumn{2}{c}{Source IDs$^*$} & \multicolumn{2}{c}{Repeated vertices}\\
+Dataset & Factor & A & D & A & D & A & D & A & D\\
+\midrule\input{tables/extended_content_rows}\end{tabular}
+\par\smallskip $^*$Unique IDs at each logical zoom, summed across zooms.
+\end{table*}
+
+\subsection{Robustness across MLT versions}\label{sec:results-versions}
+The paired version comparison holds MVT input and shared encoder settings fixed.
+Tables~\ref{tab:main} and~\ref{tab:decomposition} show both the version-specific
+relative saving and the controlled aggregation component. Figure~\ref{fig:zoom-aligned}
+shows individual logical zooms; absolute totals are dominated by the zooms carrying
+most bytes. The decomposition uses common parent blocks, while a coverage export
+records unmatched edge support.
+
+\subsection{Stream structure}\label{sec:results-streams}
+The native walker accounts for all bytes in every converted MLT tile. Structural
+share, expanded logical values per stream and payload bytes per logical value use
+consistent definitions in both versions (Table~\ref{tab:streams}). Stream-role
+mixtures can change with regeneration; Aggregated provides the stronger control.
+These descriptive measurements do not individually establish a causal contribution
+to after-gzip savings.
+
+\begin{table*}[!tp]\centering\footnotesize
+\caption{Stream structure per unique MVT payload input, using expanded integer-RLE
+counts. Structural share is $(F-P)/F$.}\label{tab:streams}
+\begin{tabular}{@{}llrrrrrr@{}}\toprule
+& & \multicolumn{2}{c}{Values/stream} & \multicolumn{2}{c}{Structure (\%)} & \multicolumn{2}{c}{Payload B/value}\\
+Dataset & Variant & v1 & v2 & v1 & v2 & v1 & v2\\
+\midrule\input{tables/extended_streams_rows}\end{tabular}\end{table*}
+
+\subsection{Gzip and content-normalized size}\label{sec:results-bpv}
+Table~\ref{tab:bpv} reports bytes per explicit stored MVT vertex for every format/state
+combination. Importer geometry-count diagnostics are supplied separately. Independent
+gzip can change the relative MLT advantage, so the after-gzip trend need not match the
+raw trend. Table~\ref{tab:bins} separates content-dependent savings by intervention.
+
+\begin{table*}[!tp]\centering\footnotesize
+\caption{Bytes per explicit MVT vertex, raw and after deterministic gzip-6.}\label{tab:bpv}
+\begin{tabular}{@{}llrrrrrr@{}}\toprule
+Dataset & Variant & MVT & MVT+gz & MLT v1 & v1+gz & MLT v2 & v2+gz\\
+\midrule\input{tables/extended_bpv_rows}\end{tabular}\end{table*}
+
+\begin{table*}[!tp]\centering\footnotesize
+\caption{Content-dependent MLT savings (\%), pooled separately for Standard,
+fixed-content Aggregated and regenerated Dense. Ratios use byte sums; both area
+factors are pooled within each extended regime.}\label{tab:bins}
+\begin{tabular}{@{}lllrrr@{}}\toprule
+Regime & Format & Vertices/tile & Tiles & Raw saving & Gzip saving\\
+\midrule\input{tables/extended_bins_rows}\end{tabular}\end{table*}
+
+The native audit compares \ExtCheckedAddresses{} address/format combinations and
+records \ExtRoundtripDifferences{} normalized round-trip differences. Attribute
+normalization and imported geometry counts remain separate diagnostics; these
+checks do not assert strict equality of every original protobuf storage type.

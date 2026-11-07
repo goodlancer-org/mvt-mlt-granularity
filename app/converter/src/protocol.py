@@ -10,6 +10,7 @@ import statistics
 from datetime import datetime, timezone
 from pathlib import Path
 
+from .mlt_codec import memory_budget_bytes
 from .protocol_summary import synthesize_protocol_v2
 from .protocol_v2 import write_protocol_v2
 
@@ -48,7 +49,9 @@ def capture_environment(cfg, *, cpu_count=None, total_memory_bytes=None):
         "python": platform.python_version(),
         "gdal": gdal,
         "mvt_codec": packages['mapbox-vector-tile'],
-        "mlt_transcoder": packages['maplibre-tiles'],
+        "mlt_transcoder": 'mlt-core 0.22.1 / maplibre-tiles 0.4.1 source' if cfg.get('extended_experiment',True) else packages['maplibre-tiles'],
+        "mlt_decode_memory_bytes": memory_budget_bytes(),
+        "mlt_binding_patch": "memory-budget-v1",
         "pmtiles": packages['pmtiles'],
         "config_sha256": hashlib.sha256(json.dumps(cfg, sort_keys=True, default=str).encode()).hexdigest(),
         "captured_at": datetime.now(timezone.utc).isoformat(),
@@ -385,4 +388,6 @@ def list_protocols(protocols_dir):
     protocols_dir = Path(protocols_dir)
     if not protocols_dir.exists():
         return []
-    return sorted(protocols_dir.glob("*.json"))
+    return sorted(path for path in protocols_dir.glob("*.json")
+        if not (path.name.endswith('.extended.json') and
+            (protocols_dir/(path.name.removesuffix('.extended.json')+'.json')).exists()))

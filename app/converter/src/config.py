@@ -6,6 +6,9 @@ from pathlib import Path
 import yaml
 
 DEFAULT_CONFIG = {
+    "extended_experiment": True,
+    "planetiler_jar": "/opt/planetiler.jar",
+    "java_heap": os.environ.get("JAVA_HEAP", "2g"),
     "data_dir": "/data",
     "normalized_dir": "/data/normalized",
     "normalization_crs": "EPSG:3857",
@@ -13,7 +16,7 @@ DEFAULT_CONFIG = {
     "profile_rules_path": "/profiles/profile_rules.yaml",
     "min_zoom": 0,
     "max_zoom": 14,
-    "tmp_dir": "/scratch",  # GDAL scratch must live on the host-mounted temp dir
+    "tmp_dir": "/scratch",  # Planetiler scratch must live on the host-mounted temp dir
     # CityGML preprocessing can be heavy (BGT/IMGeo). Keep the timeout explicit
     # and optionally allow continuing after timed-out members.
     "citygml_layer_timeout_seconds": 3600,
@@ -21,6 +24,14 @@ DEFAULT_CONFIG = {
     # Optional fallback for CityGML members where CRS cannot be inferred.
     # Example for PDOK/BGT: EPSG:28992
     "citygml_fallback_source_srs": "",
+    # Keep this disabled with mmap storage: Planetiler does not support
+    # compress-temp with mmap-temp and otherwise emits a warning every run.
+    "planetiler_compress_temp": False,
+    # Limit concurrent sort I/O workers to cap scratch growth rate.
+    "planetiler_sort_max_writers": 2,
+    "planetiler_sort_max_readers": 2,
+    # Keep mmap as the stable default; can be overridden in config.yaml.
+    "planetiler_storage": "mmap",
     # Emit extra diagnostics about layer-matching and feature filtering.
     # Enabled by default for the UI workflow so conversion logs always show
     # source-layer matching, include_when decisions and skip traces.
@@ -57,6 +68,9 @@ DEFAULT_CONFIG = {
     # safe applies conservative defaults unless explicit smaller limits are set.
     "gdal_tile_limits_mode": "experimental_unlimited",
     # Structural overzoom (src/structural_overzoom.py) is off unless configured.
+    "structural_overzoom_levels": [],
+    "structural_osm_profile": None,
+    "overzoom_diagnostics": False,
     "formats": [
         {"tile_format": "mvt", "container": "pmtiles"},
         {"tile_format": "mlt", "container": "pmtiles"},
@@ -85,11 +99,11 @@ MOUNTED_TMP_DIR = Path("/scratch")
 
 
 def resolve_tmp_dir(configured, mounted=MOUNTED_TMP_DIR):
-    """The GDAL scratch directory to use in this environment.
+    """The Planetiler scratch directory to use in this environment.
 
     settings.yaml is shared between machines, and a tmp_dir that names one
     machine's disk (e.g. /mnt/secondPartition/scratch on the Linux
-    host) does not exist on another (a Mac under Colima). GDAL would
+    host) does not exist on another (a Mac under Colima). Planetiler would
     then create it inside the container's writable layer, on the VM disk.
     Where neither the path nor its parent exists but docker-compose's scratch
     mount does, use the mount. A path that exists is always kept.
@@ -120,11 +134,13 @@ def load_config(config_path=None):
             user_cfg = yaml.safe_load(f) or {}
         cfg.update(user_cfg)
 
-    # Keep GDAL scratch on the host-mounted directory instead of the
+    # Keep Planetiler scratch on the host-mounted directory instead of the
     # container writable layer, also when settings name another machine's disk.
     cfg["tmp_dir"] = resolve_tmp_dir(cfg.get("tmp_dir"))
 
     # Allow env overrides
+    if os.environ.get("JAVA_HEAP"):
+        cfg["java_heap"] = os.environ["JAVA_HEAP"]
     if os.environ.get("CITYGML_LAYER_TIMEOUT_SECONDS"):
         cfg["citygml_layer_timeout_seconds"] = int(os.environ["CITYGML_LAYER_TIMEOUT_SECONDS"])
     if os.environ.get("CITYGML_SKIP_TIMEOUT_LAYERS"):
@@ -141,6 +157,12 @@ def load_config(config_path=None):
         cfg["debug_filtering"] = not (
             str(os.environ["DISABLE_DEBUG_FILTERING"]).strip().lower() in {"1", "true", "yes", "on"}
         )
+
+    # Planetiler warns and overrides settings when compress-temp is paired
+    # with mmap storage. Normalize here so runtime flags are coherent.
+    storage = str(cfg.get("planetiler_storage", "")).strip().lower()
+    if storage == "mmap" and bool(cfg.get("planetiler_compress_temp")):
+        cfg["planetiler_compress_temp"] = False
 
     validate_research_formats(cfg.get("formats", []))
     return cfg

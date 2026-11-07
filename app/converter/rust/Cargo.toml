@@ -1,0 +1,9 @@
+[package]
+name = "mlt-experiment"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow.workspace = true
+serde_json.workspace = true
+mlt-core = { workspace = true, features = ["unstable-v2"] }

@@ -1,0 +1,20 @@
+\input{tables/extended_numbers}
+Vector tiles are independently encoded display units, so tiling sets the scope over
+which an encoder can exploit redundancy. We study spatial encoding-unit granularity
+on five heterogeneous datasets using MVT and two versions of columnar MapLibre Tiles.
+Five variants separate exact aggregation of conventional tile feature multisets from
+regeneration of larger tiles at matched logical zoom. One pinned Rust implementation
+encodes both MLT versions; geographic block matching gives an additive decomposition
+of byte changes. For $4\times4$ fixed-content aggregation, raw MLT v1 byte reductions
+range from \ExtOneRawAggregationMin\% to \ExtOneRawAggregationMax\%, and v2 from
+\ExtTwoRawAggregationMin\% to \ExtTwoRawAggregationMax\%, across datasets. With
+independent per-tile gzip, the ranges are
+\ExtOneGzipAggregationMin--\ExtOneGzipAggregationMax\% and
+\ExtTwoGzipAggregationMin--\ExtTwoGzipAggregationMax\%, respectively. Regenerated
+$4\times4$ units give total gzip reductions of
+\ExtOneGzipTotalMin--\ExtOneGzipTotalMax\% for v1 and
+\ExtTwoGzipTotalMin--\ExtTwoGzipTotalMax\% for v2; negative reductions denote increases.
+Exact multiset checks, source-feature provenance and version-specific stream statistics
+distinguish encoding-unit effects from changes in stored content. Format comparisons
+are conditional on granularity and generation policy; they do not establish
+client-side transfer or rendering benefits.

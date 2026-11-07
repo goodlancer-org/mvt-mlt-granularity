@@ -1,17 +1,51 @@
 {
-  "title": "GEOMAPS: sparse-pyramid MVT and MLT compression — software",
+  "title": "GEOMAPS: controlled vector-tile granularity with MVT and Rust MLT v1/v2 — software",
   "upload_type": "software",
   "license": "MIT",
   "language": "eng",
-  "description": "Code for “Does Tile Granularity Matter? An Empirical Study of Vector Tile Compression for Map Rendering with MapLibre Tiles”. Vector-source normalization, paired Standard/Dense-4/Dense-16 MVT and MLT PMTiles conversion, independent decoded-pair diagnostics, compression statistics, map figures, and SQLite/Parquet/CSV dataset export. Accompanying dataset: https://doi.org/10.5281/zenodo.23452598.",
+  "description": "Code for “Does Tile Granularity Matter?”. Five variants separate exact Standard-feature aggregation (Aggregated-4/16) from regenerated Dense-4/16 tiles. One pinned official Rust mlt-core source from maplibre-tiles 0.4.1 encodes MLT v1/v2. Includes source-feature provenance, typed multiset validation, matched-block additive byte decomposition, stream analysis and automatic manuscript/figure generation. Historical Python-produced results remain separate. The earlier dataset is at https://doi.org/10.5281/zenodo.23452598; expanded results are generated locally pending a new release.",
   "creators": [
-    {"name": "Nefedov, Viacheslav", "orcid": "0009-0006-7722-5250", "affiliation": "Holon Institute of Technology, Ariel University"},
-    {"name": "Nefedov, Ivan", "orcid": "0009-0006-7769-9931", "affiliation": "Technion"},
-    {"name": "Datsenko, Petr", "orcid": "0009-0004-9696-7095", "affiliation": "Middle East Technical University"},
-    {"name": "Datsenko, Samuil", "orcid": "0009-0000-7732-0086", "affiliation": "Middle East Technical University"}
+    {
+      "name": "Nefedov, Viacheslav",
+      "orcid": "0009-0006-7722-5250",
+      "affiliation": "Holon Institute of Technology, Ariel University"
+    },
+    {
+      "name": "Nefedov, Ivan",
+      "orcid": "0009-0006-7769-9931",
+      "affiliation": "Technion"
+    },
+    {
+      "name": "Datsenko, Petr",
+      "orcid": "0009-0004-9696-7095",
+      "affiliation": "Middle East Technical University"
+    },
+    {
+      "name": "Datsenko, Samuil",
+      "orcid": "0009-0000-7732-0086",
+      "affiliation": "Middle East Technical University"
+    }
   ],
-  "keywords": ["vector tiles", "MapLibre", "MLT", "MVT", "PMTiles", "compression", "tile granularity", "web mapping", "reproducibility"],
+  "keywords": [
+    "vector tiles",
+    "MapLibre",
+    "MLT",
+    "MVT",
+    "PMTiles",
+    "compression",
+    "tile granularity",
+    "web mapping",
+    "reproducibility",
+    "controlled aggregation",
+    "MLT v2",
+    "feature provenance"
+  ],
   "related_identifiers": [
-    {"identifier": "10.5281/zenodo.23452598", "relation": "compiles", "resource_type": "dataset", "scheme": "doi"}
+    {
+      "identifier": "10.5281/zenodo.23452598",
+      "relation": "compiles",
+      "resource_type": "dataset",
+      "scheme": "doi"
+    }
   ]
 }

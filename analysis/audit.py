@@ -19,7 +19,7 @@ import sqlite3
 import time
 
 import mapbox_vector_tile
-import maplibre_tiles
+from .mlt_codec import decode_mlt
 import numpy as np
 import pyogrio
 from pyproj import Transformer
@@ -78,7 +78,7 @@ def decoded_tile(raw, fmt):
     else:
         layers = ((layer.name, layer.extent,
                    ((f.id, dict(f.properties), from_wkb(f.wkb)) for f in layer.features))
-                  for layer in maplibre_tiles.decode_mlt(raw))
+                  for layer in decode_mlt(raw))
     for name, extent, features in layers:
         if name in content:
             raise ValueError(f'Duplicate layer name: {name}')
@@ -147,7 +147,7 @@ def polygon_wire_signature(raw, fmt):
                 values[key]+=1
             out[layer.name]=values
     else:
-        for layer in maplibre_tiles.decode_mlt(raw):
+        for layer in decode_mlt(raw):
             values=Counter()
             for feature in layer.features:
                 geom=from_wkb(feature.wkb)
@@ -358,7 +358,9 @@ class Audit:
 
     def pair(self, d, variant):
         dataset = d['id']
-        paths = {fmt: self.root/'app/data/output'/f'{dataset}_{variant}_{fmt.lower()}.pmtiles' for fmt in ('MVT', 'MLT')}
+        folder=self.root/'app/data/historical/python-0.2.2'
+        if not folder.is_dir():folder=self.root/'app/data/output'
+        paths = {fmt: folder/f'{dataset}_{variant}_{fmt.lower()}.pmtiles' for fmt in ('MVT', 'MLT')}
         started = time.monotonic()
         print(f'Full validation: {dataset} / {variant}', flush=True)
         # Addresses/offsets come from the actual archive directories, not metadata bounds.

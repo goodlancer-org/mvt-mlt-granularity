@@ -66,8 +66,16 @@ class PipelineTest(unittest.TestCase):
                     before=(target/'tiles.parquet').stat().st_mtime_ns
                     pipeline.run_stage('tiles', codec_sensitivity=True)
                     self.assertEqual((target/'tiles.parquet').stat().st_mtime_ns,before)
+                manifest=target.with_name(target.name+'.manifest.json')
+                cached=json.loads(manifest.read_text())
+                self.assertEqual(cached['parameters']['mlt_decode_memory_bytes'],
+                                 pipeline.memory_budget_bytes())
+                cached['parameters']['maplibre_tiles_version']='0.0.0'
+                manifest.write_text(json.dumps(cached))
                 with patch.object(pipeline,'manifest_inputs',return_value=[]):
-                    pipeline.run_stage('tiles', force=True, codec_sensitivity=True)
+                    # An unchanged input archive must still be remeasured after a codec upgrade.
+                    pipeline.run_stage('tiles', codec_sensitivity=True)
+                    self.assertNotEqual((target/'tiles.parquet').stat().st_mtime_ns,before)
                     before=pipeline.fingerprint(target)
                     with patch.object(core,'_scan_mlt_archive',side_effect=RuntimeError('synthetic write failure')):
                         with self.assertRaisesRegex(RuntimeError,'synthetic write failure'):

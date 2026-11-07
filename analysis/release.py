@@ -1,4 +1,4 @@
-"""Export Parquet tile measurements and five SQLite snapshots for Zenodo."""
+"""Export Parquet observations, compact summaries and provenance for Zenodo."""
 from __future__ import annotations
 
 import argparse
@@ -92,6 +92,8 @@ def export_dataset(source, output):
         raise FileExistsError(f'Refusing to overwrite release directory: {output}')
     if source == output or source in output.parents:
         raise ValueError('Release directory must be outside its input directory')
+    if (source/'extended/results.sqlite').is_file():
+        return export_extended_dataset(source,output)
     for name in DATABASES:
         if not (source/f'{name}.sqlite').is_file():
             raise FileNotFoundError(source/f'{name}.sqlite')
@@ -176,6 +178,52 @@ def export_dataset(source, output):
             raise ValueError(f'Release has {len(files)+1} files; exceeds 100-file publication budget')
         (staging/'SHA256SUMS').write_text(''.join(f'{sha256(p)}  {p.relative_to(staging).as_posix()}\n' for p in files), encoding='utf-8')
         staging.rename(output)
+    return output
+
+
+def export_extended_dataset(source,output):
+    """Export the primary extended corpus; never substitute historical snapshots."""
+    import pyarrow.parquet as pq
+    checks=source/'extended_checks.md'
+    if not checks.exists() or '- FAIL:' in checks.read_text(encoding='utf-8'):
+        raise ValueError('Regenerate and pass extended validation before export')
+    staging=output.with_name(output.name+'.partial')
+    staging.mkdir(parents=True,exist_ok=False)
+    database=source/'extended/results.sqlite'
+    shutil.copy2(database,staging/'results.sqlite')
+    with closing(sqlite3.connect(staging/'results.sqlite')) as db:
+        if db.execute('PRAGMA integrity_check').fetchone()[0]!='ok':raise ValueError('Invalid extended summary database')
+    schemas={}
+    with zipfile.ZipFile(staging/'extended_parquet.zip','w',compression=zipfile.ZIP_STORED) as bundle:
+        for path in sorted((source/'extended').glob('*/*.parquet')):
+            relative=path.relative_to(source/'extended').as_posix()
+            pf=pq.ParquetFile(path)
+            schemas[relative]={'rows':pf.metadata.num_rows,'columns':[(f.name,str(f.type)) for f in pf.schema_arrow]}
+            bundle.write(path,relative)
+    with zipfile.ZipFile(staging/'conversion_provenance.zip','w',compression=zipfile.ZIP_DEFLATED) as bundle:
+        environment=ROOT/'docs/validation/extended-run-environment.json'
+        if environment.exists():bundle.write(environment,'execution_environment.json')
+        for pattern in ('*.experiment.json','*.generation.json','*.aggregation.json','*.aggregation.jsonl.gz'):
+            for path in sorted((ROOT/'app/data/output').glob(pattern)):bundle.write(path,'conversion/'+path.name)
+        for path in sorted((ROOT/'app/data/provenance').glob('*.provenance.sqlite')):bundle.write(path,'source_identity/'+path.name)
+        for path in sorted((source/'extended/manifests').glob('*.json')):bundle.write(path,'measurements/'+path.name)
+    for path in sorted(source.glob('extended_*')):
+        if path.is_file():shutil.copy2(path,staging/path.name)
+    for name in ('source_stats','normalized_stats'):
+        path=source/(name+'.sqlite')
+        if path.exists():shutil.copy2(path,staging/path.name)
+    shutil.copy2(ROOT/'analysis/sql/extended.sql',staging/'extended.sql')
+    shutil.copy2(ROOT/'docs/extended_experiment.md',staging/'README.md')
+    shutil.copy2(ROOT/'analysis/datasets.json',staging/'datasets.json')
+    (staging/'schema.json').write_text(json.dumps(schemas,indent=2)+'\n',encoding='utf-8')
+    (staging/'provenance.json').write_text(json.dumps({'schema':'extended-experiment-v1',
+        'git_commit':git('rev-parse','HEAD'),'git_dirty':bool(git('status','--porcelain')),
+        'created_at_utc':datetime.now(timezone.utc).isoformat(),
+        'measurement_provenance':'conversion_provenance.zip; encoder identities are per conversion, not inferred from export packages',
+        'historical_results':'Retained in the source repository; not mixed into primary summaries'},indent=2)+'\n',encoding='utf-8')
+    files=sorted(p for p in staging.rglob('*') if p.is_file())
+    (staging/'SHA256SUMS').write_text(''.join(f'{sha256(p)}  {p.relative_to(staging).as_posix()}\n' for p in files),encoding='utf-8')
+    staging.rename(output)
     return output
 
 

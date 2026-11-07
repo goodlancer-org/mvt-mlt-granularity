@@ -1,0 +1,387 @@
+% arxiv_preprint.sty
+%
+% A preprint style for arXiv submissions combining:
+%   - NeurIPS-style title block and abstract (full-width, centered)
+%   - VGTC-inspired two-column body with wide text area
+%   - Running header: short title left, "arXiv preprint · Month Year" right
+%   - figure*/table* support for full-width floats
+%
+% Usage:
+%   \documentclass[10pt]{article}
+%   \usepackage[preprint]{arxiv_preprint}
+%
+%   Preamble commands (alongside \title, \author):
+%     \abstract{text}        % abstract text — use in preamble like \title
+%     \arxivdate{Month Year} % e.g. {April 2026}
+%     \shorttitle{...}       % for running header (optional, falls back to full title)
+%     \keywords{...}         % optional, shown below abstract
+%   Citations: author--year, e.g. (Smith, 2026); \citet gives Smith (2026).
+%   Use a compatible bibliography style, e.g. \bibliographystyle{abbrvnat}.
+%
+%   Document body:
+%     \begin{document}
+%     \maketitle              % renders full-width title+abstract, switches to two-column
+%     \section{Introduction}  % two-column body starts here
+%
+%   Floats:
+%     \begin{figure}[t]...\end{figure}    % single-column
+%     \begin{figure*}[t]...\end{figure*}  % full page width (both columns)
+%     \begin{table}[t]...\end{table}      % single-column
+%     \begin{table*}[t]...\end{table*}    % full page width (both columns)
+%
+% Compatibility: pdfLaTeX / LuaLaTeX / XeLaTeX on MiKTeX / TeX Live.
+% No dependency on vgtc.cls. Requires: geometry, fancyhdr, natbib (optional),
+%   times/newtxtext, microtype, graphicx, hyperref (loaded by user if desired).
+%
+% ---------------------------------------------------------------------
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{arxiv_preprint}[2026/04/15 arXiv preprint style]
+
+% ========================= OPTIONS ==========================
+
+\newif\if@natbib \@natbibtrue
+\DeclareOption{nonatbib}{\@natbibfalse}
+
+\newif\if@preprint \@preprinttrue
+\DeclareOption{preprint}{\@preprinttrue}
+
+\ProcessOptions\relax
+
+% ========================= PACKAGES =========================
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{times}              % Times New Roman body text
+\renewcommand*\ttdefault{txtt}
+\RequirePackage{microtype}
+\RequirePackage{graphicx}
+\RequirePackage{xcolor}
+\RequirePackage{environ}
+\RequirePackage{fancyhdr}
+
+\if@natbib
+  \RequirePackage[authoryear,round]{natbib}
+  \setcitestyle{authoryear,round,semicolon,aysep={,},yysep={,}}
+\fi
+
+% ========================= PAGE GEOMETRY ====================
+% Wide text area (7 in), tight margins, matching VGTC conference style.
+% The title block lives in one-column mode; body switches via \twocolumn.
+
+\RequirePackage[
+  letterpaper,
+  top      = 0.85in,
+  bottom   = 1.0in,
+  left     = 0.75in,
+  right    = 0.75in,
+  headheight = 14pt,
+  headsep    = 18pt,
+  footskip   = 28pt
+]{geometry}
+
+\setlength{\columnsep}{18pt}   % gap between columns (≈ VGTC 2pc)
+
+% ========================= FONT SIZES =======================
+
+\renewcommand{\normalsize}{%
+  \@setfontsize\normalsize{10}{11.5}%
+  \abovedisplayskip      7\p@ \@plus2\p@ \@minus5\p@
+  \abovedisplayshortskip \z@  \@plus3\p@
+  \belowdisplayskip      \abovedisplayskip
+  \belowdisplayshortskip 4\p@ \@plus3\p@ \@minus3\p@
+}
+\normalsize
+\renewcommand{\small}      {\@setfontsize\small      {9}{10}}
+\renewcommand{\footnotesize}{\@setfontsize\footnotesize{8}{9.5}}
+\renewcommand{\scriptsize} {\@setfontsize\scriptsize  {7}{8}}
+\renewcommand{\tiny}       {\@setfontsize\tiny        {6}{7}}
+\renewcommand{\large}      {\@setfontsize\large      {12}{14}}
+\renewcommand{\Large}      {\@setfontsize\Large      {14}{16}}
+\renewcommand{\LARGE}      {\@setfontsize\LARGE      {17}{20}}
+\renewcommand{\huge}       {\@setfontsize\huge       {20}{23}}
+\renewcommand{\Huge}       {\@setfontsize\Huge       {25}{28}}
+
+% ========================= USER COMMANDS ====================
+
+% Short title for running header (falls back to \@title if not set)
+\newcommand{\@shorttitle}{}
+\newcommand{\shorttitle}[1]{\renewcommand{\@shorttitle}{#1}}
+
+% arXiv date string, e.g. "April 2026"
+\newcommand{\@arxivdate}{Preprint}
+\newcommand{\arxivdate}[1]{\renewcommand{\@arxivdate}{#1}}
+
+% Keywords (optional, shown below abstract)
+\newcommand{\@arxivkeywords}{}
+\newcommand{\keywords}[1]{\renewcommand{\@arxivkeywords}{#1}}
+
+% ========================= RUNNING HEADERS ==================
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\small\itshape
+  \ifx\@shorttitle\@empty\@title\else\@shorttitle\fi}
+\fancyhead[R]{\small\itshape arXiv preprint\enspace·\enspace\@arxivdate}
+\fancyfoot[C]{\small\thepage}
+
+% First page: no header rule, just page number
+\fancypagestyle{firstpage}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \fancyfoot[C]{\small\thepage}%
+}
+
+% ========================= TITLE BLOCK ======================
+
+\newcommand{\@toptitlebar}{%
+  \hrule height 3\p@
+  \vskip 0.22in \@minus\parskip
+}
+\newcommand{\@bottomtitlebar}{%
+  \vskip 0.25in \@minus\parskip
+  \hrule height 0.8\p@
+  \vskip 0.08in
+}
+
+\providecommand{\maketitle}{}
+\renewcommand{\maketitle}{%
+  % Mirror vgtc.cls: render title block + abstract full-width, then switch to
+  % two-column mode for the body.  \twocolumn[content] renders 'content' in
+  % one-column mode at the top of the first page, then starts two-column text.
+  \twocolumn[%
+    \begingroup
+      \renewcommand{\thefootnote}{\fnsymbol{footnote}}%
+      \renewcommand{\@makefnmark}{\hbox to\z@{$^{\@thefnmark}$\hss}}%
+      \long\def\@makefntext##1{%
+        \parindent1em\noindent
+        \hbox to1.8em{\hss$\m@th^{\@thefnmark}$}##1}%
+      \@maketitle
+      \@thanks
+    \endgroup
+    \@renderabstract
+  ]%
+  \thispagestyle{firstpage}%
+  \let\maketitle\relax
+  \let\thanks\relax
+}
+
+\providecommand{\@maketitle}{}
+\renewcommand{\@maketitle}{%
+  \vbox{%
+    \hsize\textwidth
+    \linewidth\hsize
+    \vskip 0.05in
+    \@toptitlebar
+    \centering
+    {\LARGE\bfseries\@title\par}%
+    \@bottomtitlebar
+    \def\And{%
+      \end{tabular}\hfil\linebreak[0]\hfil%
+      \begin{tabular}[t]{c}\bfseries\rule{\z@}{24\p@}\ignorespaces}%
+    \def\AND{%
+      \end{tabular}\hfil\linebreak[4]\hfil%
+      \begin{tabular}[t]{c}\bfseries\rule{\z@}{24\p@}\ignorespaces}%
+    \begin{tabular}[t]{c}\bfseries\rule{\z@}{24\p@}\@author\end{tabular}%
+    \vskip 0.25in \@minus 0.1in
+  }%
+}
+
+% ========================= ABSTRACT =========================
+% Like vgtc.cls: \abstract{text} stores the content; \maketitle renders it.
+% Can also be used as \begin{abstract}...\end{abstract} in the document body
+% BEFORE \maketitle (the environment just calls the command form).
+
+\newcommand{\@arxivabstractcontent}{}
+\renewcommand{\abstract}[1]{\renewcommand{\@arxivabstractcontent}{#1}}
+
+% Environment alias: \begin{abstract}...\end{abstract}
+% (useful if the abstract is long and benefits from multi-line editing)
+\let\orig@abstract\abstract
+\newenvironment{arxivabstractenv}{%
+  \let\@collect@body\@arxivabstractcontent
+  \def\@collect@body##1{\renewcommand{\@arxivabstractcontent}{##1}}%
+  \let\@arxivabstractcontent@saver\@collect@body
+}{%
+}
+
+% Internal rendering macro (called by \maketitle inside \twocolumn[...])
+\newcommand{\@renderabstract}{%
+  \ifx\@arxivabstractcontent\@empty\else
+    \vskip 0.06in
+    \centerline{\large\bfseries Abstract}%
+    \vspace{0.4ex}%
+    \begin{quote}\small
+      \@arxivabstractcontent
+    \end{quote}%
+    \ifx\@arxivkeywords\@empty\else
+      \vskip 0.3ex
+      \begin{quote}\small\textbf{Keywords:} \@arxivkeywords\end{quote}
+    \fi
+    \vskip 0.6ex
+  \fi
+}
+
+% ========================= SECTIONS =========================
+
+\widowpenalty  = 10000
+\clubpenalty   = 10000
+\flushbottom
+\sloppy
+
+\renewcommand{\section}{%
+  \@startsection{section}{1}{\z@}%
+    {-2.0ex \@plus -0.5ex \@minus -0.2ex}%
+    { 1.0ex \@plus  0.3ex \@minus  0.2ex}%
+    {\normalsize\bfseries\sffamily\scshape}%
+}
+\renewcommand{\subsection}{%
+  \@startsection{subsection}{2}{\z@}%
+    {-1.8ex \@plus -0.5ex \@minus -0.2ex}%
+    { 0.6ex \@plus  0.2ex}%
+    {\normalsize\bfseries\sffamily}%
+}
+\renewcommand{\subsubsection}{%
+  \@startsection{subsubsection}{3}{\z@}%
+    {-1.5ex \@plus -0.5ex \@minus -0.2ex}%
+    { 0.4ex \@plus  0.2ex}%
+    {\normalsize\sffamily}%
+}
+\renewcommand{\paragraph}{%
+  \@startsection{paragraph}{4}{\z@}%
+    {1.5ex \@plus 0.5ex \@minus 0.2ex}%
+    {-1em}%
+    {\normalsize\bfseries}%
+}
+
+% ========================= CAPTIONS =========================
+
+\newlength{\@captionmargin}
+\setlength{\@captionmargin}{0in}
+
+\newlength{\@abovecapskip}\setlength{\@abovecapskip}{6\p@}
+\newlength{\@belowcapskip}\setlength{\@belowcapskip}{\z@}
+
+\setlength{\abovecaptionskip}{\@abovecapskip}
+\setlength{\belowcaptionskip}{\@belowcapskip}
+
+% Tables: caption above → swap spacing
+\renewenvironment{table}{%
+  \setlength{\abovecaptionskip}{\@belowcapskip}%
+  \setlength{\belowcaptionskip}{\@abovecapskip}%
+  \@float{table}%
+}{\end@float}
+
+\renewenvironment{table*}{%
+  \setlength{\abovecaptionskip}{\@belowcapskip}%
+  \setlength{\belowcaptionskip}{\@abovecapskip}%
+  \@dblfloat{table}%
+}{\end@dblfloat}
+
+% Caption font: 8pt sans-serif (VGTC style)
+\newcommand{\captionfonts}{\footnotesize\sffamily}
+
+\long\def\@makecaption#1#2{%
+  % for tables the skip is already handled above; for figures add top skip
+  \ifdim\abovecaptionskip>\z@\vskip\abovecaptionskip\fi
+  \leftskip=\@captionmargin \rightskip=\@captionmargin
+  \sbox\@tempboxa{\captionfonts #1: #2}%
+  \ifdim\wd\@tempboxa>\hsize
+    {\captionfonts #1: #2\par}%
+  \else
+    \global\@minipagefalse
+    \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
+  \fi
+  \vskip\belowcaptionskip
+}
+
+% ========================= FLOAT PLACEMENT ==================
+
+\renewcommand{\topfraction      }{0.85}
+\renewcommand{\bottomfraction   }{0.40}
+\renewcommand{\textfraction     }{0.10}
+\renewcommand{\floatpagefraction}{0.70}
+\setcounter{topnumber}   {4}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber} {6}
+\setcounter{dbltopnumber}{4}
+\renewcommand{\dbltopfraction}{0.85}
+
+% ========================= FOOTNOTES =======================
+
+\setlength{\footnotesep}{6.5\p@}
+\setlength{\skip\footins}{9\p@ \@plus4\p@ \@minus2\p@}
+\renewcommand{\footnoterule}{\kern-3\p@ \hrule width12pc \kern2.6\p@}
+\setcounter{footnote}{0}
+
+% ========================= PARAGRAPHS ======================
+
+\setlength{\parindent}{\z@}
+\setlength{\parskip  }{5\p@}
+
+% ========================= BIBLIOGRAPHY ====================
+% Compact 8pt bibliography, same as VGTC
+
+\if@natbib
+  % Keep natbib's author--year bibliography: no numeric labels, hanging indent.
+  \renewcommand{\bibfont}{\footnotesize}
+  \setlength{\bibhang}{1em}
+  \setlength{\bibsep}{0pt}
+\else
+  % Fallback for documents that explicitly opt out of natbib.
+\newdimen\bibindent
+\newdimen\bibspacing
+\setlength\bibindent{1em}
+\setlength\bibspacing{\z@}
+
+\renewenvironment{thebibliography}[1]{%
+  \section*{\refname}%
+  \footnotesize
+  \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
+  \list{\@biblabel{\@arabic\c@enumiv}}{%
+    \settowidth\labelwidth{\@biblabel{#1}}%
+    \leftmargin\labelwidth
+    \advance\leftmargin\labelsep
+    \itemsep\bibspacing
+    \parsep\bibspacing
+    \@openbib@code
+    \usecounter{enumiv}%
+    \let\p@enumiv\@empty
+    \renewcommand\theenumiv{\@arabic\c@enumiv}%
+  }%
+  \sloppy
+  \clubpenalty4000
+  \@clubpenalty\clubpenalty
+  \widowpenalty4000%
+  \sfcode`\.\@m
+}{%
+  \def\@noitemerr{\@latex@warning{Empty `thebibliography' environment}}%
+  \endlist
+}
+\fi
+
+% ========================= ACKNOWLEDGMENTS =================
+
+\newcommand{\acksection}{\section*{Acknowledgments}}
+\NewEnviron{ack}{%
+  \acksection
+  \BODY
+}
+
+% ========================= NOTICE STRING ===================
+% Bottom-of-first-page note (emulates NeurIPS notice mechanism)
+
+\if@preprint
+  \newcommand{\@noticestring}{Preprint. Work in progress.}
+\fi
+
+\newcommand{\ftype@noticebox}{8}
+\newcommand{\@notice}{%
+  \enlargethispage{2\baselineskip}%
+  \@float{noticebox}[b]%
+    \footnotesize\itshape\@noticestring
+  \end@float
+}
+
+\endinput

@@ -1,8 +1,8 @@
 """Shared helpers for compact protocol v2 summaries.
 
-The redesign keeps detailed measurement data in SQLite in the long term, but
-current protocols still start from legacy JSON. This module adapts those legacy
-protocols into the v2 summary shape used by the API, results.md, and the UI.
+Detailed extended measurements live in Parquet; SQLite holds compact summaries
+and source provenance. This module adapts legacy JSON and extended protocols
+into the summary shape used by the API, results.md, and the UI.
 """
 
 from __future__ import annotations
@@ -104,6 +104,23 @@ def _variant_outputs(conversions: Mapping[str, Any]) -> Dict[str, Dict[str, Any]
 
 def synthesize_protocol_v2(protocol: Mapping[str, Any]) -> Dict[str, Any]:
     protocol = deepcopy(dict(protocol))
+    conversions = protocol.get('conversions') or {}
+    if 'standard_mltv1' in conversions:
+        outputs = {key:_output_entry(value, 'exact_aggregation' if key.startswith('aggregated') else 'gdal_provenance_rust')
+                   for key,value in conversions.items()}
+        outputs['mvt']=dict(outputs['standard_mvt'])
+        outputs['mlt']=dict(outputs['standard_mltv1'])
+        standard=conversions['standard_mvt']
+        dataset=protocol.get('dataset') or {}
+        return {'version':'2.1','dataset':{**dataset,'id':dataset.get('name','dataset'),
+            'title':dataset.get('name','dataset')},'experiment':'extended-granularity-v1',
+            'tools':protocol.get('environment',{}),'outputs':outputs,
+            'topology':{'feature_instance_count':standard.get('feature_count'),
+                'logical_feature_count':standard.get('unique_source_features'),
+                'vertex_count':standard.get('vertex_count')},
+            'validation':{key:value.get('validation',{}) for key,value in conversions.items()},
+            'zoom_summary':[],'layer_summary':[],'workload_summary':[]}
+    if str(protocol.get('version'))=='2.1' and 'outputs' in protocol:return protocol
     if str(protocol.get("version")) == "2.0" and "profile" in protocol and "outputs" in protocol:
         dataset = protocol.setdefault("dataset", {})
         topology = protocol.get("topology") or {}

@@ -16,7 +16,7 @@ def run(command, cwd=ROOT):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', nargs='?', choices=('env', 'build', 'up', 'down', 'logs', 'restart', 'convert', 'analyze', 'maps', 'export-dataset', 'download-sources', 'test', *STAGES))
+    parser.add_argument('command', nargs='?', choices=('env', 'build', 'up', 'down', 'logs', 'restart', 'convert', 'experiment', 'analyze', 'maps', 'tex', 'export-dataset', 'download-sources', 'test', *STAGES))
     argv = list(sys.argv[1:] if argv is None else argv)
     args = parser.parse_args(argv[:1])
     remaining = argv[1:]
@@ -35,7 +35,12 @@ def main(argv=None):
     if command == 'env':
         if remaining[:1] == ['sync']:
             remaining.pop(0)
-        return run(['uv', 'sync', '--frozen', *remaining])
+        result = run(['uv', 'sync', '--frozen', *remaining])
+        if result:
+            return result
+        python = ROOT/'.venv'/('Scripts/python.exe' if os.name == 'nt' else 'bin/python')
+        result=run([python, ROOT/'app/converter/build_mlt.py', '--install'])
+        return result or run([python, ROOT/'app/converter/build_mlt_cli.py'])
     compose = ['docker', 'compose', '-f', ROOT/'app/docker-compose.yml']
     if command == 'build':
         return run([*compose, 'build', *remaining])
@@ -43,6 +48,9 @@ def main(argv=None):
         return run([*compose, command, *(['-d', '--build'] if command == 'up' else []), *remaining])
     if command == 'convert':
         return run([*compose, 'run', '--rm', 'api', 'src.convert', *remaining])
+    if command == 'experiment':
+        return run([*compose,'run','--rm','-v',str(ROOT)+':/repo:ro','api','src.experiment',
+                    '--registry','/repo/analysis/datasets.json',*remaining])
     python = ROOT/'.venv'/('Scripts/python.exe' if os.name == 'nt' else 'bin/python')
     python = python if python.exists() else Path(sys.executable)
     if command in STAGES or command == 'analyze':
@@ -50,6 +58,8 @@ def main(argv=None):
         return run([python, '-u', '-m', 'analysis.pipeline', stage, *remaining])
     if command == 'maps':
         return run([python, '-m', 'analysis.map_figures', *remaining])
+    if command == 'tex':
+        return run([python,'-m','analysis.paper_build',*remaining])
     if command in ('export-dataset', 'download-sources'):
         return run([python, '-m', 'analysis.release', command, *remaining])
     if command == 'test':

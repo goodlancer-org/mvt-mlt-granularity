@@ -1,0 +1,135 @@
+{
+  "purpose": "Observed execution environment of the primary host Rust encoding run",
+  "command": "./.venv/Scripts/python.exe -m analysis.encode --workers 2 --wait",
+  "python": "3.13.17",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "zlib": "1.3.1",
+  "packages": {
+    "maplibre-tiles": "0.4.1",
+    "mapbox-vector-tile": "2.2.0",
+    "pmtiles": "3.7.0",
+    "pyarrow": "25.0.1",
+    "duckdb": "1.5.5"
+  },
+  "rust": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-pc-windows-msvc\nrelease: 1.98.1\nLLVM version: 22.1.8",
+  "native_build": {
+    "binding_version": "0.4.1",
+    "core_version": "0.22.1",
+    "source_sha256": "dd35bb6771b59006efd505afb102334e37e1af53b17e640d3a6438e917663aa3",
+    "builder_sha256": "a52323ec3dc3c35b36dd2ae0a429540915a01b52e3fc59c291a77b0605aa5894",
+    "mvt_budget_patch": {
+      "dependency": "fast-mvt 0.7.1",
+      "source_sha256": "4dd28eb5048f310a33f947a615fbbca7ea47fc92e3a0820fc2a5925b475a8531",
+      "upstream_default_element_memory_mib": 32,
+      "scope": "Expose explicit Buffa element-memory budget; no encoding changes"
+    },
+    "upstream_commit": "e7bc737dc96f734a8549a41844b8aaf43ee50723",
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "binary_sha256": "c330522d5b43d2fb9ab34ed05e1a4112f9777e32ce2e619586d0e0be7124cf62",
+    "adapter_sha256": {
+      "Cargo.lock": "35bf43f8ec85f08767f1b3ad62b3a008d63f8a589b17c2cb114825c7fa1e4f1a",
+      "Cargo.toml": "dab974aaf92a0a04767c36f24037ebdb1c79e8270329ddfc9498f321308f7888",
+      "src/main.rs": "045162e9324b8ade2f70a83743c53ff64e2dbd1302a7d6f617b3ce9505128e02",
+      "src/verify.rs": "a7dc7001bd6d54492d7ad45493c4c5c7f19c9557770a080af8dbc4337fa0c189"
+    },
+    "options": {
+      "profile": "native/4g",
+      "tessellation": "off",
+      "sort": "none",
+      "fsst": true,
+      "fastpfor": true,
+      "shared_dict": true,
+      "v2_float_alp": false,
+      "v2_float_dict": false,
+      "v2_packed_dict_codes": true,
+      "delta2": false,
+      "rans_vertices": false
+    }
+  },
+  "native_budget_mib": 256,
+  "outer_compression": {
+    "gzip_level": 6,
+    "mtime": 0,
+    "reset": "independently per tile"
+  },
+  "gdal_generation": "Docker GDAL 3.13.3; exact commands/environments are in per-archive generation manifests",
+  "qualification": "Both MLT versions and all primary variants use this one host binary. Docker separately builds and tests the same pinned Rust source. Runtime versions are recorded during the run, not inferred from a later export environment.",
+  "docker_generation_observation": {
+    "vm_memory_bytes": 16710705152,
+    "logical_cpus": 4,
+    "container_memory_quota_bytes": 0,
+    "container_memory_swap_quota_bytes": 0,
+    "oom_killed_at_observation": false,
+    "qualification": "No explicit container quota; configuration observation, not a peak RSS benchmark"
+  },
+  "encoding_concurrency": {
+    "primary_workers": 2,
+    "secondary_workers": 2,
+    "maximum_concurrent_variant_tasks": 4,
+    "coordination": "Primary scheduler paused during disjoint Swiss/USFWS and PDOK batches while its active workers continued; resumed after each batch, preventing overlapping writes",
+    "timing_scope": "Diagnostic elapsed times from a concurrent run, not a controlled throughput benchmark"
+  },
+  "additional_encoding_commands": [
+    "python -m analysis.encode --workers 2 --wait --dataset swisstopo_mountains_vector --dataset usfws_luisiana_wetlands_geopackage",
+    "python -m temp.extended_pdok_batch (two workers: PDOK dense16, dense4, standard)"
+  ],
+  "recovery_after_window_closure": {
+    "observed_utc": "2026-11-06T22:50:22.305261+00:00",
+    "binary_sha256": "c330522d5b43d2fb9ab34ed05e1a4112f9777e32ce2e619586d0e0be7124cf62",
+    "verified_groups": [
+      "louisiana-260912_aggregated16_mvt.experiment.json",
+      "louisiana-260912_aggregated4_mvt.experiment.json",
+      "louisiana-260912_dense16_mvt.experiment.json",
+      "louisiana-260912_dense4_mvt.experiment.json",
+      "louisiana-260912_standard_mvt.experiment.json",
+      "natural_earth_vector_aggregated16_mvt.experiment.json",
+      "natural_earth_vector_aggregated4_mvt.experiment.json",
+      "natural_earth_vector_dense16_mvt.experiment.json",
+      "natural_earth_vector_dense4_mvt.experiment.json",
+      "pdok_netherlands_infrostructure_aggregated16_mvt.experiment.json",
+      "pdok_netherlands_infrostructure_aggregated4_mvt.experiment.json",
+      "pdok_netherlands_infrostructure_dense16_mvt.experiment.json",
+      "pdok_netherlands_infrostructure_dense4_mvt.experiment.json",
+      "pdok_netherlands_infrostructure_standard_mvt.experiment.json",
+      "swisstopo_mountains_vector_aggregated16_mvt.experiment.json",
+      "swisstopo_mountains_vector_aggregated4_mvt.experiment.json",
+      "swisstopo_mountains_vector_dense16_mvt.experiment.json",
+      "swisstopo_mountains_vector_dense4_mvt.experiment.json",
+      "swisstopo_mountains_vector_standard_mvt.experiment.json",
+      "usfws_luisiana_wetlands_geopackage_aggregated16_mvt.experiment.json",
+      "usfws_luisiana_wetlands_geopackage_aggregated4_mvt.experiment.json",
+      "usfws_luisiana_wetlands_geopackage_dense16_mvt.experiment.json",
+      "usfws_luisiana_wetlands_geopackage_dense4_mvt.experiment.json",
+      "usfws_luisiana_wetlands_geopackage_standard_mvt.experiment.json"
+    ],
+    "completed_groups": 24,
+    "remaining": "natural_earth_vector/standard",
+    "restart_command": "python -u -m analysis.encode --workers 1 --dataset natural_earth_vector",
+    "reason": "Window closure stopped the host processes. Completed manifests and archive hashes were retained; only the incomplete Standard group is encoded again."
+  },
+  "post_recovery_docker_validation": {
+    "images": [
+      {
+        "tags": [
+          "geomaps-converter:latest"
+        ],
+        "image_id": "sha256:8d3c813ada73aac4e7b735391020f2d6a587e02a5780a6b8ba42071cf8c3d63d"
+      },
+      {
+        "tags": [
+          "geomaps-research-converter:latest"
+        ],
+        "image_id": "sha256:b3bf7f4a95ef0012164afc9b7e253705af644ae05d4ba2d450cfb3ad89df31c8"
+      }
+    ],
+    "checks": [
+      "native v1/v2 round trips",
+      "exact typed MVT aggregation",
+      "largest PDOK Dense-16 input: 28395570 raw bytes at 256 MiB",
+      "GDAL source provenance, geometry/attribute cells and RTree"
+    ],
+    "passed": true,
+    "local_api_binding_version": "0.4.1",
+    "local_api_unique_protocols": 5
+  }
+}

@@ -1,6 +1,24 @@
 # GEOMAPS Converter
 # GDAL 3.13.3 + Python 3.14 + MLT binary wheel
 
+FROM rust:1.98.1-slim AS rust-toolchain
+
+FROM ghcr.io/osgeo/gdal:ubuntu-small-3.13.3 AS mlt-builder
+USER root
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        python3-venv build-essential ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+COPY --from=rust-toolchain /usr/local/cargo /usr/local/cargo
+COPY --from=rust-toolchain /usr/local/rustup /usr/local/rustup
+ENV CARGO_HOME=/usr/local/cargo RUSTUP_HOME=/usr/local/rustup
+ENV PATH="/usr/local/cargo/bin:/opt/build-venv/bin:${PATH}"
+RUN python3 -m venv /opt/build-venv
+COPY build_mlt.py /build/build_mlt.py
+RUN python /build/build_mlt.py --work-dir /build/source --wheel-dir /wheels
+COPY build_mlt_cli.py /build/build_mlt_cli.py
+COPY rust /build/rust
+RUN python /build/build_mlt_cli.py --source-dir /build/source/maplibre_tiles-0.4.1 --output-dir /mlt-bin
+
 FROM ghcr.io/osgeo/gdal:ubuntu-small-3.13.3
 
 ARG PMTILES_VERSION=1.31.2
@@ -33,11 +51,17 @@ RUN ARCH="$(uname -m)" && \
     rm -f /tmp/pmtiles.tar.gz
 
 WORKDIR /app
+COPY --from=mlt-builder /mlt-bin /opt/mlt-bin
+ENV MLT_RUST_CLI=/opt/mlt-bin/mlt-experiment
 
 COPY requirements.lock .
 
-# Important: fail instead of silently compiling packages from source.
-RUN pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements.lock
+# Install the source-verified binding before resolving runtime dependencies.
+# Its 0.4.1 pin is then satisfied without requiring an upstream platform wheel.
+COPY --from=mlt-builder /wheels /tmp/mlt-wheels
+RUN pip install --no-cache-dir --no-deps /tmp/mlt-wheels/*.whl \
+    && pip install --no-cache-dir --only-binary=:all: --require-hashes -r requirements.lock \
+    && rm -rf /tmp/mlt-wheels
 
 COPY config.yaml .
 COPY src/ src/

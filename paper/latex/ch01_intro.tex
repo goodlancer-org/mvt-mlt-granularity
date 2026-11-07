@@ -1,0 +1,159 @@
+% ============================================================
+% Introduction — draft v3
+% All citation keys resolve against references.bib (v. 2026-10-16d).
+% Requires: natbib, enumitem.
+%
+% OPEN ITEMS FOR THIS SECTION (each is also marked TODO at its place):
+%  [I1] Appendix app:traffic (production tile sizes) does not exist yet. Write it from
+%       real-world-map-traffic.md: method, limits, and the tile-size table only
+%       (no page shares, no Aviasales MLT estimate).
+%  [I2] Yandex median tile size (3.8 KB) may mix raster PNG and vector tiles; recompute
+%       the median for vector tiles only and update the range "0.1 and 3.8 KB".
+%  Extended experiment: content-normalized results and address totals are generated
+%  from the five-variant Rust cohort; historical three-variant counts do not apply.
+%  [I5] Section labels (sec:results-granularity, sec:results-density,
+%       sec:results-streams, sec:results-bpv, sec:results, sec:discussion,
+%       sec:threats) must exist in the later sections.
+%  [I6] DONE: novelty claim narrowed after literature/technical review; prior work observes
+%       larger gains for naturally large tiles but does not run a controlled spatial-granularity sweep.
+%  [I7] Re-check OSM node count and Overture figure against their sources on the
+%       submission date (both cited with access dates).
+%  [I8] 2026-10-17: motivation added (display format, motivating settings, three
+%       observations). New keys space_apps, nasa_mars_trek_wmts in references.bib.
+%       Update the abstract's first sentence to match (see suggestion in chat).
+%       The motivation is closed in Discussion ("Back to the motivating settings")
+%       and in the Conclusion; keep the three in sync if the wording changes.
+%  [I9] Consider an Acknowledgments/competing-interests line on the commercial
+%       fleet-management system (inspiration only; no data or code shared).
+% ============================================================
+
+\section{Introduction}
+\label{sec:introduction}
+
+Interactive maps are drawn on the client from tiles. The map is cut into a pyramid of
+zoom levels and, at every level, into a regular grid; each tile is encoded, stored and
+transferred independently, and the client requests the tiles that cover its current view
+and styles and renders their content itself \citep{osm_slippy_tiles, ogc2022tms}.
+Vector tiles are therefore a display format: they carry geometry and attributes already
+selected and generalized for drawing at one scale, not the source data from which they
+were derived. The compactness of this representation matters well beyond download time.
+It determines the storage cost of map archives that cover the whole planet,
+the feasibility of offline maps on mobile devices and in low-connectivity settings,
+and the volume of data that clients must transfer and decode.
+These pressures grow with the underlying data. OpenStreetMap passed ten billion
+nodes in August 2025 \citep{osm_wiki_stats}, and as early as 2024 the Overture Maps
+release combined 2.35 billion building footprints from OpenStreetMap, Esri Community
+Maps and machine-learning extractions by Microsoft and Google \citep{overture2024alpha}.
+
+This study grew out of practical work with maps of this kind. In a commercial
+fleet-management system for ground robots that operate in remote areas with little or no
+connectivity, the on-site server, a computer of the Raspberry Pi class, also serves maps
+to the operator. The operator views the area with custom layers that depend on the
+robot's task, such as agricultural work, clearing vegetation under power lines or snow
+removal. A similar need arises in a student project for the NASA International Space
+Apps Challenge \citep{space_apps} on the visualization of planetary surfaces, which NASA
+itself distributes as web map tiles \citep{nasa_mars_trek_wmts}. Both settings display
+custom thematic layers, which are often sparse, from stored tile archives, consider MLT as
+the encoding, and are constrained by storage, link capacity or computing power. Neither
+system uses the results reported here, and no data from them enter the experiment. They
+raised the question that this paper studies in isolation: how far the tiling scheme,
+rather than the encoding format, limits how compactly such maps can be stored and
+delivered.
+
+The dominant encoding for vector tiles has been the Mapbox Vector Tile (MVT) format
+\citep{mapbox_mvt_spec_2_1}, which stores each feature as a Protocol Buffers message
+that holds its geometry and its attributes; in this sense MVT is feature-oriented.
+MapLibre Tiles (MLT) is a recently proposed successor that reorganizes tile content
+into columns: geometry and each attribute are stored in separate streams and compressed
+with lightweight encodings such as dictionary, run-length and delta encoding and
+integer bit-packing \citep{tremmel2025mlt, maplibre_mlt_v1}.
+Column-oriented layouts with such encodings are well established in analytical
+databases and data lakes \citep{abadi2006compression, zeng2023columnar, kuschewski2023btrblocks},
+and spatial variants have been proposed for geospatial data lakes \citep{saeedan2022spatialparquet}.
+
+The efficiency of columnar encoding, however, depends on how much data each
+independently encoded unit contains. Every stream carries structural information, and
+lightweight encodings have more opportunity to exploit regularity when a stream contains
+more values. In columnar storage this dependence is well known and is controlled
+explicitly: Apache Parquet lets the writer choose the size of row groups and data pages,
+and its documentation notes that larger pages carry less header overhead and recommends
+large row groups \citep{parquet_configurations}.
+
+We use \emph{spatial tile granularity} in a specific sense: the geographic area and
+corresponding content grouped into one independently encoded tile at an approximately
+fixed logical level of detail. This is distinct from \emph{coordinate extent}, the
+integer coordinate grid used inside a tile; from \emph{encoded tile size}, measured in
+bytes; and from the rendered tile size in screen pixels. In a conventional pyramid the
+spatial granularity is imposed by the tile matrix rather than chosen by the encoding
+format. The MVT specification deliberately keeps bounds and projection outside the tile
+\citep{mapbox_mvt_spec_2_1}; the quadtree pyramid, in which each zoom level doubles the
+linear resolution, comes from tiling conventions shared by servers and renderers
+\citep{osm_slippy_tiles, ogc2022tms}. Generalization policies keep tiles small as well,
+since production tilers drop or simplify features to bound tile size.
+In a measurement of seven production web maps (Appendix~\ref{app:traffic}),
+the vector tiles we observed were typically only a few kilobytes on the wire,
+with per-product medians between 0.1 and 3.8~KB.
+% TODO [I1][I2]: write the appendix; vector-only median for Yandex.
+
+Seen from the display client, this fixed unit appears smaller than necessary. Three
+observations from the settings above led us to the present question. First, the rendered
+tile size is fixed: MapLibre GL JS draws vector tiles at 512 CSS pixels
+\citep{maplibre_gljs_vectorsource}, so at an integer zoom level a viewport of
+$2560\times1600$ CSS pixels, the one used in Appendix~\ref{app:traffic}, intersects 20 to
+30 tiles at once. The client thus already holds a block of several tiles for a single
+view. Second, typical map tasks, such as surveying an area to choose a site for
+equipment, span several screens and several zoom levels, so a session requests many more
+tiles than one view: in Appendix~\ref{app:traffic}, a session of two pans and one zoom
+step loaded between about 270 and 770 tiles in six of the seven products. These two
+observations suggest that a coarser encoding unit need not cost much additional transfer,
+although we do not measure that cost here (Section~\ref{sec:discussion}). Third, and most
+important, the density of map content varies widely between tiles, whereas at a given
+zoom level every tile covers the same area. Dense urban tiles are already large, while
+tiles of sparse thematic layers hold a handful of features and consist largely of
+per-tile structure. Because the unit is fixed by the tile matrix, an encoder cannot
+enlarge it where the content is sparse. In our own map applications we have worked around
+this limit with overzoom and by combining several tilesets with different maximum zoom
+levels; such workarounds reduce the number of tiles but do not change the unit of
+compression in a controlled way (Section~\ref{sec:bg-overzoom}).
+
+That larger blocks of data compress better is unsurprising in itself.
+Less obvious is how strongly a columnar tile format depends on spatial encoding-unit
+granularity compared with a feature-oriented one, and whether the effect survives
+general-purpose transport compression such as gzip \citep{rfc1951, rfc1952}. The
+original MLT evaluation reports compression up to three times better than MVT across
+tilesets and more than six times better for some large tiles
+\citep{tremmel2025mlt}. MapLibre's current planet-scale benchmarks make the association
+more explicit: naturally large tiles obtain larger MLT gains than median tiles
+\citep{maplibre_mlt_benchmarks}. Those results stratify existing tiles by observed
+encoded size; they do not manipulate the spatial boundary of the independently encoded
+unit while holding logical level of detail approximately fixed.
+
+Prior work has also varied vector-tile partitioning, zoom, pyramid depth and tile
+content, but these interventions either change level of detail together with spatial
+scale, optimize content within a fixed tile, or change pyramid organization rather than
+the compression-unit boundary \citep{li2018geotile, dufilie2014feathered,
+bahadori2026hifive, tippecanoe, planetiler_1574}. To our knowledge, no previous study has
+systematically varied the spatial granularity of independently encoded vector tiles
+under approximately matched-content, matched-LoD conditions and quantified the resulting
+raw and per-tile-gzip size of column-oriented MLT relative to feature-oriented MVT.
+
+
+In this paper we distinguish fixed-content aggregation from regeneration of larger
+tiles. Aggregated-4 and Aggregated-16 regroup the exact Standard feature multiset
+into larger encoding units; Dense-4 and Dense-16 regenerate from the same normalized
+sources at matched logical zoom. Both interventions are evaluated as MVT, MLT v1 and
+experimental MLT v2 using one pinned Rust implementation.
+
+We ask whether fixed-content aggregation reduces bytes, how regeneration changes
+that effect, whether it persists across MLT versions, and which stream-level and
+content-normalized measurements are consistent with the outcome. Our contributions
+are an exact typed-multiset aggregation procedure; a geographic block-matched,
+additive decomposition of byte changes; and a reproducible five-variant,
+three-format comparison on five heterogeneous datasets. Source-feature provenance
+supports counts of unique normalized records and repeated instances. The original
+Python-produced corpus is retained as historical reference.
+
+Section~\ref{sec:background} describes the formats and related work;
+Section~\ref{sec:method} defines the controls and measurements;
+Section~\ref{sec:results} presents the expanded results;
+Sections~\ref{sec:discussion} and~\ref{sec:threats} discuss their interpretation.

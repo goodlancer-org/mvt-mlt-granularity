@@ -1,0 +1,2201 @@
+{
+  "format": "MVT",
+  "variant": "standard",
+  "dpi": 450,
+  "regions_file": "I:\\GoodLancer\\Papers\\mlt-maps\\zenodo\\analysis\\map_regions.yaml",
+  "regions_sha256": "a5bde449cd9ceef765f707678fc1d11673b838f707047dda6be9d4acf914806c",
+  "datasets": [
+    {
+      "dataset": "natural_earth_vector",
+      "archive": "natural_earth_vector_standard_mvt.pmtiles",
+      "archive_sha256": "73a8a2102fddfc6ecad26e4790a376aa2c5192c0a7d693603c6d033cb948df64",
+      "region": "New York / New Jersey",
+      "panels": [
+        {
+          "z": 5,
+          "x": 9,
+          "y": 12,
+          "side_km": 1005.4313741981032,
+          "features": {
+            "boundaries": 2168,
+            "hydrography": 92,
+            "land_use": 334,
+            "places": 659,
+            "transportation": 4942
+          },
+          "image": "map_natural_earth_vector_z5",
+          "extents_normalized_to": 4096,
+          "tile_side_km": 1005.4313741981032,
+          "view_side_km": 771.7792024256138,
+          "view_bounds": [
+            -78.75,
+            34.048613801026896,
+            -69.99999999999999,
+            40.97989806962013
+          ],
+          "level_bounds": [
+            -97.0,
+            30.000138360580678,
+            -70.0,
+            47.0
+          ]
+        },
+        {
+          "z": 7,
+          "x": 37,
+          "y": 48,
+          "side_km": 240.1545905787801,
+          "features": {
+            "boundaries": 488,
+            "hydrography": 13,
+            "land_use": 89,
+            "places": 115,
+            "transportation": 2088
+          },
+          "image": "map_natural_earth_vector_z7",
+          "extents_normalized_to": 4096,
+          "tile_side_km": 240.1545905787801,
+          "view_side_km": 240.1545905787801,
+          "view_bounds": [
+            -75.9375,
+            38.8225909761771,
+            -73.125,
+            40.97989806962013
+          ],
+          "level_bounds": [
+            -96.99966430664062,
+            30.000138360580678,
+            -70.00007629394531,
+            46.99992422991224
+          ]
+        },
+        {
+          "z": 9,
+          "x": 150,
+          "y": 192,
+          "side_km": 59.327890544356926,
+          "features": {
+            "boundaries": 170,
+            "hydrography": 4,
+            "land_use": 35,
+            "places": 29,
+            "transportation": 712
+          },
+          "image": "map_natural_earth_vector_z9",
+          "extents_normalized_to": 4096,
+          "tile_side_km": 59.327890544356926,
+          "view_side_km": 59.327890544356926,
+          "view_bounds": [
+            -74.53125,
+            40.44694705960049,
+            -73.828125,
+            40.97989806962013
+          ],
+          "level_bounds": [
+            -97.0,
+            30.0,
+            -70.00007629394531,
+            47.0
+          ]
+        }
+      ],
+      "color_key": [
+        {
+          "layer": "boundaries",
+          "category": "Admin-0 country",
+          "fill": null,
+          "outline": "#222222",
+          "pattern": "line:0.8",
+          "source": "convention",
+          "features": 105
+        },
+        {
+          "layer": "boundaries",
+          "category": "Admin-0 map subunit",
+          "fill": null,
+          "outline": "#222222",
+          "pattern": "line:0.8",
+          "source": "convention",
+          "features": 3
+        },
+        {
+          "layer": "boundaries",
+          "category": "Admin-0 map unit",
+          "fill": null,
+          "outline": "#222222",
+          "pattern": "line:0.8",
+          "source": "convention",
+          "features": 3
+        },
+        {
+          "layer": "boundaries",
+          "category": "Admin-0 scale ranks",
+          "fill": null,
+          "outline": "#222222",
+          "pattern": "line:0.8",
+          "source": "convention",
+          "features": 84
+        },
+        {
+          "layer": "boundaries",
+          "category": "Admin-0 sovereignty",
+          "fill": null,
+          "outline": "#222222",
+          "pattern": "line:0.8",
+          "source": "convention",
+          "features": 3
+        },
+        {
+          "layer": "boundaries",
+          "category": "Admin-1 boundary",
+          "fill": null,
+          "outline": "#8e5ea2",
+          "pattern": "line:0.6",
+          "source": "convention",
+          "features": 44
+        },
+        {
+          "layer": "boundaries",
+          "category": "Admin-1 boundary indicator",
+          "fill": null,
+          "outline": "#8e5ea2",
+          "pattern": "line:0.6",
+          "source": "convention",
+          "features": 36
+        },
+        {
+          "layer": "boundaries",
+          "category": "Admin-1 states provinces",
+          "fill": null,
+          "outline": "#8e5ea2",
+          "pattern": "line:0.6",
+          "source": "convention",
+          "features": 19
+        },
+        {
+          "layer": "boundaries",
+          "category": "Admin-1 states provinces lakes",
+          "fill": null,
+          "outline": "#8e5ea2",
+          "pattern": "line:0.6",
+          "source": "convention",
+          "features": 19
+        },
+        {
+          "layer": "boundaries",
+          "category": "Admin-1 states provinces minor islands",
+          "fill": null,
+          "outline": "#8e5ea2",
+          "pattern": "line:0.6",
+          "source": "convention",
+          "features": 71
+        },
+        {
+          "layer": "boundaries",
+          "category": "Admin-1 states provinces scale rank",
+          "fill": null,
+          "outline": "#8e5ea2",
+          "pattern": "line:0.6",
+          "source": "convention",
+          "features": 63
+        },
+        {
+          "layer": "boundaries",
+          "category": "Admin-1 statistical boundary",
+          "fill": null,
+          "outline": "#8e5ea2",
+          "pattern": "line:0.6",
+          "source": "convention",
+          "features": 4
+        },
+        {
+          "layer": "boundaries",
+          "category": "Admin-1 statistical meta bounds",
+          "fill": null,
+          "outline": "#8e5ea2",
+          "pattern": "line:0.6",
+          "source": "convention",
+          "features": 8
+        },
+        {
+          "layer": "boundaries",
+          "category": "Admin-2 boundary",
+          "fill": null,
+          "outline": "#b5b5b5",
+          "pattern": "line:0.3",
+          "source": "convention",
+          "features": 581
+        },
+        {
+          "layer": "boundaries",
+          "category": "Admin-2 boundary indicator",
+          "fill": null,
+          "outline": "#b5b5b5",
+          "pattern": "line:0.3",
+          "source": "convention",
+          "features": 121
+        },
+        {
+          "layer": "boundaries",
+          "category": "Admin-2 scale rank",
+          "fill": null,
+          "outline": "#b5b5b5",
+          "pattern": "line:0.3",
+          "source": "convention",
+          "features": 1662
+        },
+        {
+          "layer": "hydrography",
+          "category": "Lake",
+          "fill": "#8fc1e6",
+          "outline": "#8fc1e6",
+          "pattern": null,
+          "source": "convention",
+          "features": 5
+        },
+        {
+          "layer": "hydrography",
+          "category": "Lake Centerline",
+          "fill": null,
+          "outline": "#5b9bd5",
+          "pattern": "line:.5",
+          "source": "convention",
+          "features": 8
+        },
+        {
+          "layer": "hydrography",
+          "category": "Ocean",
+          "fill": "#b9d7ee",
+          "outline": "#b9d7ee",
+          "pattern": null,
+          "source": "convention",
+          "features": 6
+        },
+        {
+          "layer": "hydrography",
+          "category": "Reservoir",
+          "fill": "#8fc1e6",
+          "outline": "#8fc1e6",
+          "pattern": null,
+          "source": "convention",
+          "features": 3
+        },
+        {
+          "layer": "hydrography",
+          "category": "River",
+          "fill": null,
+          "outline": "#5b9bd5",
+          "pattern": "line:.7",
+          "source": "convention",
+          "features": 87
+        },
+        {
+          "layer": "land_use",
+          "category": "Coastline",
+          "fill": null,
+          "outline": "#4f7fa6",
+          "pattern": "line:.7",
+          "source": "convention",
+          "features": 38
+        },
+        {
+          "layer": "land_use",
+          "category": "Land",
+          "fill": "#f3efe4",
+          "outline": "#f3efe4",
+          "pattern": null,
+          "source": "convention",
+          "features": 82
+        },
+        {
+          "layer": "land_use",
+          "category": "Minor coastline",
+          "fill": null,
+          "outline": "#4f7fa6",
+          "pattern": "line:.4",
+          "source": "convention",
+          "features": 8
+        },
+        {
+          "layer": "land_use",
+          "category": "Minor island",
+          "fill": null,
+          "outline": "#9a9a9a",
+          "pattern": "line:.3",
+          "source": "",
+          "features": 16
+        },
+        {
+          "layer": "land_use",
+          "category": "National Park Service",
+          "fill": "#cfe5c3",
+          "outline": "#9cc58a",
+          "pattern": null,
+          "source": "convention",
+          "features": 121
+        },
+        {
+          "layer": "land_use",
+          "category": "None",
+          "fill": null,
+          "outline": "#9a9a9a",
+          "pattern": "line:.3",
+          "source": "",
+          "features": 68
+        },
+        {
+          "layer": "land_use",
+          "category": "Urban area",
+          "fill": "#e2cfb4",
+          "outline": "#e2cfb4",
+          "pattern": null,
+          "source": "convention",
+          "features": 125
+        },
+        {
+          "layer": "places",
+          "category": "Admin-0 capital",
+          "fill": null,
+          "outline": "#000000",
+          "pattern": "pt",
+          "source": "convention",
+          "features": 2
+        },
+        {
+          "layer": "places",
+          "category": "Admin-0 scale ranks",
+          "fill": null,
+          "outline": "#222222",
+          "pattern": "line:0.8",
+          "source": "convention",
+          "features": 41
+        },
+        {
+          "layer": "places",
+          "category": "Admin-1 capital",
+          "fill": null,
+          "outline": "#444444",
+          "pattern": "pt",
+          "source": "convention",
+          "features": 16
+        },
+        {
+          "layer": "places",
+          "category": "Admin-1 scale rank",
+          "fill": null,
+          "outline": "#8e5ea2",
+          "pattern": "line:0.6",
+          "source": "convention",
+          "features": 65
+        },
+        {
+          "layer": "places",
+          "category": "Admin-2 scale rank",
+          "fill": null,
+          "outline": "#b5b5b5",
+          "pattern": "line:0.3",
+          "source": "convention",
+          "features": 586
+        },
+        {
+          "layer": "places",
+          "category": "Populated place",
+          "fill": null,
+          "outline": "#7a1f1f",
+          "pattern": "pt",
+          "source": "convention",
+          "features": 90
+        },
+        {
+          "layer": "places",
+          "category": "Timezone",
+          "fill": null,
+          "outline": "#d8d8d8",
+          "pattern": "line:.3",
+          "source": "convention",
+          "features": 3
+        },
+        {
+          "layer": "transportation",
+          "category": "Airport",
+          "fill": null,
+          "outline": "#2e7d32",
+          "pattern": "pt",
+          "source": "convention",
+          "features": 17
+        },
+        {
+          "layer": "transportation",
+          "category": "Beltway",
+          "fill": null,
+          "outline": "#d94f30",
+          "pattern": "line:1.1",
+          "source": "convention",
+          "features": 34
+        },
+        {
+          "layer": "transportation",
+          "category": "Bypass",
+          "fill": null,
+          "outline": "#f0a030",
+          "pattern": "line:.9",
+          "source": "convention",
+          "features": 1
+        },
+        {
+          "layer": "transportation",
+          "category": "Ferry",
+          "fill": null,
+          "outline": "#7e57c2",
+          "pattern": "line:.6",
+          "source": "convention",
+          "features": 11
+        },
+        {
+          "layer": "transportation",
+          "category": "Ferry Route",
+          "fill": null,
+          "outline": "#7e57c2",
+          "pattern": "line:.6",
+          "source": "convention",
+          "features": 5
+        },
+        {
+          "layer": "transportation",
+          "category": "Freeway",
+          "fill": null,
+          "outline": "#d94f30",
+          "pattern": "line:1.1",
+          "source": "convention",
+          "features": 698
+        },
+        {
+          "layer": "transportation",
+          "category": "Major Highway",
+          "fill": null,
+          "outline": "#d94f30",
+          "pattern": "line:1.1",
+          "source": "convention",
+          "features": 447
+        },
+        {
+          "layer": "transportation",
+          "category": "Other Paved",
+          "fill": null,
+          "outline": "#b9ad96",
+          "pattern": "line:.4",
+          "source": "convention",
+          "features": 3418
+        },
+        {
+          "layer": "transportation",
+          "category": "Port",
+          "fill": null,
+          "outline": "#1f4e79",
+          "pattern": "pt",
+          "source": "convention",
+          "features": 27
+        },
+        {
+          "layer": "transportation",
+          "category": "Primary",
+          "fill": null,
+          "outline": "#f0a030",
+          "pattern": "line:.9",
+          "source": "convention",
+          "features": 716
+        },
+        {
+          "layer": "transportation",
+          "category": "Railroad",
+          "fill": null,
+          "outline": "#555555",
+          "pattern": "line:.6",
+          "source": "convention",
+          "features": 138
+        },
+        {
+          "layer": "transportation",
+          "category": "Road",
+          "fill": null,
+          "outline": "#b9ad96",
+          "pattern": "line:.5",
+          "source": "convention",
+          "features": 8
+        },
+        {
+          "layer": "transportation",
+          "category": "Secondary",
+          "fill": null,
+          "outline": "#f4d03f",
+          "pattern": "line:.7",
+          "source": "convention",
+          "features": 1350
+        },
+        {
+          "layer": "transportation",
+          "category": "Secondary Highway",
+          "fill": null,
+          "outline": "#f4d03f",
+          "pattern": "line:.7",
+          "source": "convention",
+          "features": 694
+        },
+        {
+          "layer": "transportation",
+          "category": "Tollway",
+          "fill": null,
+          "outline": "#d94f30",
+          "pattern": "line:1.1",
+          "source": "convention",
+          "features": 178
+        }
+      ]
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "archive": "pdok_netherlands_infrostructure_standard_mvt.pmtiles",
+      "archive_sha256": "a6d4540be2b773ca04b47ed3acb4001bdcd9f75562ea2fdf1590e4f25e253d94",
+      "region": "Nijmegen, Netherlands",
+      "panels": [
+        {
+          "z": 12,
+          "x": 2114,
+          "y": 1355,
+          "side_km": 6.042022713099798,
+          "features": {
+            "buildings": 57245,
+            "functioneelgebied": 420,
+            "hydrography": 3319,
+            "infrastructure": 14618,
+            "land_use": 43443,
+            "ongeclassificeerdobject": 60,
+            "openbareruimtelabel": 3086,
+            "overigescheiding": 4,
+            "transportation": 50198,
+            "weginrichtingselement": 25
+          },
+          "image": "map_pdok_netherlands_infrostructure_z12",
+          "extents_normalized_to": 4096,
+          "tile_side_km": 6.042022713099798,
+          "view_side_km": 6.042022713099798,
+          "view_bounds": [
+            5.80078125,
+            51.83577752045248,
+            5.888671875,
+            51.89005393521691
+          ],
+          "level_bounds": [
+            5.412311553955078,
+            51.80553668687471,
+            6.023597717285156,
+            51.90868309268607
+          ]
+        },
+        {
+          "z": 13,
+          "x": 4229,
+          "y": 2711,
+          "side_km": 3.021922644785986,
+          "features": {
+            "buildings": 24259,
+            "functioneelgebied": 197,
+            "hydrography": 796,
+            "infrastructure": 7804,
+            "land_use": 19919,
+            "ongeclassificeerdobject": 31,
+            "openbareruimtelabel": 1580,
+            "overigescheiding": 4,
+            "transportation": 27638,
+            "weginrichtingselement": 22
+          },
+          "image": "map_pdok_netherlands_infrostructure_z13",
+          "extents_normalized_to": 4096,
+          "tile_side_km": 3.021922644785986,
+          "view_side_km": 3.021922644785986,
+          "view_bounds": [
+            5.8447265625,
+            51.83577752045248,
+            5.888671875,
+            51.862923913602444
+          ],
+          "level_bounds": [
+            5.4123008251190186,
+            51.80553668687471,
+            6.023597717285156,
+            51.908689
+          ]
+        },
+        {
+          "z": 14,
+          "x": 8458,
+          "y": 5423,
+          "side_km": 1.5111891641914472,
+          "features": {
+            "buildings": 12475,
+            "functioneelgebied": 81,
+            "hydrography": 31,
+            "infrastructure": 4597,
+            "land_use": 8184,
+            "ongeclassificeerdobject": 6,
+            "openbareruimtelabel": 765,
+            "overigescheiding": 4,
+            "transportation": 14343
+          },
+          "image": "map_pdok_netherlands_infrostructure_z14",
+          "extents_normalized_to": 4096,
+          "tile_side_km": 1.5111891641914472,
+          "view_side_km": 1.5111891641914472,
+          "view_bounds": [
+            5.8447265625,
+            51.83577752045248,
+            5.86669921875,
+            51.84935276370605
+          ],
+          "level_bounds": [
+            5.4123008251190186,
+            51.8055334,
+            6.0236012,
+            51.908689
+          ]
+        }
+      ],
+      "color_key": [
+        {
+          "layer": "buildings",
+          "category": "None",
+          "fill": "#cc0000",
+          "outline": "#D73939",
+          "pattern": null,
+          "source": "sld-0044",
+          "features": 90375
+        },
+        {
+          "layer": "buildings",
+          "category": "bassin",
+          "fill": "#BEE8FF",
+          "outline": "#CC0000",
+          "pattern": null,
+          "source": "sld-0043",
+          "features": 8
+        },
+        {
+          "layer": "buildings",
+          "category": "lage trafo",
+          "fill": "#CC0000",
+          "outline": "#CC0000",
+          "pattern": null,
+          "source": "sld-0043",
+          "features": 186
+        },
+        {
+          "layer": "buildings",
+          "category": "niet-bgt",
+          "fill": "#cc0000",
+          "outline": "#D73939",
+          "pattern": null,
+          "source": "sld-0044",
+          "features": 2908
+        },
+        {
+          "layer": "buildings",
+          "category": "open loods",
+          "fill": "#CC0000",
+          "outline": "#CC0000",
+          "pattern": null,
+          "source": "sld-0043",
+          "features": 28
+        },
+        {
+          "layer": "buildings",
+          "category": "opslagtank",
+          "fill": "#CC0000",
+          "outline": "#CC0000",
+          "pattern": null,
+          "source": "sld-0043",
+          "features": 263
+        },
+        {
+          "layer": "buildings",
+          "category": "overkapping",
+          "fill": "#CC0000",
+          "outline": "#CC0000",
+          "pattern": null,
+          "source": "sld-0043",
+          "features": 193
+        },
+        {
+          "layer": "buildings",
+          "category": "transitie",
+          "fill": "#cc0000",
+          "outline": "#D73939",
+          "pattern": null,
+          "source": "sld-0044",
+          "features": 16
+        },
+        {
+          "layer": "buildings",
+          "category": "windturbine",
+          "fill": "#990000",
+          "outline": "#990000",
+          "pattern": null,
+          "source": "sld-0043",
+          "features": 2
+        },
+        {
+          "layer": "functioneelgebied",
+          "category": "kering",
+          "fill": null,
+          "outline": "#002750",
+          "pattern": "line",
+          "source": "sld-0060",
+          "features": 302
+        },
+        {
+          "layer": "functioneelgebied",
+          "category": "niet-bgt",
+          "fill": null,
+          "outline": "#9a9a9a",
+          "pattern": "line",
+          "source": "",
+          "features": 396
+        },
+        {
+          "layer": "hydrography",
+          "category": "greppel, droge sloot",
+          "fill": null,
+          "outline": "#73e9ff",
+          "pattern": "line",
+          "source": "sld-0030",
+          "features": 275
+        },
+        {
+          "layer": "hydrography",
+          "category": "oever, slootkant",
+          "fill": "#C9EB70",
+          "outline": "#C9EB70",
+          "pattern": null,
+          "source": "sld-0031",
+          "features": 1801
+        },
+        {
+          "layer": "hydrography",
+          "category": "slik",
+          "fill": "#73e9ff",
+          "outline": "#73e9ff",
+          "pattern": null,
+          "source": "sld-0031",
+          "features": 2
+        },
+        {
+          "layer": "hydrography",
+          "category": "transitie",
+          "fill": "#f2f2f2",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "sld-0030",
+          "features": 1
+        },
+        {
+          "layer": "hydrography",
+          "category": "waterloop",
+          "fill": "#73e9ff",
+          "outline": "#73e9ff",
+          "pattern": null,
+          "source": "sld-0030",
+          "features": 1554
+        },
+        {
+          "layer": "hydrography",
+          "category": "watervlakte",
+          "fill": "#bee8ff",
+          "outline": "#bee8ff",
+          "pattern": null,
+          "source": "sld-0030",
+          "features": 513
+        },
+        {
+          "layer": "infrastructure",
+          "category": "CAI-kast",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 6
+        },
+        {
+          "layer": "infrastructure",
+          "category": "None",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 25609
+        },
+        {
+          "layer": "infrastructure",
+          "category": "abri",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 2
+        },
+        {
+          "layer": "infrastructure",
+          "category": "afsluitpaal",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 58
+        },
+        {
+          "layer": "infrastructure",
+          "category": "afvalbak",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 18
+        },
+        {
+          "layer": "infrastructure",
+          "category": "bank",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 17
+        },
+        {
+          "layer": "infrastructure",
+          "category": "brandkraan / -put",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 26
+        },
+        {
+          "layer": "infrastructure",
+          "category": "container",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 19
+        },
+        {
+          "layer": "infrastructure",
+          "category": "draadraster",
+          "fill": null,
+          "outline": "#000000",
+          "pattern": "line",
+          "source": "sld-0045",
+          "features": 24
+        },
+        {
+          "layer": "infrastructure",
+          "category": "drukknoppaal",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 5
+        },
+        {
+          "layer": "infrastructure",
+          "category": "duiker",
+          "fill": null,
+          "outline": "#CC0000",
+          "pattern": "line",
+          "source": "sld-0041",
+          "features": 114
+        },
+        {
+          "layer": "infrastructure",
+          "category": "elektrakast",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 11
+        },
+        {
+          "layer": "infrastructure",
+          "category": "faunaraster",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 4
+        },
+        {
+          "layer": "infrastructure",
+          "category": "fietsenrek",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 7
+        },
+        {
+          "layer": "infrastructure",
+          "category": "haltepaal",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 1
+        },
+        {
+          "layer": "infrastructure",
+          "category": "informatiebord",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 2
+        },
+        {
+          "layer": "infrastructure",
+          "category": "inspectie- / rioolput",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 110
+        },
+        {
+          "layer": "infrastructure",
+          "category": "kolk",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 400
+        },
+        {
+          "layer": "infrastructure",
+          "category": "kunstobject",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 4
+        },
+        {
+          "layer": "infrastructure",
+          "category": "lichtmast",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 272
+        },
+        {
+          "layer": "infrastructure",
+          "category": "lichtpunt",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 5
+        },
+        {
+          "layer": "infrastructure",
+          "category": "openbare verlichtingkast",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 2
+        },
+        {
+          "layer": "infrastructure",
+          "category": "portaal",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 11
+        },
+        {
+          "layer": "infrastructure",
+          "category": "rioolkast",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 6
+        },
+        {
+          "layer": "infrastructure",
+          "category": "sirene",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 1
+        },
+        {
+          "layer": "infrastructure",
+          "category": "speelvoorziening",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 54
+        },
+        {
+          "layer": "infrastructure",
+          "category": "telpaal",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 1
+        },
+        {
+          "layer": "infrastructure",
+          "category": "verkeersbord",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 84
+        },
+        {
+          "layer": "infrastructure",
+          "category": "verkeersbordpaal",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 102
+        },
+        {
+          "layer": "infrastructure",
+          "category": "verkeersregelinstallatiekast",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 2
+        },
+        {
+          "layer": "infrastructure",
+          "category": "verkeersregelinstallatiepaal",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 15
+        },
+        {
+          "layer": "infrastructure",
+          "category": "verklikker transportleiding",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 5
+        },
+        {
+          "layer": "infrastructure",
+          "category": "waarschuwingshek",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 2
+        },
+        {
+          "layer": "infrastructure",
+          "category": "waterleidingput",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 6
+        },
+        {
+          "layer": "infrastructure",
+          "category": "wegwijzer",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 14
+        },
+        {
+          "layer": "land_use",
+          "category": "None",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 1528
+        },
+        {
+          "layer": "land_use",
+          "category": "boomteelt",
+          "fill": null,
+          "outline": "#ffffcc",
+          "pattern": ".....",
+          "source": "sld-0010",
+          "features": 365
+        },
+        {
+          "layer": "land_use",
+          "category": "bouwland",
+          "fill": "#ffffcc",
+          "outline": "#ffffcc",
+          "pattern": null,
+          "source": "sld-0010",
+          "features": 119
+        },
+        {
+          "layer": "land_use",
+          "category": "erf",
+          "fill": "#ffffff",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "sld-0011",
+          "features": 13363
+        },
+        {
+          "layer": "land_use",
+          "category": "fruitteelt",
+          "fill": null,
+          "outline": "#ffffcc",
+          "pattern": ".....",
+          "source": "sld-0010",
+          "features": 10
+        },
+        {
+          "layer": "land_use",
+          "category": "gemengd bos",
+          "fill": null,
+          "outline": "#8ca800",
+          "pattern": "ooo",
+          "source": "sld-0010",
+          "features": 35
+        },
+        {
+          "layer": "land_use",
+          "category": "gesloten verharding",
+          "fill": "#ffffff",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "sld-0011",
+          "features": 876
+        },
+        {
+          "layer": "land_use",
+          "category": "grasland agrarisch",
+          "fill": "#c9eb70",
+          "outline": "#c9eb70",
+          "pattern": null,
+          "source": "sld-0010",
+          "features": 1041
+        },
+        {
+          "layer": "land_use",
+          "category": "grasland overig",
+          "fill": "#c9eb70",
+          "outline": "#c9eb70",
+          "pattern": null,
+          "source": "sld-0010",
+          "features": 3237
+        },
+        {
+          "layer": "land_use",
+          "category": "groenvoorziening",
+          "fill": "#8ca800",
+          "outline": "#8ca800",
+          "pattern": null,
+          "source": "sld-0010",
+          "features": 41273
+        },
+        {
+          "layer": "land_use",
+          "category": "half verhard",
+          "fill": "#ffffff",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "sld-0011",
+          "features": 282
+        },
+        {
+          "layer": "land_use",
+          "category": "houtwal",
+          "fill": "#8ca800",
+          "outline": "#8ca800",
+          "pattern": null,
+          "source": "sld-0010",
+          "features": 91
+        },
+        {
+          "layer": "land_use",
+          "category": "kwelder",
+          "fill": "#c9eb70",
+          "outline": "#c9eb70",
+          "pattern": null,
+          "source": "sld-0010",
+          "features": 1
+        },
+        {
+          "layer": "land_use",
+          "category": "loofbos",
+          "fill": null,
+          "outline": "#8ca800",
+          "pattern": "ooo",
+          "source": "sld-0010",
+          "features": 121
+        },
+        {
+          "layer": "land_use",
+          "category": "moeras",
+          "fill": null,
+          "outline": "#c9eb70",
+          "pattern": "---",
+          "source": "sld-0010",
+          "features": 4
+        },
+        {
+          "layer": "land_use",
+          "category": "naaldbos",
+          "fill": null,
+          "outline": "#8ca800",
+          "pattern": "ooo",
+          "source": "sld-0010",
+          "features": 1
+        },
+        {
+          "layer": "land_use",
+          "category": "onverhard",
+          "fill": "#f3f5f6",
+          "outline": "#f3f5f6",
+          "pattern": null,
+          "source": "sld-0011",
+          "features": 4771
+        },
+        {
+          "layer": "land_use",
+          "category": "open verharding",
+          "fill": "#ffffff",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "sld-0011",
+          "features": 2961
+        },
+        {
+          "layer": "land_use",
+          "category": "rietland",
+          "fill": null,
+          "outline": "#c9eb70",
+          "pattern": "|||",
+          "source": "sld-0010",
+          "features": 4
+        },
+        {
+          "layer": "land_use",
+          "category": "struiken",
+          "fill": null,
+          "outline": "#8ca800",
+          "pattern": "xxx",
+          "source": "sld-0010",
+          "features": 163
+        },
+        {
+          "layer": "land_use",
+          "category": "transitie",
+          "fill": "#f2f2f2",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "sld-0010",
+          "features": 465
+        },
+        {
+          "layer": "land_use",
+          "category": "zand",
+          "fill": "#ffff99",
+          "outline": "#ffff99",
+          "pattern": null,
+          "source": "sld-0011",
+          "features": 835
+        },
+        {
+          "layer": "ongeclassificeerdobject",
+          "category": "None",
+          "fill": "#ffffff",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "sld-0900",
+          "features": 97
+        },
+        {
+          "layer": "openbareruimtelabel",
+          "category": "Administratief gebied",
+          "fill": null,
+          "outline": "#000000",
+          "pattern": "pt",
+          "source": "sld-0071",
+          "features": 7
+        },
+        {
+          "layer": "openbareruimtelabel",
+          "category": "Kunstwerk",
+          "fill": null,
+          "outline": "#000000",
+          "pattern": "pt",
+          "source": "sld-0071",
+          "features": 46
+        },
+        {
+          "layer": "openbareruimtelabel",
+          "category": "Landschappelijk gebied",
+          "fill": null,
+          "outline": "#425000",
+          "pattern": "pt",
+          "source": "sld-0071",
+          "features": 8
+        },
+        {
+          "layer": "openbareruimtelabel",
+          "category": "Terrein",
+          "fill": null,
+          "outline": "#000000",
+          "pattern": "pt",
+          "source": "sld-0071",
+          "features": 86
+        },
+        {
+          "layer": "openbareruimtelabel",
+          "category": "Water",
+          "fill": null,
+          "outline": "#002750",
+          "pattern": "pt",
+          "source": "sld-0071",
+          "features": 83
+        },
+        {
+          "layer": "openbareruimtelabel",
+          "category": "Weg",
+          "fill": null,
+          "outline": "#000000",
+          "pattern": "pt",
+          "source": "sld-0071",
+          "features": 5201
+        },
+        {
+          "layer": "overigescheiding",
+          "category": "hek",
+          "fill": null,
+          "outline": "#000000",
+          "pattern": "line",
+          "source": "sld-0080",
+          "features": 12
+        },
+        {
+          "layer": "transportation",
+          "category": "None",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 713
+        },
+        {
+          "layer": "transportation",
+          "category": "OV-baan",
+          "fill": "#CCCCCC",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "sld-0021",
+          "features": 674
+        },
+        {
+          "layer": "transportation",
+          "category": "berm",
+          "fill": "#ff9999",
+          "outline": "#ff9999",
+          "pattern": null,
+          "source": "sld-0022",
+          "features": 1560
+        },
+        {
+          "layer": "transportation",
+          "category": "fietspad",
+          "fill": "#ffffff",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "sld-0021",
+          "features": 3795
+        },
+        {
+          "layer": "transportation",
+          "category": "inrit",
+          "fill": "#ffffff",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "sld-0021",
+          "features": 2626
+        },
+        {
+          "layer": "transportation",
+          "category": "overweg",
+          "fill": "#c0c0c0",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "sld-0021",
+          "features": 91
+        },
+        {
+          "layer": "transportation",
+          "category": "parkeervlak",
+          "fill": "#ffffff",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "sld-0021",
+          "features": 12652
+        },
+        {
+          "layer": "transportation",
+          "category": "rijbaan autosnelweg",
+          "fill": "#996089",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "sld-0021",
+          "features": 1
+        },
+        {
+          "layer": "transportation",
+          "category": "rijbaan autoweg",
+          "fill": "#e60000",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "sld-0021",
+          "features": 62
+        },
+        {
+          "layer": "transportation",
+          "category": "rijbaan lokale weg",
+          "fill": "#ffffff",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "sld-0021",
+          "features": 18247
+        },
+        {
+          "layer": "transportation",
+          "category": "rijbaan regionale weg",
+          "fill": "#ffaa00",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "sld-0021",
+          "features": 621
+        },
+        {
+          "layer": "transportation",
+          "category": "ruiterpad",
+          "fill": "#ffffff",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "sld-0021",
+          "features": 40
+        },
+        {
+          "layer": "transportation",
+          "category": "spoorbaan",
+          "fill": "#c0c0c0",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "sld-0021",
+          "features": 176
+        },
+        {
+          "layer": "transportation",
+          "category": "transitie",
+          "fill": "#f2f2f2",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "sld-0021",
+          "features": 9640
+        },
+        {
+          "layer": "transportation",
+          "category": "trein",
+          "fill": null,
+          "outline": "#535353",
+          "pattern": "line",
+          "source": "sld-0020",
+          "features": 1632
+        },
+        {
+          "layer": "transportation",
+          "category": "verkeerseiland",
+          "fill": "#ff9999",
+          "outline": "#ff9999",
+          "pattern": null,
+          "source": "sld-0022",
+          "features": 3292
+        },
+        {
+          "layer": "transportation",
+          "category": "voetgangersgebied",
+          "fill": "#ff9999",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "sld-0021",
+          "features": 573
+        },
+        {
+          "layer": "transportation",
+          "category": "voetpad",
+          "fill": "#ff9999",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "sld-0021",
+          "features": 33197
+        },
+        {
+          "layer": "transportation",
+          "category": "voetpad op trap",
+          "fill": "#ff9999",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "sld-0021",
+          "features": 2525
+        },
+        {
+          "layer": "transportation",
+          "category": "woonerf",
+          "fill": "#ffffff",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "sld-0021",
+          "features": 62
+        },
+        {
+          "layer": "weginrichtingselement",
+          "category": "balustrade",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 18
+        },
+        {
+          "layer": "weginrichtingselement",
+          "category": "geleideconstructie",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 3
+        },
+        {
+          "layer": "weginrichtingselement",
+          "category": "rooster",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 22
+        },
+        {
+          "layer": "weginrichtingselement",
+          "category": "wildrooster",
+          "fill": "#8a8a8a",
+          "outline": "#535353",
+          "pattern": null,
+          "source": "",
+          "features": 4
+        }
+      ]
+    },
+    {
+      "dataset": "usfws_luisiana_wetlands_geopackage",
+      "archive": "usfws_luisiana_wetlands_geopackage_standard_mvt.pmtiles",
+      "archive_sha256": "d46172181af144c9838d1d0d34eaec3c083cf4589a719decb87660d8e670e1b8",
+      "region": "coastal Louisiana",
+      "panels": [
+        {
+          "z": 10,
+          "x": 255,
+          "y": 424,
+          "side_km": 34.101588537017854,
+          "features": {
+            "hydrography": 26254
+          },
+          "image": "map_usfws_luisiana_wetlands_geopackage_z10",
+          "extents_normalized_to": 4096,
+          "tile_side_km": 34.101588537017854,
+          "view_side_km": 20.61852010005358,
+          "view_bounds": [
+            -90.21268844604492,
+            29.350010300484552,
+            -90.0,
+            29.535229562948455
+          ],
+          "level_bounds": [
+            -90.35,
+            29.350010300484552,
+            -89.95,
+            29.75
+          ]
+        },
+        {
+          "z": 12,
+          "x": 1023,
+          "y": 1697,
+          "side_km": 8.522187638030378,
+          "features": {
+            "hydrography": 6045
+          },
+          "image": "map_usfws_luisiana_wetlands_geopackage_z12",
+          "extents_normalized_to": 4096,
+          "tile_side_km": 8.522187638030378,
+          "view_side_km": 8.522187638030378,
+          "view_bounds": [
+            -90.087890625,
+            29.382175075145277,
+            -90.0,
+            29.45873118535533
+          ],
+          "level_bounds": [
+            -90.3499960899353,
+            29.35,
+            -89.9500036239624,
+            29.75
+          ]
+        },
+        {
+          "z": 14,
+          "x": 4092,
+          "y": 6789,
+          "side_km": 2.1303462145997503,
+          "features": {
+            "hydrography": 1388
+          },
+          "image": "map_usfws_luisiana_wetlands_geopackage_z14",
+          "extents_normalized_to": 4096,
+          "tile_side_km": 2.1303462145997503,
+          "view_side_km": 2.1303462145997503,
+          "view_bounds": [
+            -90.087890625,
+            29.420460341013133,
+            -90.06591796875,
+            29.439597566602895
+          ],
+          "level_bounds": [
+            -90.35,
+            29.3500009487823,
+            -89.95,
+            29.75
+          ]
+        }
+      ],
+      "color_key": [
+        {
+          "layer": "hydrography",
+          "category": "Estuarine and Marine Deepwater",
+          "fill": "#007c87",
+          "outline": "#6e6e6e",
+          "pattern": null,
+          "source": "NWI renderer",
+          "features": 17750
+        },
+        {
+          "layer": "hydrography",
+          "category": "Estuarine and Marine Wetland",
+          "fill": "#66c2a5",
+          "outline": "#6e6e6e",
+          "pattern": null,
+          "source": "NWI renderer",
+          "features": 15383
+        },
+        {
+          "layer": "hydrography",
+          "category": "Freshwater Emergent Wetland",
+          "fill": "#7fc319",
+          "outline": "#6e6e6e",
+          "pattern": null,
+          "source": "NWI renderer",
+          "features": 78
+        },
+        {
+          "layer": "hydrography",
+          "category": "Freshwater Forested/Shrub Wetland",
+          "fill": "#008737",
+          "outline": "#6e6e6e",
+          "pattern": null,
+          "source": "NWI renderer",
+          "features": 251
+        },
+        {
+          "layer": "hydrography",
+          "category": "Freshwater Pond",
+          "fill": "#678bc0",
+          "outline": "#6e6e6e",
+          "pattern": null,
+          "source": "NWI renderer",
+          "features": 34
+        },
+        {
+          "layer": "hydrography",
+          "category": "Lake",
+          "fill": "#12007c",
+          "outline": "#6e6e6e",
+          "pattern": null,
+          "source": "NWI renderer",
+          "features": 7
+        },
+        {
+          "layer": "hydrography",
+          "category": "None",
+          "fill": "#d9d9d9",
+          "outline": "#6e6e6e",
+          "pattern": null,
+          "source": "",
+          "features": 18
+        },
+        {
+          "layer": "hydrography",
+          "category": "Riverine",
+          "fill": "#008fbf",
+          "outline": "#6e6e6e",
+          "pattern": null,
+          "source": "NWI renderer",
+          "features": 166
+        }
+      ]
+    },
+    {
+      "dataset": "swisstopo_mountains_vector",
+      "archive": "swisstopo_mountains_vector_standard_mvt.pmtiles",
+      "archive_sha256": "1849a6c36db6aef03a6a585dbb9cd31a7b1f25046db54d419ef0d399e807fa32",
+      "region": "Saentis, Switzerland",
+      "panels": [
+        {
+          "z": 10,
+          "x": 538,
+          "y": 359,
+          "side_km": 26.610571337827434,
+          "features": {
+            "terrain": 206
+          },
+          "image": "map_swisstopo_mountains_vector_z10",
+          "extents_normalized_to": 4096,
+          "tile_side_km": 26.610571337827434,
+          "view_side_km": 25.516767527434293,
+          "view_bounds": [
+            9.155044555664062,
+            47.050007954894376,
+            9.4921875,
+            47.27922900257082
+          ],
+          "level_bounds": [
+            9.15,
+            47.050007954894376,
+            9.499998092651367,
+            47.3
+          ]
+        },
+        {
+          "z": 12,
+          "x": 2154,
+          "y": 1436,
+          "side_km": 6.641419872421437,
+          "features": {
+            "terrain": 62
+          },
+          "image": "map_swisstopo_mountains_vector_z12",
+          "extents_normalized_to": 4096,
+          "tile_side_km": 6.641419872421437,
+          "view_side_km": 6.641419872421437,
+          "view_bounds": [
+            9.31640625,
+            47.21956811231548,
+            9.404296875,
+            47.27922900257082
+          ],
+          "level_bounds": [
+            9.150002002716064,
+            47.05,
+            9.499998092651367,
+            47.3
+          ]
+        },
+        {
+          "z": 14,
+          "x": 8617,
+          "y": 5745,
+          "side_km": 1.6601211871588293,
+          "features": {
+            "terrain": 18
+          },
+          "image": "map_swisstopo_mountains_vector_z14",
+          "extents_normalized_to": 4096,
+          "tile_side_km": 1.6601211871588293,
+          "view_side_km": 1.6601211871588293,
+          "view_bounds": [
+            9.33837890625,
+            47.24940695788844,
+            9.3603515625,
+            47.264320080254784
+          ],
+          "level_bounds": [
+            9.150002002716064,
+            47.05000064469659,
+            9.499998092651367,
+            47.3
+          ]
+        }
+      ],
+      "color_key": [
+        {
+          "layer": "terrain",
+          "category": "D",
+          "fill": "#8db4ca",
+          "outline": "#4a4a4a",
+          "pattern": null,
+          "source": "swisstopo legend",
+          "features": 9
+        },
+        {
+          "layer": "terrain",
+          "category": "Db",
+          "fill": "#d3d5b8",
+          "outline": "#4a4a4a",
+          "pattern": null,
+          "source": "swisstopo legend",
+          "features": 19
+        },
+        {
+          "layer": "terrain",
+          "category": "HK",
+          "fill": "#c7c989",
+          "outline": "#4a4a4a",
+          "pattern": null,
+          "source": "swisstopo legend",
+          "features": 42
+        },
+        {
+          "layer": "terrain",
+          "category": "K1",
+          "fill": "#9dd29c",
+          "outline": "#4a4a4a",
+          "pattern": null,
+          "source": "swisstopo legend",
+          "features": 6
+        },
+        {
+          "layer": "terrain",
+          "category": "K2",
+          "fill": "#d1e173",
+          "outline": "#4a4a4a",
+          "pattern": null,
+          "source": "swisstopo legend",
+          "features": 27
+        },
+        {
+          "layer": "terrain",
+          "category": "L",
+          "fill": "#c5a8d0",
+          "outline": "#4a4a4a",
+          "pattern": null,
+          "source": "swisstopo legend",
+          "features": 9
+        },
+        {
+          "layer": "terrain",
+          "category": "LP2",
+          "fill": "#fde0da",
+          "outline": "#4a4a4a",
+          "pattern": null,
+          "source": "swisstopo legend",
+          "features": 3
+        },
+        {
+          "layer": "terrain",
+          "category": "M",
+          "fill": "#8dd8f8",
+          "outline": "#4a4a4a",
+          "pattern": null,
+          "source": "swisstopo legend",
+          "features": 10
+        },
+        {
+          "layer": "terrain",
+          "category": "MP2",
+          "fill": "#e0dff0",
+          "outline": "#4a4a4a",
+          "pattern": null,
+          "source": "swisstopo legend",
+          "features": 1
+        },
+        {
+          "layer": "terrain",
+          "category": "No Data",
+          "fill": "#ffffff",
+          "outline": "#4a4a4a",
+          "pattern": null,
+          "source": "swisstopo legend",
+          "features": 1
+        },
+        {
+          "layer": "terrain",
+          "category": "Oe",
+          "fill": "#83c994",
+          "outline": "#4a4a4a",
+          "pattern": null,
+          "source": "swisstopo legend",
+          "features": 21
+        },
+        {
+          "layer": "terrain",
+          "category": "P",
+          "fill": "#fbb781",
+          "outline": "#4a4a4a",
+          "pattern": null,
+          "source": "swisstopo legend",
+          "features": 3
+        },
+        {
+          "layer": "terrain",
+          "category": "Pf",
+          "fill": "#cbd8d2",
+          "outline": "#4a4a4a",
+          "pattern": null,
+          "source": "swisstopo legend",
+          "features": 34
+        },
+        {
+          "layer": "terrain",
+          "category": "Q",
+          "fill": "#fff8e6",
+          "outline": "#4a4a4a",
+          "pattern": null,
+          "source": "swisstopo legend",
+          "features": 1
+        },
+        {
+          "layer": "terrain",
+          "category": "SF",
+          "fill": "#fff9ae",
+          "outline": "#4a4a4a",
+          "pattern": null,
+          "source": "swisstopo legend",
+          "features": 3
+        },
+        {
+          "layer": "terrain",
+          "category": "Sr",
+          "fill": "#7cccbf",
+          "outline": "#4a4a4a",
+          "pattern": null,
+          "source": "swisstopo legend",
+          "features": 73
+        },
+        {
+          "layer": "terrain",
+          "category": "T",
+          "fill": "#fff57c",
+          "outline": "#4a4a4a",
+          "pattern": null,
+          "source": "swisstopo legend",
+          "features": 4
+        },
+        {
+          "layer": "terrain",
+          "category": "Tr",
+          "fill": "#fec54e",
+          "outline": "#4a4a4a",
+          "pattern": null,
+          "source": "swisstopo legend",
+          "features": 7
+        },
+        {
+          "layer": "terrain",
+          "category": "UH1",
+          "fill": "#b3ddc6",
+          "outline": "#4a4a4a",
+          "pattern": null,
+          "source": "swisstopo legend",
+          "features": 6
+        },
+        {
+          "layer": "terrain",
+          "category": "UMMSub",
+          "fill": "#ffffff",
+          "outline": "#4a4a4a",
+          "pattern": null,
+          "source": "swisstopo legend",
+          "features": 4
+        },
+        {
+          "layer": "terrain",
+          "category": "USMSub",
+          "fill": "#ffffff",
+          "outline": "#4a4a4a",
+          "pattern": null,
+          "source": "swisstopo legend",
+          "features": 3
+        }
+      ]
+    },
+    {
+      "dataset": "louisiana-260912",
+      "archive": "louisiana-260912_standard_mvt.pmtiles",
+      "archive_sha256": "50abc258b68ef4c51c5db13a57cf38b7f8759d0b2dc1d9e811a4149ee0dc0844",
+      "region": "coastal Louisiana",
+      "panels": [
+        {
+          "z": 10,
+          "x": 255,
+          "y": 424,
+          "side_km": 34.101588537017854,
+          "features": {
+            "buildings": 8623,
+            "transportation": 10
+          },
+          "image": "map_louisiana-260912_z10",
+          "extents_normalized_to": 4096,
+          "tile_side_km": 34.101588537017854,
+          "view_side_km": 20.61852010005358,
+          "view_bounds": [
+            -90.21268844604492,
+            29.350010300484552,
+            -90.0,
+            29.535229562948455
+          ],
+          "level_bounds": [
+            -90.35,
+            29.350010300484552,
+            -89.95,
+            29.749996412729843
+          ]
+        },
+        {
+          "z": 12,
+          "x": 1023,
+          "y": 1697,
+          "side_km": 8.522187638030378,
+          "features": {
+            "buildings": 259
+          },
+          "image": "map_louisiana-260912_z12",
+          "extents_normalized_to": 4096,
+          "tile_side_km": 8.522187638030378,
+          "view_side_km": 8.522187638030378,
+          "view_bounds": [
+            -90.087890625,
+            29.382175075145277,
+            -90.0,
+            29.45873118535533
+          ],
+          "level_bounds": [
+            -90.3499960899353,
+            29.35,
+            -89.9500036239624,
+            29.749996412729843
+          ]
+        },
+        {
+          "z": 14,
+          "x": 4092,
+          "y": 6789,
+          "side_km": 2.1303462145997503,
+          "features": {
+            "buildings": 25
+          },
+          "image": "map_louisiana-260912_z14",
+          "extents_normalized_to": 4096,
+          "tile_side_km": 2.1303462145997503,
+          "view_side_km": 2.1303462145997503,
+          "view_bounds": [
+            -90.087890625,
+            29.420460341013133,
+            -90.06591796875,
+            29.439597566602895
+          ],
+          "level_bounds": [
+            -90.34999072551727,
+            29.3500009487823,
+            -89.9500036239624,
+            29.75
+          ]
+        }
+      ],
+      "color_key": [
+        {
+          "layer": "buildings",
+          "category": "Buildings",
+          "fill": "#d3a28c",
+          "outline": "#d3a28c",
+          "pattern": null,
+          "source": "illustrative OSM tag palette",
+          "features": 5188
+        },
+        {
+          "layer": "buildings",
+          "category": "Other",
+          "fill": "#8c8c8c",
+          "outline": "#8c8c8c",
+          "pattern": null,
+          "source": "illustrative OSM tag palette",
+          "features": 1536
+        },
+        {
+          "layer": "buildings",
+          "category": "Roads and routes",
+          "fill": "#cc8b49",
+          "outline": "#cc8b49",
+          "pattern": null,
+          "source": "illustrative OSM tag palette",
+          "features": 1148
+        },
+        {
+          "layer": "buildings",
+          "category": "Vegetation",
+          "fill": "#c5dca5",
+          "outline": "#c5dca5",
+          "pattern": null,
+          "source": "illustrative OSM tag palette",
+          "features": 60
+        },
+        {
+          "layer": "buildings",
+          "category": "Water",
+          "fill": "#8fc1e6",
+          "outline": "#8fc1e6",
+          "pattern": null,
+          "source": "illustrative OSM tag palette",
+          "features": 222
+        },
+        {
+          "layer": "buildings",
+          "category": "Wetland",
+          "fill": "#80bfa8",
+          "outline": "#80bfa8",
+          "pattern": null,
+          "source": "illustrative OSM tag palette",
+          "features": 753
+        },
+        {
+          "layer": "transportation",
+          "category": "Roads and routes",
+          "fill": "#cc8b49",
+          "outline": "#cc8b49",
+          "pattern": null,
+          "source": "illustrative OSM tag palette",
+          "features": 10
+        }
+      ]
+    }
+  ]
+}

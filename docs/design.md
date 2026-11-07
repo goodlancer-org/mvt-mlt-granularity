@@ -1,3 +1,5 @@
+> **Primary experiment update (2026-11-06).** Five variants (Standard, Aggregated-4/16, Dense-4/16), MVT and Rust MLT v1/v2, source-feature provenance and matched-block effect decomposition are now defined in [the extended experiment guide](extended_experiment.md). Run `python manage.py experiment`, then `python manage.py all`. Primary summaries live in `docs/data/extended/results.sqlite`; generated CSV/TeX files use `extended_` prefixes. The three-variant Python workflow and numerical claims below describe the historical study.
+
 # GEOMAPS Design
 
 GEOMAPS is a vector-only research platform for comparing MVT and MLT under Standard, Dense-4, and Dense-16 tile granularities. The central artifact is no longer a raw source file or an intermediate MBTiles archive; it is a validated normalized GeoPackage that can be reused for many tile experiments.
@@ -116,7 +118,7 @@ Layer zoom requests are shifted by the detail offset. Dataset-level GDAL zoom en
 |---|---|
 | API/converter | Python, GDAL/OGR, pmtiles Python reader/writer |
 | MVT codec | `mapbox-vector-tile` |
-| MLT codec | `maplibre-tiles` |
+| MLT codec | `maplibre-tiles==0.4.1` |
 | Web | React, Vite, MapLibre GL JS, pmtiles JS |
 | Container | PMTiles v3 |
 

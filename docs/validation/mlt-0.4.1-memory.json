@@ -1,0 +1,638 @@
+{
+  "scope": "All 48 previously failing tile addresses; retained archives, no re-encoding. Full-corpus audit is separate.",
+  "maplibre_tiles_version": "0.4.1",
+  "binding_patch": "memory-budget-v1",
+  "source_sha256": "dd35bb6771b59006efd505afb102334e37e1af53b17e640d3a6438e917663aa3",
+  "tested_wheel_sha256": "916d35f14cb0f6614f57fc3eefd8d4559c40d1d0b805dc06d4630f9f9668051f",
+  "upstream_budget_bytes": 67108864,
+  "configured_budget_bytes": 268435456,
+  "historical_failures": 48,
+  "upstream_0_4_1_failures": 17,
+  "patched_0_4_1_failures": 0,
+  "tiles": [
+    {
+      "dataset": "natural_earth_vector",
+      "variant": "dense16",
+      "zxy": [
+        2,
+        0,
+        1
+      ],
+      "raw_mlt_bytes": 805877,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20951989, requested=110774",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "natural_earth_vector",
+      "variant": "dense16",
+      "zxy": [
+        2,
+        1,
+        1
+      ],
+      "raw_mlt_bytes": 2091498,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=16512195, requested=8344168",
+      "upstream_0_4_1_64_mib_error": "MLT decode error: memory limit exceeded: limit=67108864, used=65897354, requested=2306010",
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "natural_earth_vector",
+      "variant": "dense16",
+      "zxy": [
+        3,
+        1,
+        3
+      ],
+      "raw_mlt_bytes": 637971,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20658006, requested=659619",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "natural_earth_vector",
+      "variant": "dense16",
+      "zxy": [
+        3,
+        2,
+        2
+      ],
+      "raw_mlt_bytes": 995569,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20929288, requested=181073",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "natural_earth_vector",
+      "variant": "dense16",
+      "zxy": [
+        3,
+        2,
+        3
+      ],
+      "raw_mlt_bytes": 1862516,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20939344, requested=129720",
+      "upstream_0_4_1_64_mib_error": "MLT decode error: memory limit exceeded: limit=67108864, used=66713809, requested=423979",
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "natural_earth_vector",
+      "variant": "dense16",
+      "zxy": [
+        4,
+        3,
+        6
+      ],
+      "raw_mlt_bytes": 662533,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20961549, requested=13308",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "natural_earth_vector",
+      "variant": "dense16",
+      "zxy": [
+        4,
+        4,
+        5
+      ],
+      "raw_mlt_bytes": 1092014,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20911461, requested=800744",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "natural_earth_vector",
+      "variant": "dense16",
+      "zxy": [
+        4,
+        4,
+        6
+      ],
+      "raw_mlt_bytes": 2092102,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20919754, requested=122460",
+      "upstream_0_4_1_64_mib_error": "MLT decode error: memory limit exceeded: limit=67108864, used=66935638, requested=197868",
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "natural_earth_vector",
+      "variant": "dense16",
+      "zxy": [
+        5,
+        7,
+        12
+      ],
+      "raw_mlt_bytes": 607688,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20956172, requested=16612",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "natural_earth_vector",
+      "variant": "dense16",
+      "zxy": [
+        5,
+        8,
+        12
+      ],
+      "raw_mlt_bytes": 1435754,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20948479, requested=87408",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "natural_earth_vector",
+      "variant": "dense4",
+      "zxy": [
+        3,
+        1,
+        3
+      ],
+      "raw_mlt_bytes": 555448,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20381566, requested=659619",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "natural_earth_vector",
+      "variant": "dense4",
+      "zxy": [
+        3,
+        2,
+        2
+      ],
+      "raw_mlt_bytes": 838105,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20962059, requested=15060",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "natural_earth_vector",
+      "variant": "dense4",
+      "zxy": [
+        3,
+        2,
+        3
+      ],
+      "raw_mlt_bytes": 1540477,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20916178, requested=129696",
+      "upstream_0_4_1_64_mib_error": "MLT decode error: memory limit exceeded: limit=67108864, used=67107505, requested=2166",
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "natural_earth_vector",
+      "variant": "dense4",
+      "zxy": [
+        4,
+        3,
+        6
+      ],
+      "raw_mlt_bytes": 593775,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20966279, requested=13308",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "natural_earth_vector",
+      "variant": "dense4",
+      "zxy": [
+        4,
+        4,
+        5
+      ],
+      "raw_mlt_bytes": 920846,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20423037, requested=580624",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "natural_earth_vector",
+      "variant": "dense4",
+      "zxy": [
+        4,
+        4,
+        6
+      ],
+      "raw_mlt_bytes": 1752219,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20936402, requested=122388",
+      "upstream_0_4_1_64_mib_error": "MLT decode error: memory limit exceeded: limit=67108864, used=67002878, requested=261689",
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "natural_earth_vector",
+      "variant": "dense4",
+      "zxy": [
+        5,
+        7,
+        12
+      ],
+      "raw_mlt_bytes": 537679,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20933404, requested=49752",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "natural_earth_vector",
+      "variant": "dense4",
+      "zxy": [
+        5,
+        8,
+        12
+      ],
+      "raw_mlt_bytes": 1252282,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20903633, requested=87396",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "natural_earth_vector",
+      "variant": "standard",
+      "zxy": [
+        4,
+        3,
+        6
+      ],
+      "raw_mlt_bytes": 504565,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20955336, requested=50068",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "natural_earth_vector",
+      "variant": "standard",
+      "zxy": [
+        4,
+        4,
+        5
+      ],
+      "raw_mlt_bytes": 772878,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20932210, requested=157680",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "natural_earth_vector",
+      "variant": "standard",
+      "zxy": [
+        4,
+        4,
+        6
+      ],
+      "raw_mlt_bytes": 1443836,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20970902, requested=122364",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "natural_earth_vector",
+      "variant": "standard",
+      "zxy": [
+        5,
+        8,
+        12
+      ],
+      "raw_mlt_bytes": 1089028,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20901544, requested=87336",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "dense16",
+      "zxy": [
+        6,
+        33,
+        21
+      ],
+      "raw_mlt_bytes": 2386379,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20922593, requested=60752",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "dense16",
+      "zxy": [
+        7,
+        66,
+        42
+      ],
+      "raw_mlt_bytes": 3859191,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20963520, requested=13048",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "dense16",
+      "zxy": [
+        8,
+        132,
+        84
+      ],
+      "raw_mlt_bytes": 5816074,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=14027728, requested=7282752",
+      "upstream_0_4_1_64_mib_error": "MLT decode error: memory limit exceeded: limit=67108864, used=66975460, requested=1305672",
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "dense16",
+      "zxy": [
+        9,
+        264,
+        169
+      ],
+      "raw_mlt_bytes": 7750982,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=18230096, requested=10681632",
+      "upstream_0_4_1_64_mib_error": "MLT decode error: memory limit exceeded: limit=67108864, used=67042438, requested=492564",
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "dense16",
+      "zxy": [
+        10,
+        528,
+        338
+      ],
+      "raw_mlt_bytes": 9387398,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20508800, requested=14936560",
+      "upstream_0_4_1_64_mib_error": "MLT decode error: memory limit exceeded: limit=67108864, used=62194750, requested=7468280",
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "dense16",
+      "zxy": [
+        11,
+        1057,
+        677
+      ],
+      "raw_mlt_bytes": 10779618,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20767584, requested=1137408",
+      "upstream_0_4_1_64_mib_error": "MLT decode error: memory limit exceeded: limit=67108864, used=64022979, requested=10006928",
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "dense16",
+      "zxy": [
+        12,
+        2114,
+        1355
+      ],
+      "raw_mlt_bytes": 12117380,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20678432, requested=360584",
+      "upstream_0_4_1_64_mib_error": "MLT decode error: memory limit exceeded: limit=67108864, used=67087552, requested=428952",
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "dense4",
+      "zxy": [
+        7,
+        66,
+        42
+      ],
+      "raw_mlt_bytes": 2386214,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20921569, requested=60752",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "dense4",
+      "zxy": [
+        8,
+        132,
+        84
+      ],
+      "raw_mlt_bytes": 3859045,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20962640, requested=13048",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "dense4",
+      "zxy": [
+        9,
+        264,
+        169
+      ],
+      "raw_mlt_bytes": 5815913,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=14027056, requested=7282752",
+      "upstream_0_4_1_64_mib_error": "MLT decode error: memory limit exceeded: limit=67108864, used=66974888, requested=1305672",
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "dense4",
+      "zxy": [
+        10,
+        528,
+        338
+      ],
+      "raw_mlt_bytes": 7748946,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=18222064, requested=10681488",
+      "upstream_0_4_1_64_mib_error": "MLT decode error: memory limit exceeded: limit=67108864, used=67037462, requested=492564",
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "dense4",
+      "zxy": [
+        11,
+        1057,
+        677
+      ],
+      "raw_mlt_bytes": 9379693,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20448200, requested=14935872",
+      "upstream_0_4_1_64_mib_error": "MLT decode error: memory limit exceeded: limit=67108864, used=62156026, requested=7467936",
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "dense4",
+      "zxy": [
+        12,
+        2114,
+        1355
+      ],
+      "raw_mlt_bytes": 10427775,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20594048, requested=18123040",
+      "upstream_0_4_1_64_mib_error": "MLT decode error: memory limit exceeded: limit=67108864, used=61254934, requested=9061520",
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "dense4",
+      "zxy": [
+        13,
+        4228,
+        2711
+      ],
+      "raw_mlt_bytes": 4102198,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=18483376, requested=3093824",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "dense4",
+      "zxy": [
+        13,
+        4229,
+        2710
+      ],
+      "raw_mlt_bytes": 3147643,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20970464, requested=51120",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "dense4",
+      "zxy": [
+        13,
+        4229,
+        2711
+      ],
+      "raw_mlt_bytes": 5314631,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20927744, requested=224024",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "standard",
+      "zxy": [
+        8,
+        132,
+        84
+      ],
+      "raw_mlt_bytes": 2386027,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20920841, requested=60752",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "standard",
+      "zxy": [
+        9,
+        264,
+        169
+      ],
+      "raw_mlt_bytes": 3858913,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20962400, requested=13048",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "standard",
+      "zxy": [
+        10,
+        528,
+        338
+      ],
+      "raw_mlt_bytes": 5814292,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=14022832, requested=7282448",
+      "upstream_0_4_1_64_mib_error": "MLT decode error: memory limit exceeded: limit=67108864, used=66967808, requested=1305448",
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "standard",
+      "zxy": [
+        11,
+        1057,
+        677
+      ],
+      "raw_mlt_bytes": 7741642,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=18183512, requested=10678800",
+      "upstream_0_4_1_64_mib_error": "MLT decode error: memory limit exceeded: limit=67108864, used=67013378, requested=492564",
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "standard",
+      "zxy": [
+        12,
+        2114,
+        1355
+      ],
+      "raw_mlt_bytes": 9077141,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=19290152, requested=13504304",
+      "upstream_0_4_1_64_mib_error": "MLT decode error: memory limit exceeded: limit=67108864, used=66117145, requested=1607391",
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "standard",
+      "zxy": [
+        13,
+        4228,
+        2711
+      ],
+      "raw_mlt_bytes": 3580710,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=17929608, requested=3370056",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "standard",
+      "zxy": [
+        13,
+        4229,
+        2710
+      ],
+      "raw_mlt_bytes": 2681084,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20968629, requested=3188",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "standard",
+      "zxy": [
+        13,
+        4229,
+        2711
+      ],
+      "raw_mlt_bytes": 4584511,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=18633928, requested=3852928",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "standard",
+      "zxy": [
+        14,
+        8458,
+        5423
+      ],
+      "raw_mlt_bytes": 2300863,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20881869, requested=172116",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    },
+    {
+      "dataset": "usfws_luisiana_wetlands_geopackage",
+      "variant": "dense16",
+      "zxy": [
+        10,
+        255,
+        424
+      ],
+      "raw_mlt_bytes": 2779172,
+      "historical_20_mib_error": "ValueError: MLT decode error: memory limit exceeded: limit=20971520, used=20771944, requested=236336",
+      "upstream_0_4_1_64_mib_error": null,
+      "patched_0_4_1_256_mib_error": null
+    }
+  ]
+}

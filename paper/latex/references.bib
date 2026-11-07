@@ -1,0 +1,435 @@
+% ======================================================================
+% CORE VECTOR-TILE / MAP REFERENCES
+% ======================================================================
+
+@inproceedings{tremmel2025mlt,
+  author    = {Tremmel, M. and Zink, R.},
+  title     = {{MapLibre Tile}: A Next Generation Vector Tile Format},
+  booktitle = {Proceedings of ACM SIGSPATIAL},
+  year      = {2025},
+  doi       = {10.1145/3748636.3763208}
+}
+
+@inproceedings{bahadori2026hifive,
+  author    = {Bahadori, T. and Eldawy, A.},
+  title     = {{HiFIVE}: High-Fidelity Vector-Tile Reduction for Map Exploration},
+  booktitle = {Proceedings of ACM SIGSPATIAL},
+  year      = {2026},
+  doi       = {10.1145/3841645.3842946}
+}
+
+@article{netek2020vector,
+  author  = {Netek, R. and Masopust, J. and Pavlicek, F. and Pechanec, V.},
+  title   = {Performance Testing on Vector vs. Raster Map Tiles: Comparative Study on Load Metrics},
+  journal = {ISPRS International Journal of Geo-Information},
+  volume  = {9},
+  number  = {2},
+  pages   = {101},
+  year    = {2020},
+  doi     = {10.3390/ijgi9020101}
+}
+
+@inproceedings{saeedan2022spatialparquet,
+  author    = {Saeedan, M. and Eldawy, A.},
+  title     = {{Spatial Parquet}: A Column File Format for Geospatial Data Lakes},
+  booktitle = {Proceedings of ACM SIGSPATIAL},
+  year      = {2022},
+  doi       = {10.1145/3557915.3561038}
+}
+
+@article{zeng2023columnar,
+  author  = {Zeng, X. and Hui, Y. and Shen, J. and Pavlo, A. and McKinney, W. and Zhang, H.},
+  title   = {An Empirical Evaluation of Columnar Storage Formats},
+  journal = {Proceedings of the VLDB Endowment},
+  volume  = {17},
+  number  = {2},
+  pages   = {148--161},
+  year    = {2023}
+}
+
+@article{kuschewski2023btrblocks,
+  author  = {Kuschewski, M. and Sauerwein, D. and Alhomssi, A. and Leis, V.},
+  title   = {{BtrBlocks}: Efficient Columnar Compression for Data Lakes},
+  journal = {Proceedings of the ACM on Management of Data},
+  volume  = {1},
+  number  = {2},
+  year    = {2023},
+  doi     = {10.1145/3589263}
+}
+
+@article{fujimura2019un,
+  author  = {Fujimura, H. and others},
+  title   = {Design and Development of the {UN} Vector Tile Toolkit},
+  journal = {International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences},
+  volume  = {XLII-4/W14},
+  pages   = {57--62},
+  year    = {2019},
+  doi     = {10.5194/isprs-archives-XLII-4-W14-57-2019}
+}
+
+@article{bereuter2013realtime,
+  author  = {Bereuter, Pia and Weibel, Robert},
+  title   = {Real-time generalization of point data in mobile and web mapping using quadtrees},
+  journal = {Cartography and Geographic Information Science},
+  volume  = {40},
+  number  = {4},
+  pages   = {271--281},
+  year    = {2013},
+  doi     = {10.1080/15230406.2013.779779}
+}
+
+@article{jenny2015planoblique,
+  author  = {Jenny, Bernhard and Buddeberg, Jonas and Hoarau, Charlotte and Liem, Johannes},
+  title   = {Plan oblique relief for web maps},
+  journal = {Cartography and Geographic Information Science},
+  volume  = {42},
+  number  = {5},
+  pages   = {410--418},
+  year    = {2015},
+  doi     = {10.1080/15230406.2015.1015169}
+}
+
+@article{prusov2022airportgis,
+  author  = {Prusov, Dmitry and Boyko, Olena},
+  title   = {The conceptual model of the structure and functional purpose of the geoinformation system for administrative and economic management of a regional airport},
+  journal = {Geodesy and Cartography},
+  volume  = {48},
+  number  = {2},
+  pages   = {46--55},
+  year    = {2022},
+  doi     = {10.3846/gac.2022.12570}
+}
+
+@article{roth2021cartographicstorytelling,
+  author  = {Roth, Robert E.},
+  title   = {Cartographic design as visual storytelling: Synthesis and review of map-based narratives, genres, and tropes},
+  journal = {The Cartographic Journal},
+  volume  = {58},
+  number  = {1},
+  pages   = {83--114},
+  year    = {2021},
+  doi     = {10.1080/00087041.2019.1633103}
+}
+
+% ======================================================================
+% COLUMNAR STORAGE AND BLOCK GRANULARITY
+% ======================================================================
+
+@inproceedings{abadi2006compression,
+  author    = {Abadi, Daniel J. and Madden, Samuel R. and Ferreira, Miguel C.},
+  title     = {Integrating Compression and Execution in Column-Oriented Database Systems},
+  booktitle = {Proceedings of the 2006 ACM SIGMOD International Conference on Management of Data},
+  pages     = {671--682},
+  year      = {2006},
+  doi       = {10.1145/1142473.1142548}
+}
+
+@misc{parquet_configurations,
+  author       = {{Apache Software Foundation}},
+  title        = {Apache Parquet Documentation: Configurations (Row Group Size, Data Page Size)},
+  year         = {n.d.},
+  url          = {https://parquet.apache.org/docs/file-format/configurations/},
+  note         = {Accessed 2026-10-16}
+}
+
+@misc{orc_spec_v1,
+  author       = {{Apache Software Foundation}},
+  title        = {{ORC} Specification v1},
+  year         = {n.d.},
+  url          = {https://orc.apache.org/specification/ORCv1/},
+  note         = {Accessed 2026-10-16}
+}
+
+% ======================================================================
+% GENERAL-PURPOSE COMPRESSION
+% ======================================================================
+
+@misc{rfc1951,
+  author       = {Deutsch, P.},
+  title        = {{DEFLATE} Compressed Data Format Specification Version 1.3},
+  howpublished = {RFC 1951},
+  year         = {1996},
+  doi          = {10.17487/RFC1951}
+}
+
+@misc{rfc1952,
+  author       = {Deutsch, P.},
+  title        = {{GZIP} File Format Specification Version 4.3},
+  howpublished = {RFC 1952},
+  year         = {1996},
+  doi          = {10.17487/RFC1952}
+}
+
+@misc{zstd_readme,
+  author       = {{Meta Platforms}},
+  title        = {Zstandard: Fast Real-Time Compression Algorithm (README, section ``The case for Small Data compression'')},
+  year         = {n.d.},
+  url          = {https://github.com/facebook/zstd},
+  note         = {Accessed 2026-10-16}
+}
+
+% ======================================================================
+% TILE SYSTEMS AND SPECIFICATIONS
+% Keys below intentionally preserve the citation keys used in the .tex files.
+% ======================================================================
+
+@misc{pmtiles,
+  author       = {{Protomaps}},
+  year         = {n.d.},
+  title        = {PMTiles Specification},
+  url          = {https://pmtiles.io/},
+  note         = {Accessed 2026-10-15}
+}
+
+@techreport{ogc2022tms,
+  author       = {Mas{\'o}, Joan and Jacovella-St-Louis, J{\'e}r{\^o}me},
+  title        = {{OGC} Two Dimensional Tile Matrix Set and Tile Set Metadata},
+  institution  = {Open Geospatial Consortium},
+  number       = {OGC 17-083r4},
+  type         = {OGC Implementation Standard, Version 2.0},
+  year         = {2022},
+  url          = {https://docs.ogc.org/is/17-083r4/17-083r4.html}
+}
+
+@misc{maplibre_mlt_mvt_compat,
+  author = {{MapLibre}},
+  title  = {MapLibre Tile Specification: Data Model, Section ``MVT Compatibility''},
+  year   = {2026},
+  url    = {https://maplibre.org/maplibre-tile-spec/overview/#mvt-compatibility},
+  note   = {Accessed 2026-10-18}
+}
+
+@misc{maplibre_mlt_overview,
+  author       = {{MapLibre}},
+  title        = {MapLibre Tile Specification: Data Model},
+  year         = {2026},
+  url          = {https://maplibre.org/maplibre-tile-spec/overview/},
+  note         = {Accessed 2026-10-16}
+}
+
+@misc{maplibre_mlt_benchmarks,
+  author       = {{MapLibre}},
+  title        = {MapLibre Tile Specification: Benchmarks},
+  year         = {2026},
+  url          = {https://maplibre.org/maplibre-tile-spec/benchmarks/},
+  note         = {OpenMapTiles 3.11 planet (2020-02-10) and Protomaps basemap (2026-10-02); accessed 2026-10-16}
+}
+
+@misc{osm_wiki_metatiles,
+  author       = {{OpenStreetMap Wiki}},
+  title        = {Meta tiles},
+  year         = {n.d.},
+  url          = {https://wiki.openstreetmap.org/wiki/Meta_tiles},
+  note         = {Accessed 2026-10-16}
+}
+
+@misc{tilezen_service,
+  author       = {{Tilezen}},
+  title        = {Get Started with {Mapzen} Vector Tiles: Tile Sizes},
+  year         = {n.d.},
+  url          = {https://tilezen.readthedocs.io/en/latest/use-service/},
+  note         = {Accessed 2026-10-16}
+}
+
+% ======================================================================
+% ALTERNATIVE KEYS USED IN NEWER SECTIONS
+% Keep these aliases until all .tex files have been normalized.
+% ======================================================================
+
+@misc{osm_slippy_tiles,
+  author       = {{OpenStreetMap Wiki}},
+  year         = {n.d.},
+  title        = {Slippy map tilenames},
+  url          = {https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames},
+  note         = {Accessed 2026-10-15}
+}
+
+@misc{pmtiles_v3,
+  author       = {{Protomaps}},
+  year         = {n.d.},
+  title        = {PMTiles Version 3 Specification},
+  url          = {https://github.com/protomaps/PMTiles/blob/main/spec/v3/spec.md},
+  note         = {Version 3 specification, accessed 2026-10-15}
+}
+
+@misc{mapbox_mvt_spec_2_1,
+  author       = {{Mapbox}},
+  title        = {Mapbox Vector Tile Specification},
+  year         = {2016},
+  url          = {https://github.com/mapbox/vector-tile-spec/tree/master/2.1},
+  note         = {Version 2.1}
+}
+
+@misc{maplibre_mlt_v1,
+  author       = {{MapLibre}},
+  title        = {MapLibre Tile Specification v1},
+  year         = {2026},
+  url          = {https://maplibre.org/maplibre-tile-spec/specification/v1/},
+  note         = {Accessed 2026-10-15}
+}
+
+% ======================================================================
+% DEVELOPER DISCUSSIONS (GitHub issues, pull requests, proposals)
+% Status as of 2026-10-16; re-check before submission.
+% ======================================================================
+
+@misc{maplibre_gljs_2507,
+  author       = {Loer, Chris},
+  title        = {Proposal: Better Support for Overzooming via Very Large Tile Extents},
+  howpublished = {MapLibre GL JS, GitHub issue \#2507},
+  year         = {2023},
+  url          = {https://github.com/maplibre/maplibre-gl-js/issues/2507},
+  note         = {Accessed 2026-10-16}
+}
+
+@misc{planetiler_1286,
+  author       = {Agafonkin, Vladimir},
+  title        = {Configurable Tile Extent per Zoom in the Output},
+  howpublished = {Planetiler, GitHub issue \#1286},
+  year         = {2025},
+  url          = {https://github.com/onthegomap/planetiler/issues/1286},
+  note         = {Accessed 2026-10-16}
+}
+
+@misc{maplibre_stylespec_1869,
+  author       = {{MapLibre contributors}},
+  title        = {Design Proposal: Add \texttt{emptyTileBehavior} to Tiled Sources and Their {TileJSON}},
+  howpublished = {MapLibre Style Specification, GitHub issue \#1869},
+  year         = {2026},
+  url          = {https://github.com/maplibre/maplibre-style-spec/issues/1869},
+  note         = {Accessed 2026-10-16}
+}
+
+% ======================================================================
+% DATASETS AND DATA SOURCES
+% Add dataset citations here.
+% ======================================================================
+
+% ======================================================================
+% MOTIVATING SETTINGS (added 2026-10-17)
+% ======================================================================
+
+@misc{space_apps,
+  author       = {{NASA}},
+  title        = {{NASA} International Space Apps Challenge},
+  year         = {n.d.},
+  url          = {https://www.spaceappschallenge.org/},
+  note         = {Annual international hackathon using NASA open data, held since 2012; accessed 2026-10-17}
+}
+
+@misc{nasa_mars_trek_wmts,
+  author       = {{NASA}},
+  title        = {Mars Trek: {WMTS} Layer Services},
+  year         = {n.d.},
+  url          = {https://api.nasa.gov/mars-wmts/catalog},
+  note         = {Map layers of NASA's Solar System Treks served through the OGC RESTful WMTS protocol; accessed 2026-10-17}
+}
+
+% ======================================================================
+% GROWTH OF OPEN GEOSPATIAL DATA (motivation)
+% ======================================================================
+
+@misc{osm_wiki_stats,
+  author       = {{OpenStreetMap Wiki}},
+  title        = {Stats},
+  year         = {n.d.},
+  url          = {https://wiki.openstreetmap.org/wiki/Stats},
+  note         = {Milestone of 10 billion nodes reached on 2025-08-12; accessed 2026-10-16}
+}
+
+@misc{overture2024alpha,
+  author       = {{Overture Maps Foundation}},
+  title        = {Overture 2024-02-15-alpha.0 Release Notes},
+  year         = {2024},
+  url          = {https://overturemaps.org/overture-2024-02-15-alpha-0-release-notes/},
+  note         = {Accessed 2026-10-16}
+}
+
+% ======================================================================
+% SOFTWARE AND TOOLING
+% Add Planetiler, MapLibre GL JS, GDAL, etc. here when cited.
+% ======================================================================
+
+% repository: https://github.com/maplibre/maplibre-tile-spec
+@misc{maplibre_tiles_py,
+  author       = {{MapLibre contributors}},
+  title        = {maplibre-tiles: {Python} Package for Encoding and Decoding {MapLibre} Tiles},
+  year         = {2026},
+  howpublished = {Python package, version 0.4.1},
+  url          = {https://pypi.org/project/maplibre-tiles/0.4.1/},
+  note         = {Accessed 2026-11-06}
+}
+
+@misc{gdal_mvt,
+  author       = {{GDAL/OGR contributors}},
+  title        = {{GDAL} Vector Driver {MVT}: Mapbox Vector Tiles},
+  year         = {n.d.},
+  url          = {https://gdal.org/en/stable/drivers/vector/mvt.html},
+  note         = {Creation options EXTENT, BUFFER, SIMPLIFICATION, MAX\_SIZE, MAX\_FEATURES, CONF; accessed 2026-10-16}
+}
+
+@misc{tippecanoe,
+  author       = {{Felt}},
+  title        = {Tippecanoe: Build Vector Tilesets from Large Collections of {GeoJSON} Features},
+  year         = {n.d.},
+  url          = {https://github.com/felt/tippecanoe},
+  note         = {Documentation of \texttt{--generate-variable-depth-tile-pyramid}, \texttt{--extra-detail} and tile size limits; accessed 2026-10-16}
+}
+
+@misc{maplibre_gljs_mapoptions,
+  author       = {{MapLibre}},
+  title        = {{MapLibre GL JS} {API}: {MapOptions} (\texttt{zoomLevelsToOverscale})},
+  year         = {2026},
+  url          = {https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MapOptions/},
+  note         = {Accessed 2026-10-16}
+}
+
+@misc{maplibre_gljs_vectorsource,
+  author       = {{MapLibre}},
+  title        = {{MapLibre GL JS} source code: \texttt{src/source/vector\_tile\_source.ts}},
+  year         = {2026},
+  url          = {https://github.com/maplibre/maplibre-gl-js/blob/main/src/source/vector_tile_source.ts},
+  note         = {Vector sources must have a tile size of 512; accessed 2026-10-16}
+}
+
+% ======================================================================
+% PRIOR WORK ON VECTOR-TILE GRANULARITY / COMPRESSION
+% Added after the 2026-10-17 novelty review.
+% ======================================================================
+
+@article{li2018geotile,
+  author  = {Li, Chao and Lu, Huimei and Xiang, Yong and Liu, Zhuoqun and Yang, Wanli and Liu, Ruilin},
+  title   = {Bringing Geospatial Data Closer to Mobile Users: A Caching Approach Based on Vector Tiles for Wireless Multihop Scenarios},
+  journal = {Mobile Information Systems},
+  volume  = {2018},
+  pages   = {5186495},
+  year    = {2018},
+  doi     = {10.1155/2018/5186495}
+}
+
+@inproceedings{dufilie2014feathered,
+  author    = {Dufilie, Andrew and Grinstein, Georges G.},
+  title     = {Feathered Tiles with Uniform Payload Size for Progressive Transmission of Vector Data},
+  booktitle = {Web and Wireless Geographical Information Systems},
+  pages     = {19--35},
+  year      = {2014},
+  doi       = {10.1007/978-3-642-55334-9_2}
+}
+
+@misc{planetiler_1574,
+  author       = {{Planetiler contributors}},
+  title        = {Support Variable Tile Depth},
+  howpublished = {Planetiler, GitHub issue \#1574},
+  year         = {2026},
+  url          = {https://github.com/onthegomap/planetiler/issues/1574},
+  note         = {Created 2026-06-08; accessed 2026-10-17}
+}
+
+
+@misc{maplibre_mlt_rust_pinned,
+ author={{MapLibre contributors}},
+ title={MapLibre Tile Rust implementation, mlt-core 0.22.1},
+ year={2026},
+ url={https://github.com/maplibre/maplibre-tile-spec/tree/e7bc737dc96f734a8549a41844b8aaf43ee50723/rust},
+ note={Pinned source distributed with maplibre-tiles 0.4.1; accessed 2026-11-06}
+}

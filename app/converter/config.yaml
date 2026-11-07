@@ -1,34 +1,99 @@
-# Active vector pipeline; paths are inside Docker.
+# GEOMAPS Converter Configuration
+extended_experiment: true
+
+# Historical Planetiler options remain for compatibility; the active
+# vector-tile experiment below is generated with GDAL and then transcoded
+# MVT-to-MLT tile-by-tile.
+planetiler_jar: /opt/planetiler.jar
+# Keep identical across every dataset in a study: peak_memory_mb is a
+# reported result. 2g is below what the JVM would pick unaided and fails on
+# dense multi-layer datasets. See README, "About JAVA_HEAP".
+java_heap: 16g
+
+# Data paths (inside Docker container)
 data_dir: /data
 normalized_dir: /data/normalized
 profiles_dir: /profiles
 profile_rules_path: /profiles/profile_rules.yaml
+
+# Stage A writes a persistent canonical GeoPackage plus
+# <dataset>.normalization.json. EPSG:3857 is the default for the active
+# WebMercator experiment so reprojection is paid once, before all variants.
 normalization_crs: EPSG:3857
+
+# Zoom levels
 min_zoom: 0
 max_zoom: 14
-tmp_dir: /scratch
+
+# Temporary directory for GDAL tile-generation side databases and legacy
+# scratch files. If you run out of space, point this at a partition
+# with plenty of free space (e.g. /mnt/secondPartition/scratch).
+# Leave blank to use the system default.
+#
+# Running in Docker? This path is INSIDE the container, so the folder also has
+# to be mounted in. Set the PLANETILER_TMP environment variable to the same
+# path before starting the services and docker-compose.yml will mount it:
+#
+#   PLANETILER_TMP=/mnt/secondPartition/scratch python manage.py up
+#
+# Setting only one of the two has no effect. Do not use /tmp — see the
+# Settings section of README.md.
+tmp_dir:
+
+# CityGML preprocessing guardrails (per member/file inside archive).
+# Increase timeout for large Amsterdam/BGT members, or continue conversion by
+# skipping only timed-out members instead of failing the whole dataset.
 citygml_layer_timeout_seconds: 3600
 citygml_skip_timeout_layers: false
+# Optional: explicit source CRS fallback when GDAL cannot resolve layer SRS.
+# For PDOK/BGT datasets this is usually EPSG:28992. Leave empty unless needed.
 citygml_fallback_source_srs: EPSG:28992
+
+# Legacy Planetiler temporary storage strategy.
+planetiler_compress_temp: false
+planetiler_sort_max_writers: 2
+planetiler_sort_max_readers: 2
+planetiler_storage: mmap
+
+# Dense-tile experiment generated with one direct GDAL PMTiles job per variant:
+# - standard: extent 4096, normal WebMercator pyramid
+# - dense4: each stored z tile carries Standard z+1 detail, extent 8192
+# - dense16: each stored z tile carries Standard z+2 detail, extent 16384
+# Shared simplification keeps native geographic LOD comparable across variants
+# because extent scales together with geographic tile width.
 gdal_dense_variants:
-- key: standard
-  detail_offset: 0
-  extent: 4096
-- key: dense4
-  detail_offset: 1
-  extent: 8192
-- key: dense16
-  detail_offset: 2
-  extent: 16384
+  - key: standard
+    detail_offset: 0
+    extent: 4096
+  - key: dense4
+    detail_offset: 1
+    extent: 8192
+  - key: dense16
+    detail_offset: 2
+    extent: 16384
+
 gdal_simplification: 1.6
 gdal_simplification_max_zoom: 1.0
 gdal_max_size: 2147483647
 gdal_max_features: 2147483647
+# Post-processing validation mode: none | fast | full
 gdal_validation_mode: fast
+# Explicit tile-limits policy:
+# - experimental_unlimited: keep large limits for no-drop experiments
+# - safe: apply conservative defaults unless explicit smaller limits are set
 gdal_tile_limits_mode: experimental_unlimited
+
+# Legacy Planetiler overzoom controls are kept off for old scripts/tests only.
+overzoom_levels: [0]
+structural_overzoom_levels: []
+structural_osm_profile:
+overzoom_diagnostics: false
+# Keep sources after converting: the study's source extracts (e.g. the dated
+# Louisiana OSM extract) cannot be downloaded again.
 keep_sources: true
+
 formats:
-- tile_format: mvt
-  container: pmtiles
-- tile_format: mlt
-  container: pmtiles
+  - tile_format: mvt
+    container: pmtiles
+  - tile_format: mlt
+    container: pmtiles

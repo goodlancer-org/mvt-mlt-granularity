@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "Please cite the version-specific software DOI assigned to the GitHub release and the accompanying dataset."
+message: "Please cite the released version-specific software DOI and dataset. This working tree adds the extended experiment pending a new release."
 title: "GEOMAPS: sparse-pyramid MVT and MLT compression"
 type: software
 version: "0.1.0"
@@ -9,9 +9,10 @@ repository-code: "https://github.com/goodlancer-org/mvt-mlt-granularity"
 abstract: >-
   Code for "Does Tile Granularity Matter? An Empirical Study of Vector Tile
   Compression for Map Rendering with MapLibre Tiles": vector-source
-  normalization, paired Standard/Dense-4/Dense-16 MVT and MLT PMTiles
-  conversion, independent decoded-pair diagnostics, compression statistics,
-  map figures, and SQLite/Parquet/CSV dataset export.
+  normalization, exact Standard/Aggregated-4/Aggregated-16 controls, regenerated
+  Dense-4/Dense-16 tiles, pinned Rust MLT v1/v2 encoding, feature provenance,
+  matched-block effect decomposition, validation, and automatic figures,
+  manuscript tables and SQLite/Parquet/CSV exports. Historical results remain separate.
 keywords:
   - vector tiles
   - MapLibre

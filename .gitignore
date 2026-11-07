@@ -23,3 +23,11 @@ releases/
 *.log
 .DS_Store
 Thumbs.db
+
+app/converter/bin/
+
+app/data/provenance/
+
+app/data/historical/
+
+.paper-build/

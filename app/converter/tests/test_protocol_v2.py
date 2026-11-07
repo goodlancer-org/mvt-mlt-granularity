@@ -8,6 +8,21 @@ from src.protocol_summary import synthesize_protocol_v2
 from src.protocol_v2 import write_protocol_v2
 
 
+def test_extended_protocol_keeps_all_versions_and_measured_validation():
+    conversions={}
+    for variant in ('standard','aggregated4','aggregated16','dense4','dense16'):
+        for fmt in ('mvt','mltv1','mltv2'):
+            conversions[variant+'_'+fmt]={'filename':variant+'_'+fmt+'.pmtiles',
+                'tile_count':1,'feature_count':5,'unique_source_features':3,'vertex_count':9,
+                'validation':{'passed':fmt!='mltv2'}}
+    result=synthesize_protocol_v2({'dataset':{'name':'test'},'conversions':conversions})
+    assert result['version']=='2.1'
+    assert all(key in result['outputs'] for key in conversions)
+    assert result['outputs']['mlt']['path']=='standard_mltv1.pmtiles'
+    assert result['topology']['logical_feature_count']==3
+    assert result['validation']['standard_mltv2']['passed'] is False
+
+
 def test_build_protocol_v2_matches_design_contract():
     dataset = {
         "id": "amsterdam",

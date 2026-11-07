@@ -394,7 +394,7 @@ requires-dist = [
     { name = "flask", specifier = "==3.1.3" },
     { name = "geopandas", specifier = "==1.1.4" },
     { name = "mapbox-vector-tile", specifier = "==2.2.0" },
-    { name = "maplibre-tiles", specifier = "==0.2.2" },
+    { name = "maplibre-tiles", specifier = "==0.4.1" },
     { name = "matplotlib", specifier = "==3.10.9" },
     { name = "pandas", specifier = "==3.0.3" },
     { name = "pmtiles", specifier = "==3.8.1" },
@@ -561,17 +561,17 @@ wheels = [
 
 [[package]]
 name = "maplibre-tiles"
-version = "0.2.2"
+version = "0.4.1"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/8d/c6/dae5856ecd845fda82705aef5de2eaac26bf7930b4097c02f1eecc723660/maplibre_tiles-0.2.2.tar.gz", hash = "sha256:17130ac3e7fe9ccf83ed6e5a806739382fe6a3b15ee8b0fb9776c97d12046ef0", size = 427025, upload-time = "2026-09-28T08:09:39.602Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/eb/b1/5d96d36e5c68e8886b549f7dbbde960ba7c77470faae78e734f7760de720/maplibre_tiles-0.4.1.tar.gz", hash = "sha256:dd35bb6771b59006efd505afb102334e37e1af53b17e640d3a6438e917663aa3", size = 514048, upload-time = "2026-10-27T16:40:20.293Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/6a/8f/50f97fe32bed0046b8ffef874dd694c875891ec501335bef92c6db92a45e/maplibre_tiles-0.2.2-cp312-cp312-macosx_10_12_x86_64.whl", hash = "sha256:f26ca6eee614b6bc96442a3d7f4dbc5070fd5c8c67de09991bd46d116393259f", size = 1995412, upload-time = "2026-09-28T08:09:30.173Z" },
-    { url = "https://files.pythonhosted.org/packages/87/09/a0b36789fa485fb40b0606edb51a900ccd39f513e8c0f5a634327815fc98/maplibre_tiles-0.2.2-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:f8bb921e34ff03435d37558309b96f83056fc189b53ff47784d22fc4551ed024", size = 1947346, upload-time = "2026-09-28T08:09:31.415Z" },
-    { url = "https://files.pythonhosted.org/packages/e5/34/eba128b1992a42a5fde1e714cb249ffe6f859e9c9ef2d2325487244f4fcb/maplibre_tiles-0.2.2-cp313-cp313-macosx_10_12_x86_64.whl", hash = "sha256:77c066245de010d704bdcd66accac536375133c8fa629dbe5eddd6914f69c51b", size = 1993573, upload-time = "2026-09-28T08:09:32.698Z" },
-    { url = "https://files.pythonhosted.org/packages/bd/b6/1b811c67a4d6d6332c8fedf1d7ca5dc4442cf0fe3fca3da4950a79fbeb49/maplibre_tiles-0.2.2-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:0cc963e70b27ae2caa8b533ace72a3d7b5256eae015a0773ca3e08489df50f63", size = 1945942, upload-time = "2026-09-28T08:09:34.06Z" },
-    { url = "https://files.pythonhosted.org/packages/be/63/2188cf777d08a472dae7ea78fa1c7bf4b37844d8153da607a611124972fb/maplibre_tiles-0.2.2-cp314-cp314-macosx_10_12_x86_64.whl", hash = "sha256:7012188ae75b4282ef2da03f8cb30d2fa1d53c17021387e921f3bb5517ddc25b", size = 1995475, upload-time = "2026-09-28T08:09:35.372Z" },
-    { url = "https://files.pythonhosted.org/packages/1d/9c/1f11734e86f8db487979332fc06cdc96dfa6c276413c4ed711ad8ad3f672/maplibre_tiles-0.2.2-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:832dbb5ab8c19a2916872aa207398191c473e44453f095ed6d91eea4594328f1", size = 1948618, upload-time = "2026-09-28T08:09:36.703Z" },
-    { url = "https://files.pythonhosted.org/packages/81/46/41701371d0d93974d7103318dfac7b2e88161e29953dc5c17585fb485d26/maplibre_tiles-0.2.2-cp314-cp314-manylinux_2_31_x86_64.whl", hash = "sha256:23dc690fd5c75982c962fe4b17da35851a3e15c0e52fc004624c27ed30e5e180", size = 783882, upload-time = "2026-09-28T08:09:38.072Z" },
+    { url = "https://files.pythonhosted.org/packages/3d/dc/b604663e7b10dddf30682fb1abb934b07def52f99509f6350b0047f5e5e9/maplibre_tiles-0.4.1-cp312-cp312-macosx_10_12_x86_64.whl", hash = "sha256:23ad1177d91f552b99d4d06f0289a6edd04e50576cc22a60257b8fad7bbecf9f", size = 2501154, upload-time = "2026-10-27T16:40:06.443Z" },
+    { url = "https://files.pythonhosted.org/packages/ed/6e/c8bc92487ead4051f83e4c8e8f06a9542768fd6be0cac104b20ebb29ef21/maplibre_tiles-0.4.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:bc0c5ff39b076a6309dc9918e40802a8cf15c642689cfc3ce3f3b72ab0d7871a", size = 2428351, upload-time = "2026-10-27T16:40:07.665Z" },
+    { url = "https://files.pythonhosted.org/packages/74/b2/6e2ab730eb02332c53551b3d7182e2fa7cf9396cd93a76441003b110b038/maplibre_tiles-0.4.1-cp313-cp313-macosx_10_12_x86_64.whl", hash = "sha256:47f4956e39c71fdcb86103f4ee749a9594fc0c9c868dc50f88d67e20d795bded", size = 2499700, upload-time = "2026-10-27T16:40:08.894Z" },
+    { url = "https://files.pythonhosted.org/packages/3c/b6/96f548ce8e755a76f5ded63841297bc39c9f94578e337bf6f6017fe7e7ca/maplibre_tiles-0.4.1-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:79262c81af92764601642b24749d9fda90ce7ecc800106482a9fd0886401273f", size = 2426934, upload-time = "2026-10-27T16:40:10.127Z" },
+    { url = "https://files.pythonhosted.org/packages/6b/f9/90828658860180496cfde1ec5f6ed2ae65e5aee8deb9374865c691b9acf6/maplibre_tiles-0.4.1-cp314-cp314-macosx_10_12_x86_64.whl", hash = "sha256:d918039b9f56a67fdfee7a790a503653b0d18941703cb93d44fc23990126a2b1", size = 2501145, upload-time = "2026-10-27T16:40:11.354Z" },
+    { url = "https://files.pythonhosted.org/packages/60/6e/1a2f5a3c44a02c446a91779e41c6292b57ff01f48099a43c396a4bfb786b/maplibre_tiles-0.4.1-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:59684aba965abc84de085d6497aef15551ab17f38e395c05340203cd5a28c095", size = 2430924, upload-time = "2026-10-27T16:40:12.536Z" },
+    { url = "https://files.pythonhosted.org/packages/e8/3c/c1ed5e05d2af6bda5e4dbd78ae7719a3859545b683da1d2d2dba24c65909/maplibre_tiles-0.4.1-cp314-cp314-manylinux_2_31_x86_64.whl", hash = "sha256:ace843311bc84a9f2b727bdd305384ef7ba4f34599f9688a1028284d71017a56", size = 1103185, upload-time = "2026-10-27T16:40:13.793Z" },
 ]
 
 [[package]]

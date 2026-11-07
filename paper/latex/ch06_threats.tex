@@ -1,0 +1,66 @@
+\section{Threats to Validity}\label{sec:threats}
+\paragraph{Content equivalence.}
+Only Aggregated preserves the exact typed Standard multiset. Dense must be
+interpreted through its regeneration component. Source IDs identify normalized
+records, not real-world entities across layers. MoveTo components include rings and
+multipart geometry; repeated ID/coordinate occurrences do not isolate clipping from
+buffering. Common parent-cell support and a separate coverage export expose the
+effect of excluding unmatched boundary blocks.
+
+\paragraph{Semantic normalization.}
+Rust can unify property types and normalize geometry during MVT import. Native
+round-trip verification checks that representation, allowing winding and integer-width
+differences. It does not establish strict protobuf equality, style equivalence or
+completeness relative to normalized source data. Type-transition and geometry-count
+exports document these qualifications.
+The exact Aggregated control applies before MLT import; larger units can introduce
+additional mixed-type columns and hence different type normalization. Those transitions
+are measured, but are not independently manipulated as a compression mechanism.
+New provenance IDs add encoded content, so
+historical Python size results are retained separately rather than mixed with the
+regenerated primary corpus.
+
+\paragraph{Implementation and memory.}
+Both MLT versions use one pinned Rust core and shared settings. MLT v2 remains
+experimental and may change. This evaluates granularity, not all possible codec
+configurations. The explicit 256 MiB native allocation guard is distinct from process
+RSS and Docker's quota; raising a container quota cannot itself alter that internal
+guard. The MVT-reader and annotation patches expose budget plumbing without changing encoding.
+The official version-aware walker replaces the historical v1-only structural parser.
+The historical \texttt{memory limit exceeded} errors were validation failures,
+not evidence of absent archive addresses. With the explicit 256 MiB guard the retained-corpus
+audit subsequently covered all 36,647 addresses without decoder errors; strict
+typed/geometry differences remained a separate diagnostic. These historical
+counts are not substituted for validation of the regenerated experiment.
+
+\paragraph{External validity.}
+The five fixed study regions and mappings do not establish gains for other schemas,
+national coverage or production generalization policies. Address-weighted transfers,
+unique payload storage and physical archive size are different measurements. No
+session-level overfetch, latency, decoding, rendering or peak-memory benchmark is
+inferred from compression totals.
+Recorded conversion times are diagnostics of concurrent execution, not controlled
+encoding-throughput comparisons.
+
+\section{Conclusion}\label{sec:conclusion}
+Fixed-content aggregation separates spatial encoding-unit granularity from tile
+regeneration. For $4\times4$ aggregation the raw reduction ranges from
+\ExtOneRawAggregationMin\% to \ExtOneRawAggregationMax\% for MLT v1 and
+\ExtTwoRawAggregationMin\% to \ExtTwoRawAggregationMax\% for v2. After independent
+gzip the ranges are \ExtOneGzipAggregationMin--\ExtOneGzipAggregationMax\% and
+\ExtTwoGzipAggregationMin--\ExtTwoGzipAggregationMax\%. The separate regeneration
+component shows how practical larger-tile generation modifies that controlled result.
+Format comparisons should specify encoding unit, source content, generation policy
+and compression state, and distinguish fixed-coverage sizes from interactive delivery.
+
+\section*{Data Availability}\label{sec:data-availability}
+The earlier software and statistics releases remain at
+\url{https://doi.org/10.5281/zenodo.23459428} and
+\url{https://doi.org/10.5281/zenodo.23452598}.
+The expanded experiment is supplied in the accompanying repository and its
+\texttt{zenodo} software export; local updates do not imply publication of a new
+release at those identifiers. Reproduction uses pinned Rust source and lockfile,
+source-provenance lookup tables, PMTiles and compressed measurement logs. Observations
+are exported as per-tile, per-layer, per-stream and identity Parquet tables, with
+SQLite summaries and CSV inputs for the article. Original source licences remain
+applicable.

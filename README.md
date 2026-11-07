@@ -1,8 +1,16 @@
+> **Primary experiment update (2026-11-06).** Five variants (Standard, Aggregated-4/16, Dense-4/16), MVT and Rust MLT v1/v2, source-feature provenance and matched-block effect decomposition are now defined in [the extended experiment guide](docs/extended_experiment.md). Run `python manage.py experiment`, then `python manage.py all`. Primary summaries live in `docs/data/extended/results.sqlite`; generated CSV/TeX files use `extended_` prefixes. The three-variant Python workflow and numerical claims below describe the historical study.
+
 # GEOMAPS
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 **From vector sources to reproducible MVT / MLT compression measurements.**
+
+The converter and host analysis pin `maplibre-tiles==0.4.1`. Existing research
+archives retain their original encoder provenance; upgrading the validator does
+not re-encode archives or change compression measurements. Host setup builds the
+budget-enabled binding from source and requires Rust 1.98 or newer plus native
+build tools (Visual C++ on Windows). Docker supplies its own Rust build stage.
 
 [![Dataset DOI](https://img.shields.io/badge/dataset-10.5281%2Fzenodo.23452598-167d8d)](https://doi.org/10.5281/zenodo.23452598)
 [![Software DOI](https://img.shields.io/badge/software-10.5281%2Fzenodo.23456861-167d8d)](https://doi.org/10.5281/zenodo.23456861)
@@ -175,3 +183,20 @@ publication.
 
 The project code is licensed under the [MIT License](LICENSE). Third-party assets
 and source datasets retain their [upstream terms](docs/sources.md).
+
+The validator uses a source-verified binding patch of 0.4.1 that adds
+`max_memory_bytes` to `decode_mlt` and `decode_mlt_to_geojson`. Both the Rust
+parser and decoder receive the budget. `MLT_DECODE_MEMORY_MIB` defaults to **256**;
+this native allocation budget does not include all Python/WKB memory or replace
+the Docker RAM quota. `manage.py env` and Docker builds install this binding.
+For a manually managed environment, run:
+
+```sh
+python app/converter/build_mlt.py --install
+```
+
+The builder verifies the official source archive SHA-256 before applying the
+binding-only patch. Encoder behavior and the 0.4.1 wire format are unchanged.
+
+See the [0.4.1 validation record](docs/validation/mlt-0.4.1.md) and
+[per-tile memory probe](docs/validation/mlt-0.4.1-memory.json).

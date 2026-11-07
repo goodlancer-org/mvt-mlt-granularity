@@ -1,0 +1,130 @@
+{
+  "scope": "Largest raw regenerated Dense-16 MVT per dataset; diagnostic subset, not the complete corpus audit",
+  "tiles": [
+    {
+      "dataset": "natural_earth_vector",
+      "variant": "dense16",
+      "archive_sha256": "85dfb40422be7ed6f089cf4509f12c1de888f3ab1fc0691d0454b077b1467309",
+      "zxy": [
+        2,
+        1,
+        1
+      ],
+      "raw_mvt_bytes": 6094948,
+      "attempts": [
+        {
+          "budget_mib": 256,
+          "passed": true,
+          "mlt_raw_bytes": [
+            2390307,
+            2278602
+          ],
+          "roundtrip_differences": [
+            [],
+            []
+          ]
+        }
+      ]
+    },
+    {
+      "dataset": "usfws_luisiana_wetlands_geopackage",
+      "variant": "dense16",
+      "archive_sha256": "00e852d26c7d56ed168642b555d927f780e8508b25323aa8b9eb0f873513a3d3",
+      "zxy": [
+        10,
+        255,
+        424
+      ],
+      "raw_mvt_bytes": 5424114,
+      "attempts": [
+        {
+          "budget_mib": 256,
+          "passed": true,
+          "mlt_raw_bytes": [
+            2818978,
+            2787673
+          ],
+          "roundtrip_differences": [
+            [],
+            []
+          ]
+        }
+      ]
+    },
+    {
+      "dataset": "swisstopo_mountains_vector",
+      "variant": "dense16",
+      "archive_sha256": "932724c6ef9fd33e4c92c9076a36dbab499f9bc1bb78c6f53406295c967ba6fb",
+      "zxy": [
+        10,
+        538,
+        359
+      ],
+      "raw_mvt_bytes": 76335,
+      "attempts": [
+        {
+          "budget_mib": 256,
+          "passed": true,
+          "mlt_raw_bytes": [
+            57640,
+            56950
+          ],
+          "roundtrip_differences": [
+            [],
+            []
+          ]
+        }
+      ]
+    },
+    {
+      "dataset": "louisiana-260912",
+      "variant": "dense16",
+      "archive_sha256": "906e6e3b7ebc2cbe826f9a1e1722076ed0fe0195754a4a95381725ce2a12f95a",
+      "zxy": [
+        10,
+        255,
+        424
+      ],
+      "raw_mvt_bytes": 776881,
+      "attempts": [
+        {
+          "budget_mib": 256,
+          "passed": true,
+          "mlt_raw_bytes": [
+            399632,
+            376462
+          ],
+          "roundtrip_differences": [
+            [],
+            []
+          ]
+        }
+      ]
+    },
+    {
+      "dataset": "pdok_netherlands_infrostructure",
+      "variant": "dense16",
+      "archive_sha256": "3ca0a5af976370ee8b4e5861a32d041f64cfa99e5e579f5298c573c04622e53b",
+      "zxy": [
+        12,
+        2114,
+        1355
+      ],
+      "raw_mvt_bytes": 28395570,
+      "attempts": [
+        {
+          "budget_mib": 256,
+          "passed": true,
+          "mlt_raw_bytes": [
+            11305413,
+            10947517
+          ],
+          "roundtrip_differences": [
+            [],
+            []
+          ]
+        }
+      ]
+    }
+  ]
+}

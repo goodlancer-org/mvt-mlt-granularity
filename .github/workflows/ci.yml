@@ -13,8 +13,12 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ matrix.python }}
-      - run: uv sync --frozen
-      - run: uv run --frozen python manage.py test
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: '1.98.1'
+      - run: python manage.py env
+      # The project installs a binding patch after uv sync; do not replace it.
+      - run: uv run --no-sync python manage.py test
       - run: docker compose -f app/docker-compose.yml config --quiet
   web:
     runs-on: ubuntu-latest

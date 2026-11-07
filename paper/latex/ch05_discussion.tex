@@ -1,0 +1,27 @@
+\section{Discussion}\label{sec:discussion}
+The exact Aggregated control distinguishes encoding-unit effects from changed map
+content. It retains duplicate attributes and fragments from the original boundaries,
+while allowing dictionaries and streams to span a larger unit. Its byte reduction
+cannot be explained by removing those instances. Dense answers a different practical
+question: what happens when a larger cell is generated afresh? Its regeneration
+component combines buffering, clipping and representation changes, without attributing
+the whole effect to one operation.
+
+Comparing v1 and v2 tests robustness to wire layout and supported encodings under
+fixed options. The measured ranges and exceptions are conditional on that build.
+Structural share and payload bytes/value describe the outcome, but codec choices and
+stream-role mixtures may change together. Five heterogeneous datasets support
+descriptive comparisons rather than a universal predictive law.
+
+Gzip already exploits within-unit repetition; its incremental MLT saving can differ
+from raw saving. Bytes per vertex controls one content dimension but not attributes,
+geometry type, fragments or repeated identities. Exact aggregation provides stronger
+control than dividing size by any one count.
+
+Larger units also change retrieval granularity. A client may fetch content beyond
+its viewport, invalidate larger cache entries and spend longer decoding one unit.
+Fixed-coverage byte accounting does not model an interactive session. Offline archives
+and bulk distribution can use smaller totals directly, but choosing a production
+tile size requires workload, memory and rendering measurements. Overzoom and
+variable-depth pyramids remain different interventions, because they change the
+stored pyramid rather than only the encoding boundary at fixed logical zoom.

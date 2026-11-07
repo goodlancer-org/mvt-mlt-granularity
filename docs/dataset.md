@@ -1,3 +1,5 @@
+> **Primary experiment update (2026-11-06).** Five variants (Standard, Aggregated-4/16, Dense-4/16), MVT and Rust MLT v1/v2, source-feature provenance and matched-block effect decomposition are now defined in [the extended experiment guide](extended_experiment.md). Run `python manage.py experiment`, then `python manage.py all`. Primary summaries live in `docs/data/extended/results.sqlite`; generated CSV/TeX files use `extended_` prefixes. The three-variant Python workflow and numerical claims below describe the historical study.
+
 # GEOMAPS research dataset
 
 Paired MVT/MLT compression measurements for Standard, Dense-4 and Dense-16
@@ -30,7 +32,7 @@ included in this package. Counts at different stages have different grains:
 source rows must not be equated with tiled feature instances.
 
 The accompanying software is available at
-[doi:10.5281/zenodo.23456861](https://doi.org/10.5281/zenodo.23456861).
+[doi:10.5281/zenodo.23459428](https://doi.org/10.5281/zenodo.23459428).
 
 ## Files and usage
 

@@ -1,0 +1,100 @@
+\section*{NeurIPS Paper Checklist}
+
+\newcommand{\answerYes}{\textbf{Yes}}
+\newcommand{\answerNo}{\textbf{No}}
+\newcommand{\answerNA}{\textbf{N/A}}
+\newcommand{\justification}[1]{\textit{#1}}
+
+\begin{enumerate}
+
+\item {\bf Claims}
+    \item[] Question: Do the main claims made in the abstract and introduction accurately reflect the paper's contributions and scope?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: \justification{The abstract and introduction describe the comparative evaluation of MLT/MLT and PMTiles/MBTiles across diverse geospatial datasets, which matches the contributions documented in the paper.}
+    \item[] Guidelines:
+    \begin{itemize}
+        \item The answer \answerNA{} means that the abstract and introduction do not include the claims made in the paper.
+        \item It is fine to include aspirational goals as motivation as long as it is clear that these goals are not attained by the paper.
+    \end{itemize}
+
+\item {\bf Limitations}
+    \item[] Question: Does the paper discuss the limitations of the work performed by the authors?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: \justification{Section 5 notes future work and acknowledges that the evaluation focuses on dataset and format comparison rather than exhaustive service-level benchmarks, which reflects a limitation of scope.}
+    \item[] Guidelines:
+    \begin{itemize}
+        \item The answer \answerNA{} means that the paper has no limitation while the answer \answerNo{} means that the paper has limitations, but those are not discussed in the paper.
+        \item While the authors might fear that complete honesty about limitations might be used by reviewers as grounds for rejection, a worse outcome might be that reviewers discover limitations that aren't acknowledged in the paper. The authors should use their best judgment and recognize that individual actions in favor of transparency play an important role in developing norms that preserve the integrity of the community. Reviewers will be specifically instructed to not penalize honesty concerning limitations.
+    \end{itemize}
+
+\item {\bf Theory assumptions and proofs}
+    \item[] Question: For each theoretical result, does the paper provide the full set of assumptions and a complete (and correct) proof?
+    \item[] Answer: \answerNA{}
+    \item[] Justification: \justification{The paper is an empirical evaluation of vector tile technologies and does not present new theoretical results requiring formal proofs.}
+    \item[] Guidelines:
+    \begin{itemize}
+        \item The answer \answerNA{} means that the paper does not include theoretical results.
+        \item Theorems and Lemmas that the proof relies upon should be properly referenced.
+    \end{itemize}
+
+\item {\bf Open access to data and code}
+    \item[] Question: Does the paper provide open access to the data and code, with sufficient instructions to faithfully reproduce the main experimental results, as described in supplemental material?
+    \item[] Answer: \answerNo{}
+    \item[] Justification: \justification{The paper documents the datasets and evaluation methodology, but it does not include links to an open repository or reproduction instructions within the main text.}
+
+\item {\bf Experimental setting/details}
+    \item[] Question: Does the paper specify all the training and test details (e.g., data splits, hyperparameters, how they were chosen, type of optimizer) necessary to understand the results?
+    \item[] Answer: \answerNo{}
+    \item[] Justification: \justification{The paper describes the hardware and datasets used, but since it is not a machine learning training study, detailed hyperparameter settings and training/test splits are not applicable.}
+
+\item {\bf Experiment statistical significance}
+    \item[] Question: Does the paper report error bars suitably and correctly defined or other appropriate information about the statistical significance of the experiments?
+    \item[] Answer: \answerNo{}
+    \item[] Justification: \justification{The current draft focuses on describing the study design and dataset selection; it does not present quantitative results or statistical analyses yet.}
+
+\item {\bf Experiments compute resources}
+    \item[] Question: For each experiment, does the paper provide sufficient information on the computer resources (type of compute workers, memory, time of execution) needed to reproduce the experiments?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: \justification{Section 2.1 details the consumer-grade laptop hardware used for the evaluation, including CPU, GPU, RAM, and display characteristics.}
+
+\item {\bf Code of ethics}
+    \item[] Question: Does the research conducted in the paper conform, in every respect, with the NeurIPS Code of Ethics \url{https://neurips.cc/public/EthicsGuidelines}?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: \justification{The study uses publicly available geospatial datasets and focuses on storage and visualization technologies, with no ethics-sensitive human-subject or safety-related experiments.}
+
+\item {\bf Broader impacts}
+    \item[] Question: Does the paper discuss both potential positive societal impacts and negative societal impacts of the work performed?
+    \item[] Answer: \answerNo{}
+    \item[] Justification: \justification{The draft emphasizes technical evaluation and dataset diversity, but it does not include a dedicated broader impacts discussion.}
+
+\item {\bf Safeguards}
+    \item[] Question: Does the paper describe safeguards that have been put in place for responsible release of data or models that have a high risk for misuse (e.g., pre-trained language models, image generators, or scraped datasets)?
+    \item[] Answer: \answerNA{}
+    \item[] Justification: \justification{The paper does not introduce models or high-risk data assets, so this question is not applicable.}
+
+\item {\bf Licenses for existing assets}
+    \item[] Question: Are the creators or original owners of assets (e.g., code, data, models), used in the paper, properly credited and are the license and terms of use explicitly mentioned and properly respected?
+    \item[] Answer: \answerNo{}
+    \item[] Justification: \justification{The paper names dataset sources in Section 2.2, but it does not include explicit licensing information for the referenced datasets.}
+
+\item {\bf New assets}
+    \item[] Question: Are new assets introduced in the paper well documented and is the documentation provided alongside the assets?
+    \item[] Answer: \answerNA{}
+    \item[] Justification: \justification{The work does not introduce new datasets, code, or models that require separate documentation.}
+
+\item {\bf Crowdsourcing and research with human subjects}
+    \item[] Question: For crowdsourcing experiments and research with human subjects, does the paper include the full text of instructions given to participants and screenshots, if applicable, as well as details about compensation (if any)?
+    \item[] Answer: \answerNA{}
+    \item[] Justification: \justification{The paper does not involve crowdsourcing or human-subject studies.}
+
+\item {\bf Institutional review board (IRB) approvals or equivalent for research with human subjects}
+    \item[] Question: Does the paper describe potential risks incurred by study participants, whether such risks were disclosed to the subjects, and whether Institutional Review Board (IRB) approvals (or an equivalent approval/review based on the requirements of your country or institution) were obtained?
+    \item[] Answer: \answerNA{}
+    \item[] Justification: \justification{No human-subject research is conducted in this study.}
+
+\item {\bf Declaration of LLM usage}
+    \item[] Question: Does the paper describe the usage of LLMs if it is an important, original, or non-standard component of the core methods in this research? Note that if the LLM is used only for writing, editing, or formatting purposes and it does \emph{not} impact the core methodology, scientific rigor, or originality of the research, declaration is not required.
+    \item[] Answer: \answerNo{}
+    \item[] Justification: \justification{The paper does not rely on large language models as part of the core methodology.}
+
+\end{enumerate}

@@ -1,4 +1,43 @@
+> **Primary experiment update (2026-11-06).** Five variants (Standard, Aggregated-4/16, Dense-4/16), MVT and Rust MLT v1/v2, source-feature provenance and matched-block effect decomposition are now defined in [the extended experiment guide](extended_experiment.md). Run `python manage.py experiment`, then `python manage.py all`. Primary summaries live in `docs/data/extended/results.sqlite`; generated CSV/TeX files use `extended_` prefixes. The three-variant Python workflow and numerical claims below describe the historical study.
+
 # Schema catalogue
+
+## Primary extended experiment
+
+Detailed observations are partitioned Zstandard Parquet under
+`docs/data/extended/<table>/<dataset>_<variant>.parquet`. Every table has
+`dataset` and `variant`; every payload-level table also has `payload_key`.
+The complete typed Arrow declarations are `SCHEMAS` in
+[`analysis/extended.py`](../analysis/extended.py). Dataset export generates
+`schema.json` with actual column types and row counts.
+
+| Table | Grain | Additional fields |
+|---|---|---|
+| `addresses` | MVT address | `factor`, `z`, `x`, `y`, `logical_z`, `payload_key`, `stored_mvt_bytes` |
+| `payloads` | unique MVT input × format | `format`, `raw_bytes`, `gzip_bytes`, `content_sha256` |
+| `content` | unique MVT input × layer | `layer`, `extent`, `feature_instances`, `vertices`, `fragments`, `unique_source_features`, `repeated_instances`, `unique_id_coordinates`, `repeated_vertices` |
+| `feature_ids` | unique MVT input × layer × source ID | `layer`, `source_id`, `instances` |
+| `streams` | encoded stream region | `format`, `layer_index`, `offset`, `payload_bytes`, `num_values`, `stream_type`, `logical`, `physical` |
+| `frames` | encoded layer frame | `format`, `layer_index`, `layer`, `frame_bytes` |
+| `attributes` | MVT property type × imported column type | `format`, `layer`, `property`, `source_type`, `imported_type`, `occurrences` |
+| `validation` | unique MVT input × MLT version | `format`, `roundtrip_passed`, `differences`, `source_features`, `imported_features`, `source_vertices`, `imported_vertices` |
+| `equivalence` | exact aggregate parent block | `z`, `x`, `y`, `logical_z`, `children`, `features`, `vertices`, `fragments`, `passed` (no `payload_key`) |
+
+`extended/results.sqlite` contains only summaries: `archive_summary`,
+`zoom_summary`, `savings`, `decomposition`, `decomposition_zoom`, `coverage`,
+`content_summary`, `content_differences`, `stream_summary`, `layer_summary`,
+`attribute_summary`, `validation_summary`, `aggregation_validation`, `vertex_bins`,
+`bytes_per_vertex`, `physical_archives`, and `meta`. Exact transformations and
+column definitions are in [`extended.sql`](../analysis/sql/extended.sql).
+Integer counts and byte sums remain integers in SQLite and CSV.
+
+The compact source lookup is separate:
+`app/data/provenance/<dataset>.provenance.sqlite`, with `source_layers`,
+`feature_provenance(id, source_layer, source_fid)` and `meta`. Geospatial
+GeoPackage/MBTiles scratch is not an analytical SQLite schema; see
+[storage boundaries](extended_experiment.md#memory-and-intermediate-storage).
+
+## Historical three-variant schemas
 
 Catalogue of five SQLite schemas and the Parquet tile-measurement schema. This contains no source rows.
 [Read the counting rules and NULL semantics first](data_dictionary.md).
